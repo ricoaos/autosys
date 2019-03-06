@@ -59,39 +59,92 @@
                     </button>
                 </form>
             </li>
-            
-            <?php 
-                $mMenu = new Model_Sistema_Menu();
-                $select = $mMenu->select();
-                $select->order('num_ordem');
-                $rsMenu = $mMenu->fetchAll($select)->toArray(); 
-                
-                $mSubmenu = new Model_Sistema_Submenu();
-                $select = $mSubmenu->select();
-                $select->order('num_ordem');
-                $rsSubmenu = $mSubmenu->fetchAll($select)->toArray();
-            ?>
-                
-            <?php $x=0;?> 
-            <?php foreach($rsMenu as $menu) : ?>
-            
-                <li>
-                    <a href="<?php echo $this->baseUrl($menu['st_href'])?>"><?php echo $menu["st_nome"] ?><i class="<?php echo $menu['st_classe_ui'] ?>"></i></a>
 
-					<?php if($rsSubmenu[$x]['id_menu'] == $menu['id_menu']) : ?>
-					<?php $x+=1;?>
-                        <ul class="nav sub">
-                            <?php foreach($rsSubmenu as $submenu) : ?>
-                            	<?php if($menu['id_menu'] == $submenu['id_menu']) :?>
-                            		<li><a href="<?php echo $this->baseUrl($submenu['st_href'])?>"><i class="en-arrow-right7"></i><?php echo $submenu["st_nome"] ?></a></li>
-                            	<?php endif;?>                            
-                            <?php endforeach; ?>
-                        </ul>
-                    <?php endif;?> 
+          
+            <li>
+                <a href="<?php echo $this->baseUrl("administrativo/painel")?>">Dashboard <i class="fa-home"></i></a>
+            </li>
+            <li>
+                <a href="#"> Cadastro <i class="fa-edit"></i></a>
+                <ul class="nav sub">
+                    <li><a href="<?php echo $this->baseUrl("cliente/cliente/listagem")?>"><i class="en-arrow-right7"></i>Cliente</a></li>
+                    <li><a href="<?php echo $this->baseUrl("veiculo/veiculo/listagem")?>"><i class="en-arrow-right7"></i>Veículo</a></li>
+                    <li><a href="<?php echo $this->baseUrl("fornecedor/fornecedor/listagem")?>"><i class="en-arrow-right7"></i>Fornecedor</a></li>
+                </ul>
+            </li>
+            
+            <li><a href="#"> Produto <i class="fa-barcode"></i></a>
+                <ul class="nav sub">
+                    <li><a href="<?php echo $this->baseUrl("produto/produto/index")?>"><i class="en-arrow-right7"></i> Gerenciar Produtos</a></li>
+                </ul>
+            </li>            
+            <li>
+                <?php $classe = 'fa-wrench' ?>
+                <a href="#"> Serviço <i class="<?php echo $classe ?>"></i></a>
+                <ul class="nav sub">
+                    <?php $caminho = 'servico/servico/listagem'?>
                     
-                </li>
-                 
-            <?php endforeach; ?>
+                    <li><a href="<?php echo $this->baseUrl($caminho)?>"><i class="en-arrow-right7"></i> Gerenciar Serviços</a></li>                    
+                </ul>
+            </li>
+            <li>
+            	<a href="#"> Orçamento <i class="fa-keyboard"></i></a>
+                <ul class="nav sub">
+                    <li><a href=""><i class="en-arrow-right7"></i> Gerenciar Orçamentos</a></li>
+                </ul>
+            </li>
+            <li>
+            	<a href="#"> Ordem de Serviço <i class="st-download"></i></a>
+                <ul class="nav sub">
+                    <li><a href="<?php echo $this->baseUrl("servico/ordem/listagem")?>"><i class="en-arrow-right7"></i> Gerenciar OS</a></li>
+                </ul>
+            </li>
+            <li>
+            	<a href="#"> Vendas <i class="br-cart"></i></a>
+                <ul class="nav sub">
+                    <li><a href=""><i class="en-arrow-right7"></i> Vendas Balcão</a></li>
+                </ul>
+            </li>
+            <li>
+            	<a href="#"> Estoque <i class="fa-archive"></i></a>
+                <ul class="nav sub">
+                    <li><a href=""><i class="en-arrow-right7"></i> Gerenciar Estoque</a></li>
+                </ul>
+            </li>
+            <li><a href="#"> Financeiro <i class="fa-dollar"></i></a>
+                <ul class="nav sub">
+                    <li><a href=""><i class="en-arrow-right7"></i> Contas a Pagar</a></li>
+                    <li><a href=""><i class="en-arrow-right7"></i> Contas a Receber</a></li>
+                    <li><a href=""><i class="en-arrow-right7"></i> Fluxo de Caixa</a></li>
+                    <li><a href=""><i class="en-arrow-right7"></i> Boletos Bancários</a></li>
+                    <li><a href=""><i class="en-arrow-right7"></i> Caixa</a></li>
+                </ul>
+            </li>
+            <li><a href="#"> Tabelas Auxiliares <i class="fa-table"></i></a>
+                <ul class="nav sub">
+                    <li><a href=""><i class="en-arrow-right7"></i> Tipo Pessoa</a></li>
+                    <li><a href=""><i class="en-arrow-right7"></i> Perfil</a></li>
+                    <li><a href=""><i class="en-arrow-right7"></i> Função</a></li>
+                </ul>
+            </li>
+            <li><a href="#"> Relatórios <i class="st-files"></i></a>
+                <ul class="nav sub">
+                    <li><a href=""><i class="en-arrow-right7"></i> Cadastros</a></li>
+                    <li><a href=""><i class="en-arrow-right7"></i> Produtos</a></li>
+                    <li><a href=""><i class="en-arrow-right7"></i> Vendas</a></li>
+                    <li><a href=""><i class="en-arrow-right7"></i> Estoque</a></li>
+                    <li><a href=""><i class="en-arrow-right7"></i> Ordens de Serviços</a></li>
+                    <li><a href=""><i class="en-arrow-right7"></i> Financeiros</a></li>
+                </ul>
+            </li>
+            <li><a href="#"> Configurações <i class="st-settings"></i></a>
+                <ul class="nav sub">
+                    <li><a href="<?php echo $this->baseUrl("organizacao/organizacao/listagem")?>"><i class="en-arrow-right7"></i>Dados da Empresa</a></li>
+                    <li><a href="<?php echo $this->baseUrl("")?>"><i class="en-arrow-right7"></i>Funcionário</a></li>
+                    <li><a href="<?php echo $this->baseUrl("usuario/usuario/listagem")?>"><i class="en-arrow-right7"></i> Usuários</a></li>
+                    <li><a href="<?php echo $this->baseUrl("")?>"><i class="en-arrow-right7"></i>Cadastro Perfil</a></li>
+                </ul>
+            </li>
             
         </ul>
     </div>
