@@ -1,0 +1,74 @@
+<div id="content">
+	<div class="content-wrapper">		
+		<div class="row">
+			<div class="col-lg-12 heading">
+                <h1 class="page-header"><i class="im-key"></i> <strong>LISTAGEM DE VEÍCULOS</strong></h1>
+                <ul id="crumb" class="breadcrumb">
+                </ul>
+                <div class="option-buttons">
+                    <div class="btn-toolbar" role="toolbar">
+                        <div class="btn-group">
+                            <a class="btn dropdown-toggle" id="dropdownMenu1" href="<?php echo $this->baseUrl('/veiculo/veiculo/')?>">
+								<button class="btn btn-primary" type="button"><i class="st-file-add"></i> ADICIONAR VEÍCULOS</button>
+							</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+		</div>
+		
+		<?php if(!empty($this->rsVeiculo)):?>
+		
+			<div class="outlet">
+    			<form class="form-horizontal group-border hover-stripped" role="form">
+					<div class="row">
+    					<div class="col-lg-12">
+							<div class="panel panel-default plain toggle panelClose panelRefresh">
+								<div class="panel-heading">
+									<h4 class="panel-title">Relatório</h4>
+								</div>
+								<div class="panel-body">
+									<table id="responsive-datatables" class="table table-bordered table-striped table-hover dt-responsive non-responsive" >
+										<thead>
+											<tr>
+												<th>Registro</th>
+												<th>Marca</th>
+												<th>Modelo</th>
+												<th>Ano</th>
+												<th>Cor</th>
+												<th>Placa</th>
+												<th>Cliente</th>
+												<th>Ação</th>
+											</tr>
+										</thead>
+										<tbody>
+											<?php foreach ($this->rsVeiculo as $rsVeiculo) : ?>
+												<tr>
+                                                	<td><?php echo str_pad($rsVeiculo['id_veiculo'], 5, "0", STR_PAD_LEFT); ?></td>
+                                                    <td><?php echo $rsVeiculo['marca']?></td>
+                                                    <td><?php echo $rsVeiculo['modelo']?></td>
+                                                    <td><?php echo $rsVeiculo['num_ano']?></td>
+                                                    <td><?php echo $rsVeiculo['cor'] ?></td>
+                                                    <td><?php echo $rsVeiculo['st_placa'] ?></td>
+                                                    <td><?php echo $rsVeiculo['cliente'] ?></td>
+                                                    <td style="text-align: center;">
+                										<a href="<?php echo $this->baseUrl('/veiculo/veiculo/index/id/'.base64_encode($rsVeiculo["st_placa"].'@'.$rsVeiculo['id_veiculo']))?>"><span class="fa-edit s20" title="Editar Registro"></span></a>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach; ?>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+    				</div>
+    			</form>
+    		</div>
+		<?php else :?>
+            <div class="alert alert-danger fade in" style="text-align: center;">
+                <strong>NÃO EXISTEM VEÍCULOS CADASTRADOS, CLIQUE NO BOTÃO "ADICIONAR VEÍCULOS" PARA REALIZAR OS CADASTROS</strong>
+            </div>
+		<?php endif;?>
+	</div>
+	<div class="clearfix"></div>
+</div>

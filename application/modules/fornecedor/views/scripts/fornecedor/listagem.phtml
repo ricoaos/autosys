@@ -1,0 +1,66 @@
+<div id="content">
+	<div class="content-wrapper">		
+		<div class="row">
+			<div class="col-lg-12 heading">
+                <h1 class="page-header"><i class="im-user4"></i><strong>LISTAGEM DE FORNECEDORES</strong></h1>
+                <ul id="crumb" class="breadcrumb">
+                </ul>
+                <div class="option-buttons">
+                    <div class="btn-toolbar" role="toolbar">
+                        <div class="btn-group">
+                            <a class="btn dropdown-toggle" id="dropdownMenu1" href="<?php echo $this->baseUrl('/fornecedor/fornecedor/')?>">
+								<button class="btn btn-primary" type="button"><i class="st-file-add"></i> ADICIONAR FORNECEDOR</button>
+							</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+		</div>
+		
+		<?php if(!empty($this->rsFornecedor) ):?>
+		
+			<div class="panel panel-default plain toggle panelClose panelRefresh">
+                                <!-- Start .panel -->
+                <div class="panel-heading">
+                    <h4 class="panel-title">Relatório de Cadastros</h4>
+                </div>
+                <div class="panel-body">
+                	<table id="responsive-datatables" class="table table-striped table-bordered" cellspacing="0" width="100%">
+						<thead>
+							<tr>
+								<th>Registro</th>
+								<th>Nome</th>
+								<th>CPF/CNPJ</th>
+								<th>Telefone</th>
+								<th>E-mail</th>
+								<th>Status</th>
+								<th>Ação</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php foreach ($this->rsFornecedor as $rsFornecedor) : ?>
+								<tr>
+                                	<td><?php echo str_pad($rsFornecedor['id_fornecedor'], 5, "0", STR_PAD_LEFT); ?></td>
+                                    <td><?php echo $rsFornecedor['st_nome'] ?></td>
+                                    <td><?php echo $rsFornecedor['st_cpf_cnpj'] ?></td>
+                                    <td><?php echo $rsFornecedor['st_fone1'] ?></td>
+                                    <td><?php echo $rsFornecedor['st_email'] ?></td>
+                                    <td><?php echo $rsFornecedor['id_ativo'] == 1 ? 'ATIVO':'INATIVO';?></td>
+                                    <td style="text-align: center;">
+										<a href="<?php echo $this->baseUrl('/fornecedor/fornecedor/index/id/'.base64_encode($rsFornecedor["st_cpf_cnpj"].'@'.$rsFornecedor['id_fornecedor']))?>"><span class="fa-edit s20" title="Editar Registro"></span></a> | 
+										<a href="<?php echo $this->baseUrl('/fornecedor/fornecedor/inativarregistro/id/'.base64_encode($rsFornecedor["st_cpf_cnpj"].'@'.$rsFornecedor['id_fornecedor']))?>"><span class="fa-remove s20" title="Inativar Registro"></span></a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+						</tbody>
+					</table>
+                </div>
+    		</div>
+		<?php else :?>
+            <div class="alert alert-danger fade in" style="text-align: center;">
+                <strong>NÃO EXISTEM FORNECEDORES CADASTRADOS, CLIQUE NO BOTÃO "ADICIONAR FORNECEDOR" PARA REALIZAR OS CADASTROS</strong>
+            </div>
+		<?php endif;?>
+	</div>
+	<div class="clearfix"></div>
+</div>

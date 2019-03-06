@@ -1,0 +1,159 @@
+<?php $dados = $this->dadospagina;?>
+
+<div id="content">
+	<div class="content-wrapper">
+		<div class="row">
+			<div class="col-lg-12 heading">
+                <h1 class="page-header"><i class="im-key"></i><strong>CADASTRO DE VEÍCULOS</strong></h1>
+                <ul id="crumb" class="breadcrumb">
+                </ul>
+                <!-- End .breadcrumb -->
+                <!-- Start .option-buttons -->
+                <div class="option-buttons">
+                    <div class="btn-toolbar" role="toolbar">
+                        <div class="btn-group">
+                            <a class="btn dropdown-toggle" id="dropdownMenu1" href="<?php echo $this->baseUrl('/veiculo/veiculo/listagem')?>">
+								<button class="btn btn-primary" type="button"><i class="fa-eye-open"></i> VISUALIZAR CADASTRADOS</button>
+							</a>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+		</div>
+		
+		<?php if(!empty($this->msg)):?>
+			<?php if($this->msg == 2) :?>
+				<div class="alert alert-success fade in">
+					<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+					<i class="fa-ok alert-icon s24"></i>
+					<strong>Registro gravado com sucesso!</strong>
+				</div>
+			<?php else :?>
+				<div class="alert alert-danger fade in">
+					<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+					<strong>Ocorreu um erro ao gravar!</strong>
+				</div>
+			<?php endif;?>
+		<?php endif;?>
+		
+		<form id="formCadastro" class="form-horizontal group-border hover-stripped" role="form" method="post" action="<?php echo $this->baseUrl('/veiculo/veiculo/index')?>">
+			<input type="hidden" id="id_veiculo" name="id_veiculo" value="<?php echo $this->dadospagina['id_veiculo']?>">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-9 col-xs-12">
+					<div class="panel panel-default plain">
+						<div class="panel-heading white-bg"></div>
+						<div class="panel-body">
+							<div class="form-group">
+								<label class="col-lg-1 col-md-12 col-sm-12 control-label">Cliente:</label>
+								<div class="col-lg-7 col-md-7">
+									<select id="id_cliente" class="form-control select2" required name="id_cliente" autofocus="autofocus">
+										<option></option>
+										<?php foreach ($this->rsCliente as $value):?>
+											<option value="<?php echo $value['id_cliente']?>" <?php if($this->dadospagina['id_cliente'] == $value['id_cliente']) echo "selected"?>><?php echo strtoupper( $value['st_nome']) ?></option>
+										<?php endforeach;?>
+									</select>
+								</div>
+								<div class="col-lg-4 col-md-4">
+                    				<button class="btn btn-link" type="button" onclick="addCliente()"><i class="fa-user"></i>  Add Cliente</button>
+								</div>
+							</div>						
+							<div class="form-group">
+								<label class="col-lg-1 col-md-1 col-sm-12 control-label ">Placa<b style="color: red;"> *</b></label>
+								<div class="col-lg-2 col-md-2">
+									<input type="text" class="form-control" id="st_placa" name="st_placa" required  value="<?php echo $this->dadospagina['st_placa']?>" />
+								</div>
+								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Ano Fab<b style="color: red;"> *</b>:</label>
+								<div class="col-lg-2 col-md-2">
+									<input type="text" class="form-control left-icon" id="num_ano" name="num_ano" required maxlength="4" value="<?php echo $this->dadospagina['num_ano']?>" />
+								</div>
+								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Km Atual<b style="color: red;"> *</b>:</label>
+								<div class="col-lg-2 col-md-2">
+									<input type="text" class="form-control left-icon" id="st_km" name="st_km" maxlength="6" value="<?php echo $this->dadospagina['st_km']?>" />
+								</div>
+								<label class="col-lg-1 col-md-1 col-sm-12 control-label ">Combustível<b style="color: red;"> *</b></label>
+								<div class="col-lg-2 col-md-2">
+									<select id="id_combustivel" class="form-control select2" required name="id_combustivel">
+										<option></option>
+										<?php foreach ($this->rsCombustivel as $value):?>
+											<option value="<?php echo $value['id_combustivel']?>" <?php if($this->dadospagina['id_combustivel'] == $value['id_combustivel']) echo "selected"?>><?php echo strtoupper( $value['st_nome']) ?></option>
+										<?php endforeach;?>
+									</select>
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label class="col-lg-1 col-md-1 col-sm-12 control-label ">Marca<b style="color: red;"> *</b></label>
+								<div class="col-lg-2 col-md-2">
+									<select id="id_marca_veiculo" class="form-control select2" required name="id_marca_veiculo">
+										<option></option>
+										<?php foreach ($this->rsMarcaVeiculo as $value):?>
+											<option value="<?php echo $value['id_marca_veiculo']?>" <?php if($this->dadospagina['id_marca_veiculo'] == $value['id_marca_veiculo']) echo "selected"?>><?php echo strtoupper( $value['st_nome']) ?></option>
+										<?php endforeach;?>
+									</select>
+								</div>
+								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Modelo<b style="color: red;"> *</b></label>
+								<div class="col-lg-2 col-md-2">
+									<select id="id_modelo_marca_veiculo" class="form-control select2" required name="id_modelo_marca_veiculo">
+									</select>
+								</div>
+								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Cor</label>
+								<div class="col-lg-2 col-md-2">
+									<select id="id_cor" class="form-control select2" required name="id_cor">
+										<option></option>
+										<?php foreach ($this->rsCor as $value):?>
+											<option value="<?php echo $value['id_cor']?>" <?php if($this->dadospagina['id_cor'] == $value['id_cor']) echo "selected"?>><?php echo strtoupper( $value['st_nome']) ?></option>
+										<?php endforeach;?>
+									</select>
+								</div>
+								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Chassi</label>
+								<div class="col-lg-2 col-md-2">
+									<input type="text" class="form-control" id="st_chassi" name="st_chassi" maxlength="15" value="<?php echo $this->dadospagina['st_chassi']?>" />
+								</div>								
+							</div>
+							<div class="form-group">
+								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Observações:</label>
+								<div class="col-lg-11 col-md-11">
+									<textarea class="form-control" rows="2" id="ds_observacao" name="ds_observacao"><?php echo $this->dadospagina['ds_observacao']?></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+							
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="panel panel-default toggle">
+        				<button class="btn btn-success  ml15" type="submit"><i class="fa-ok"></i> Cadastrar</button>
+        				<a class="btn dropdown-toggle" id="dropdownMenu1" href="<?php echo $this->baseUrl('/veiculo/veiculo/')?>">
+        					<button class="btn btn-primary" type="button"><i class="fa-plus-sign"></i> Cadastrar Novo</button>
+        				</a>
+        			</div>	
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="clearfix"></div>
+</div>
+
+<!-- Modalsimilar -->
+<div class="modal fade" id="modalCliente" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Brevemente vai cadastrar alguns dados do cliente</h4>
+            </div>
+              <div class="modal-body">
+                <div class="row">
+					<div id="RegSimilar"></div>       
+        		</div>            
+            </div>
+            <div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+          </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="<?php echo $this->baseUrl('/js/veiculo/veiculo.js')?>"> </script>
+

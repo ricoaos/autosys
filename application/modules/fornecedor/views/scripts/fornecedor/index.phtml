@@ -1,0 +1,264 @@
+<?php $dados = $this->dadospagina;?>
+
+<div id="content">
+	<div class="content-wrapper">
+		<div class="row">
+			<div class="col-lg-12 heading">
+                <h1 class="page-header"><i class="im-user4"></i><strong>CADASTRO DE FORNECEDORES</strong></h1>
+                <ul id="crumb" class="breadcrumb">
+                </ul>
+                <!-- End .breadcrumb -->
+                <!-- Start .option-buttons -->
+                <div class="option-buttons">
+                    <div class="btn-toolbar" role="toolbar">
+                        <div class="btn-group">
+                            <a class="btn dropdown-toggle" id="dropdownMenu1" href="<?php echo $this->baseUrl('/fornecedor/fornecedor/listagem')?>">
+								<button class="btn btn-primary" type="button"><i class="fa-eye-open"></i> VISUALIZAR CADASTRADOS</button>
+							</a>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+		</div>
+		
+		<?php if(!empty($this->msg)):?>
+			<?php if($this->msg == 2) :?>
+				<div class="alert alert-success fade in">
+					<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+					<i class="fa-ok alert-icon s24"></i>
+					<strong>Registro gravado com sucesso!</strong>
+				</div>
+			<?php else :?>
+				<div class="alert alert-danger fade in">
+					<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+					<strong>Ocorreu um erro ao gravar!</strong>
+				</div>
+			<?php endif;?>
+		<?php endif;?>
+		
+		<form id="formCadastro" class="form-horizontal group-border hover-stripped" role="form" method="post" action="<?php echo $this->baseUrl('/fornecedor/fornecedor/index')?>">
+			
+			<div class="row">
+
+				<div class="col-lg-12 col-md-12 col-sm-9 col-xs-12">
+					<div class="panel panel-default plain">
+						<div class="panel-heading white-bg"></div>
+						<div class="panel-body">
+							<div class="form-group">
+								<label class="col-lg-1 col-md-12 col-sm-12 control-label">Tipo Fornecedor:</label>
+								<div class="col-lg-3 col-md-3">
+									<select id="id_tipo_pessoa" class="form-control select2" required name="id_tipo_pessoa" autofocus="autofocus">
+										<option></option>
+										<?php foreach ($this->tipoPessoa as $value):?>
+											<option value="<?php echo $value['id_tipo_pessoa']?>" <?php if($this->dadospagina['id_tipo_pessoa'] == $value['id_tipo_pessoa']) echo "selected"?>><?php echo strtoupper( $value['ds_tipo_pessoa']) ?></option>
+										<?php endforeach;?>
+									</select>
+								</div>
+								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Registro: </label>
+								<div class="col-lg-3 col-md-3">
+									<input class="form-control left-icon" type="text" id="id_fornecedor" name="id_fornecedor" readonly="readonly" value="<?php echo $this->dadospagina['id_fornecedor']?>" />
+								    <i class="st-tag s16 left-input-icon"></i>
+								</div>
+								<div class="col-lg-2 col-md-2">
+									<label class="checkbox-inline">
+										<input type="checkbox" value="1" <?php if($this->dadospagina['id_ativo']==1){ echo 'checked ="checked"';}?> style="position: absolute; opacity: 0;" id="id_ativo" name="id_ativo"  /><b>ATIVO</b>
+									</label>
+								</div>
+							</div>						
+							<div class="form-group">
+								<label class="col-lg-1 col-md-1 col-sm-12 control-label ">Nome<b style="color: red;"> *</b></label>
+								<div class="col-lg-4 col-md-4">
+									<input type="text" class="form-control" id="st_nome" name="st_nome" required  value="<?php echo $this->dadospagina['st_nome']?>" />
+								</div>
+								<label class="col-lg-1 col-md-1 col-sm-12 control-label ">CPF/CNPJ<b style="color: red;"> *</b></label>
+								<div class="col-lg-2 col-md-2">
+									<input type="text" class="form-control" id="st_cpf_cnpj" name="st_cpf_cnpj" required  value="<?php echo $this->dadospagina['st_cpf_cnpj']?>" />
+								</div>
+								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Email:</label>
+								<div class="col-lg-3 col-md-3">
+									<input type="text" class="form-control left-icon" id="st_email" name="st_email" value="<?php echo $this->dadospagina['st_email']?>" />
+								    <i class="st-email2 s16 left-input-icon"></i>
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Telefone 1<b style="color: red;"> *</b></label>
+								<div class="col-lg-3 col-md-3">
+									<input type="text" class="form-control" id="st_fone1" name="st_fone1"  placeholder="DDD+NÚMERO" maxlength="15" value="<?php echo $this->dadospagina['st_fone1']?>" />
+								</div>
+								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Telefone 2</label>
+								<div class="col-lg-3 col-md-3">
+									<input type="text" class="form-control" id="st_fone2" name="st_fone2"  placeholder="DDD+NÚMERO" maxlength="15" value="<?php echo $this->dadospagina['st_fone2']?>" />
+								</div>
+								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Telefone 3</label>
+								<div class="col-lg-3 col-md-3">
+									<input type="text" class="form-control" id="st_fone3" name="st_fone3"  placeholder="DDD+NÚMERO" maxlength="15" value="<?php echo $this->dadospagina['st_fone3']?>" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Cep </label>
+								<div class="col-lg-2 col-md-2">
+									<input type="text" class="form-control left-icon" id="st_cep" name="st_cep" value="<?php echo $this->dadospagina['st_cep']?>" />
+								    <i class="ec-mail s16 left-input-icon"></i>
+								</div>
+								
+								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Tipo </label>
+								<div class="col-lg-2 col-md-2">
+									<input type="text" class="form-control" id="st_tipo_logradouro" name="st_tipo_logradouro" value="<?php echo $this->dadospagina['st_tipo_logradouro']?>" />
+								</div>
+								
+								<label class="col-lg-1 col-md-1 col-sm-12 control-label">UF</label>
+								<div class="col-lg-2 col-md-2">
+									<input type="text" class="form-control" id="st_estado" name="st_estado" value="<?php echo $this->dadospagina['st_estado']?>">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Logradouro</label>
+								<div class="col-lg-10 col-md-10">
+									<input type="text" class="form-control" id="st_logradouro" name="st_logradouro" value="<?php echo $this->dadospagina['st_logradouro']?>">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Complemento</label>
+								<div class="col-lg-6 col-md-6">
+									<input type="text" class="form-control" id="st_complemento" name="st_complemento" value="<?php echo $this->dadospagina['st_complemento']?>">
+								</div>
+								
+								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Nº</label>
+								<div class="col-lg-2 col-md-2">
+									<input type="text" class="form-control" id="st_numero" name="st_numero" value="<?php echo $this->dadospagina['st_numero']?>">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Bairro</label>
+								<div class="col-lg-4 col-md-4">
+									<input type="text" class="form-control" id="st_bairro" name="st_bairro" value="<?php echo $this->dadospagina['st_bairro']?>">
+								</div>
+								
+								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Cidade</label>
+								<div class="col-lg-4 col-md-4">
+									<input type="text" class="form-control" id="st_cidade" name="st_cidade" value="<?php echo $this->dadospagina['st_cidade']?>">
+								</div>
+							</div>									
+						</div>
+					</div>
+				</div>
+							
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="panel panel-default toggle">
+        				<button class="btn btn-success  ml15" type="submit"><i class="fa-ok"></i> Cadastrar</button>
+        				<a class="btn dropdown-toggle" id="dropdownMenu1" href="<?php echo $this->baseUrl('/fornecedor/fornecedor/')?>">
+        					<button class="btn btn-primary" type="button"><i class="fa-plus-sign"></i> Cadastrar Novo</button>
+        				</a>
+        			</div>	
+				</div>
+			</div>
+		</form>
+	</div>
+	<div class="clearfix"></div>
+</div>
+
+<!-- ModalCPFIguais -->
+<div class="modal fade" id="modalCPF">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Existe(m) esse(s) Registro(s) para esse CPF</h4>
+            </div>
+              <div class="modal-body">
+                <div class="row">
+					<div id="RegCpf"></div>       
+        		</div>            
+            </div>
+            <div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Continuar Cadastro</button>
+          </div>
+        </div>
+    </div>
+</div>
+<!-- Fim Modal CPF iguais--> 
+
+<!-- Modal valida CPF -->
+<div class="modal" id="modalVal">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Alerta</h4>
+            </div>
+              <div class="modal-body">
+                <div class="row">
+					<div>O CPF digitado não é valido</div>       
+        		</div>            
+            </div>
+            <div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+          	</div>
+        </div>
+    </div>
+</div>
+<!-- Fim Modal valida CPF--> 
+
+
+<?php if(!empty($this->msg)):?>
+	<?php if($this->msg == 2) :?>
+		<div class="alert alert-success fade in">
+			<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+			<i class="fa-ok alert-icon s24"></i>
+			<strong>Registro gravado com sucesso!</strong>
+		</div>
+	<?php else :?>
+		<div class="alert alert-danger fade in">
+			<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+			<strong>Ocorreu um erro ao gravar!</strong>
+		</div>
+	<?php endif;?>
+<?php endif;?>
+
+<script type="text/javascript" src="<?php echo $this->baseUrl('/js/fornecedor/fornecedor.js')?>"> </script>
+<script type="text/javascript" src="<?php echo $this->baseUrl('/js/plugins/function.js')?>"> </script>
+<link href="<?php echo $this->baseUrl('/js/photobooth/page.css')?>" rel="stylesheet" />
+<script type="text/javascript" src="<?php echo $this->baseUrl('/js/plugins/cep.js')?>"> </script>
+
+<script src="<?php echo $this->baseUrl()?>/assets/plugins/forms/maxlength/bootstrap-maxlength.js"></script>
+<script src="<?php echo $this->baseUrl()?>/assets/plugins/forms/bootstrap-filestyle/bootstrap-filestyle.js"></script>
+<script src="<?php echo $this->baseUrl()?>/assets/plugins/forms/maskedinput/jquery.maskedinput.js"></script>
+
+<script type="text/javascript">
+
+function mascara(o,f){
+    v_obj=o;
+    v_fun=f;
+    setTimeout("execmascara()",1);
+}
+function execmascara(){
+    v_obj.value=v_fun(v_obj.value);
+}
+function mtel(v){
+    v=v.replace(/\D/g,"");
+    v=v.replace(/^(\d{2})(\d)/g,"($1) $2");
+    v=v.replace(/(\d)(\d{4})$/,"$1-$2");
+    return v;
+}
+function data(v){
+	v=v.replace(/\D/g,"");
+    v=v.replace(/(\d{2})(\d)/,"$1/$2");
+    v=v.replace(/(\d{2})(\d)/,"$1/$2");    
+    return v;
+}
+function id( el ){
+	return document.getElementById( el );
+}
+window.onload = function(){
+	id('st_fonecontato').onkeypress = function(){
+		mascara( this, mtel );
+	},
+	id('st_fonecelular').onkeypress = function(){
+		mascara( this, mtel );
+	},
+	id('dt_nascimento').onkeypress = function(){
+		mascara( this, data );
+	}
+}
+</script>
