@@ -48,7 +48,7 @@
 							<div class="form-group">
 								<label class="col-lg-1 col-md-1 col-sm-12 control-label ">Cliente<b style="color: red;"> *</b></label>
 								<div class="col-lg-4 col-md-4">
-									<select id="id_cliente" class="form-control select2" required name="id_cliente" autofocus="autofocus">
+									<select id="id_cliente" class="form-control select2"  name="id_cliente" autofocus="autofocus">
 										<option></option>
 										<?php foreach ($this->rsCliente as $value):?>
 											<option value="<?php echo $value['id_cliente']?>" <?php if($this->dadospagina['id_cliente'] == $value['id_cliente']) echo "selected"?>><?php echo strtoupper( $value['st_nome']) ?></option>
@@ -68,11 +68,11 @@
 							<div class="form-group">
 								<label class="col-lg-1 col-md-1 col-sm-12 control-label ">Situação<b style="color: red;"> *</b></label>
 								<div class="col-lg-2 col-md-2">
-									<input type="text" class="form-control" id="st_placa" name="st_placa" required  value="<?php echo $this->dadospagina['st_placa']?>" />
+									<input type="text" class="form-control" id="st_placa" name="st_placa"   value="<?php echo $this->dadospagina['st_placa']?>" />
 								</div>
 								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Entrada<b style="color: red;"> *</b>:</label>
 								<div class="col-lg-2 col-md-2">
-									<input type="text" class="form-control left-icon" id="num_ano" name="num_ano" maxlength="4" pattern="([0-9]{3})" value="<?php echo $this->dadospagina['num_ano']?>" />
+									<input type="text" class="form-control left-icon" id="num_ano" name="num_ano" value="<?php echo $this->dadospagina['num_ano']?>" />
 								</div>
 								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Saída<b style="color: red;"> *</b>:</label>
 								<div class="col-lg-2 col-md-2">
@@ -94,7 +94,7 @@
 							<div class="form-group">
 								<label class="col-lg-1 col-md-1 col-sm-12 control-label ">Placa<b style="color: red;"> *</b></label>
 								<div class="col-lg-2 col-md-2">
-									<input type="text" class="form-control" id="st_placa" name="st_placa" required  value="<?php echo $this->dadospagina['st_placa']?>" />
+									<input type="text" class="form-control" id="st_placa" name="st_placa"   value="<?php echo $this->dadospagina['st_placa']?>" />
 								</div>
 								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Veículo<b style="color: red;"> *</b>:</label>
 								<div class="col-lg-2 col-md-2">
@@ -134,51 +134,65 @@
 						</div>
 					</div>
 				</div>
-				
+								
 				<div class="col-lg-12 col-md-12 col-sm-9 col-xs-12">
-					<div class="panel panel-default plain"><h4>Produtos/Peças</h4>
+					<div class="panel panel-default plain"><h4>Produtos</h4>
 						<div class="panel-heading white-bg"></div>
 						<div class="panel-body">
 							<div class="form-group">
-								<label class="col-lg-1 col-md-1 col-sm-12 control-label ">Produto<b style="color: red;"> *</b></label>
-								<div class="col-lg-2 col-md-2">
-									<input type="text" class="form-control" id="st_placa" name="st_placa" required  value="<?php echo $this->dadospagina['st_placa']?>" />
-								</div>
-								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Quantidade<b style="color: red;"> *</b>:</label>
-								<div class="col-lg-2 col-md-2">
-									<input type="text" class="form-control left-icon" id="num_ano" name="num_ano" maxlength="4" pattern="([0-9]{3})" value="<?php echo $this->dadospagina['num_ano']?>" />
-								</div>
-								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Valor<b style="color: red;"> *</b>:</label>
-								<div class="col-lg-2 col-md-2">
-									<input type="text" class="form-control left-icon" id="st_km" name="st_km" value="<?php echo $this->dadospagina['st_km']?>" />
-								</div>
-								<label class="col-lg-1 col-md-1 col-sm-12 control-label ">SubTotal<b style="color: red;"> *</b></label>
-								<div class="col-lg-2 col-md-2">
-                                    <input type="text" class="form-control left-icon" id="st_km" name="st_km" value="<?php echo $this->dadospagina['st_km']?>" />
-								</div>
+								<table id="tb_produto" class="table table-bordered table-striped table-hover dt-responsive non-responsive" >
+            						<thead>
+            							<tr>
+            								<th>Produtos</th>
+            								<th>Quantidade</th>
+            								<th>Valor Unitário</th>
+            								<th>SubTotal</th>
+            								<th>Ação</th>
+            							</tr>
+            						</thead>
+            						<tbody>
+            							<tr>
+                							<td><input type="text" class="form-control" id="id_produto[]" name="id_produto[]"  /></td>
+                                          	<td><input type="text" class="form-control" id="st_quant[]" name="st_quant[]"  /></td>
+                                          	<td><input type="text" class="form-control" id="vl_unit[]" name="vl_unit[]"  /></td>
+                                          	<td><input type="text" class="form-control" id="vl_subtotal[]" name="vl_subtotal[]"  /></td>
+                                          	<td><button class="btn btn-danger" type="button"><i class="fa-plus-sign"></i> Deletar</button></td>
+                                      	</tr>
+            						</tbody>
+            					</table>
+            					<br/>
+            					
+            					<button class="btn btn-dark" type="button" id ='addProduto'><i class="fa-plus-sign"></i> Adicionar Produto</button>
+            					
+            					<table id="newRow" style="display: none">
+                                  <tbody>
+                                    <tr >
+                                      <td><input type="text" class="form-control" id="id_produto[]" name="id_produto[]" /></td>
+                                      <td><input type="text" class="form-control" id="st_quant[]" name="st_quant[]" /></td>
+                                      <td><input type="text" class="form-control" id="vl_unit[]" name="vl_unit[]" /></td>
+                                      <td><input type="text" class="form-control" id="vl_subtotal[]" name="vl_subtotal[]" /></td>
+                                      <td><button class="btn btn-danger" type="button"><i class="fa-plus-sign"></i> Deletar</button></td>
+                                    </tr>
+                                  </tbody>
+                                </table>
 							</div>
-							</div>
-						<div>
-            				<a href="<?php echo $this->baseUrl('/servico/servico/')?>">
-            					<button class="btn btn-dark" type="button"><i class="fa-plus-sign"></i> Adicionar Produto</button>
-            				</a>
-    					</div>							
-						
+						</div>
 					</div>
 				</div>
 				
+				
 				<div class="col-lg-12 col-md-12 col-sm-9 col-xs-12">
-					<div class="panel panel-default plain"><h4>Serviços/Mão de Obra</h4>
+					<div class="panel panel-default plain"><h4>Serviços</h4>
 						<div class="panel-heading white-bg"></div>
 						<div class="panel-body">
 							<div class="form-group">
 								<label class="col-lg-1 col-md-1 col-sm-12 control-label ">Serviço<b style="color: red;"> *</b></label>
 								<div class="col-lg-2 col-md-2">
-									<input type="text" class="form-control" id="st_placa" name="st_placa" required  value="<?php echo $this->dadospagina['st_placa']?>" />
+									<input type="text" class="form-control" id="st_placa" name="st_placa"   value="<?php echo $this->dadospagina['st_placa']?>" />
 								</div>
 								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Quantidade<b style="color: red;"> *</b>:</label>
 								<div class="col-lg-2 col-md-2">
-									<input type="text" class="form-control left-icon" id="num_ano" name="num_ano" maxlength="4" pattern="([0-9]{3})" value="<?php echo $this->dadospagina['num_ano']?>" />
+									<input type="text" class="form-control left-icon" id="num_ano" name="num_ano" value="<?php echo $this->dadospagina['num_ano']?>" />
 								</div>
 								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Valor<b style="color: red;"> *</b>:</label>
 								<div class="col-lg-2 col-md-2">
@@ -190,9 +204,7 @@
 								</div>
 							</div>
 							<div>
-                				<a href="<?php echo $this->baseUrl('/servico/servico/')?>">
-                					<button class="btn btn-dark" type="button"><i class="fa-plus-sign"></i> Adicionar Serviço</button>
-                				</a>
+                				<button class="btn btn-dark" type="button"><i class="fa-plus-sign"></i> Adicionar Serviço</button>
         					</div>
 						</div>
 					</div>
@@ -205,11 +217,11 @@
 							<div class="form-group">
 								<label class="col-lg-1 col-md-1 col-sm-12 control-label ">Mão de obra<b style="color: red;"> *</b></label>
 								<div class="col-lg-2 col-md-2">
-									<input type="text" class="form-control" id="st_placa" name="st_placa" required  value="<?php echo $this->dadospagina['st_placa']?>" />
+									<input type="text" class="form-control" id="st_placa" name="st_placa"   value="<?php echo $this->dadospagina['st_placa']?>" />
 								</div>
 								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Peças<b style="color: red;"> *</b>:</label>
 								<div class="col-lg-2 col-md-2">
-									<input type="text" class="form-control left-icon" id="num_ano" name="num_ano" maxlength="4" pattern="([0-9]{3})" value="<?php echo $this->dadospagina['num_ano']?>" />
+									<input type="text" class="form-control left-icon" id="num_ano" name="num_ano" value="<?php echo $this->dadospagina['num_ano']?>" />
 								</div>
 								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Desconto<b style="color: red;"> *</b>:</label>
 								<div class="col-lg-2 col-md-2">
@@ -238,5 +250,5 @@
 	<div class="clearfix"></div>
 </div>
 
-<script type="text/javascript" src="<?php echo $this->baseUrl('/js/veiculo/veiculo.js')?>"> </script>
+<script type="text/javascript" src="<?php echo $this->baseUrl('/js/servico/ordemServico.js')?>"> </script>
 

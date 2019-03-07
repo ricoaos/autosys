@@ -13,6 +13,11 @@ class Servico_OrdemController extends App_Controller_Action
 	public function indexAction()
 	{
 		
+	    
+	    if (isset($_POST)){
+	        Zend_Debug::dump($_POST);
+	    }
+	    
 	    $mCliente = new Model_Cliente_VwCliente();
 	    $rsCliente = $mCliente->fetchAll(array('id_organizacao = ?' => $this->idOrganizacao), '',30)->toArray();
 	    $this->view->rsCliente = $rsCliente;
