@@ -1,6 +1,6 @@
 function getLogradouro(cep){
 	var cep = $('#st_cep').val().replace(/\D/g,"");
-	alert(cep);
+	
     $.ajax({
         url : 'http://cep.republicavirtual.com.br/web_cep.php?cep='+cep+'&formato=json',
         dataType: 'json',
@@ -8,6 +8,8 @@ function getLogradouro(cep){
         success: function(response){
         	
         	var objResult = response;
+        	
+        	alert(objResult.resultado);
 
             if(objResult.resultado != 0){
                 $("#st_numero,#st_complemento").attr('readonly',false).css({'background':'#FFF'});
