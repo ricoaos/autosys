@@ -1,6 +1,3 @@
-/*
- * Realiza a busca do logradouro conforme o cep informado
- */
 function getLogradouro(cep){
 	var cep = $('#st_cep').val().replace(/\D/g,"");
     $.ajax({
@@ -10,8 +7,8 @@ function getLogradouro(cep){
         success: function(response){
         	
         	var objResult = response;
-        	
-            if(objResult != ''){
+
+            if(objResult.resultado != 0){
                 $("#st_numero,#st_complemento").attr('readonly',false).css({'background':'#FFF'});
                 $('#st_logradouro').val(objResult.logradouro);
                 $('#st_bairro').val(objResult.bairro);
@@ -21,7 +18,7 @@ function getLogradouro(cep){
                 //$("#id_municipio").val(objResult.municipio);
                 $("#st_numero").focus();
             }else{
-                alert("Cep inválido");
+                alert(objResult.resultado_txt);
             }
         }
    });
