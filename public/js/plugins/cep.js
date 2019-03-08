@@ -2,14 +2,14 @@ function getLogradouro(cep){
 	var cep = $('#st_cep').val().replace(/\D/g,"");
 	
     $.ajax({
-        url : 'http://cep.republicavirtual.com.br/web_cep.php?cep='+cep+'&formato=json',
+        url : 'https://viacep.com.br/ws/'+cep+'/json/',
         dataType: 'json',
         type:"POST",
         success: function(response){
         	
         	var objResult = response;
         	
-        	alert(objResult.resultado);
+        	alert(objResult.cep);
 
             if(objResult.resultado != 0){
                 $("#st_numero,#st_complemento").attr('readonly',false).css({'background':'#FFF'});
