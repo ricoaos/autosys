@@ -82,7 +82,6 @@ $(document).ready(function(){
 	                $('#st_bairro').val(objResult.bairro);
 	                $('#st_cidade').val(objResult.localidade);
 	                $('#st_estado').val(objResult.uf);
-	                //$("#st_tipo_logradouro").val(objResult.tipo_logradouro);
 	                $("#id_municipio").val(objResult.ibge);
 	                $("#st_numero").focus();
 	            }else{

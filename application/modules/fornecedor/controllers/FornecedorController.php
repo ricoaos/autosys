@@ -82,7 +82,11 @@ class Fornecedor_FornecedorController extends App_Controller_Action
     	
     	$mTipoPessoa = new Model_Pessoa_TipoPessoa();
     	$rsTipoPessoa = $mTipoPessoa->fetchAll()->toArray();
-    	$this->view->tipoPessoa = $rsTipoPessoa;	
+    	$this->view->tipoPessoa = $rsTipoPessoa;
+    	
+    	$mTipoLogradouro = new Model_Apoio_TipoLogradouro();
+    	$rsTipoLogradouro = $mTipoLogradouro->fetchAll()->toArray();
+    	$this->view->TipoLogradouro = $rsTipoLogradouro;
     }
     
 

@@ -40,7 +40,7 @@ class Produto_ProdutoController extends App_Controller_Action
 		
 		$mMarcaProduto = new Model_Produto_MarcaProduto();
 		$rMarcaProduto = $mMarcaProduto->fetchAll()->toArray();
-		$this->view->MarcaProduto = $rMarcaProduto;
+		$this->view->marcaProduto = $rMarcaProduto;
 		
 	}
 	

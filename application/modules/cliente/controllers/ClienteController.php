@@ -41,6 +41,10 @@ class Cliente_ClienteController extends App_Controller_Action
 		$rsTipoPessoa = $mTipoPessoa->fetchAll()->toArray();
 		$this->view->tipoPessoa = $rsTipoPessoa;
 		
+		$mTipoLogradouro = new Model_Apoio_TipoLogradouro();
+		$rsTipoLogradouro = $mTipoLogradouro->fetchAll()->toArray();
+		$this->view->TipoLogradouro = $rsTipoLogradouro;
+		
 	    //Realiza a inserção das informações 
 		if($this->_request->isPost())
     	{

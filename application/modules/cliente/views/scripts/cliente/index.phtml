@@ -86,6 +86,13 @@
 										<input type="checkbox" value="1" <?php if($this->dadospagina['id_ativo']==1){ echo 'checked ="checked"';}?> style="position: absolute; opacity: 0;" id="id_ativo" name="id_ativo"  /><b>ATIVO</b>
 									</label>
 								</div>
+								
+								<?php if(!empty($this->dadospagina['id_cliente'])):?>
+        							<div class="col-lg-4 col-md-4">
+                        				<button class="btn btn-link" type="button" onclick="addVeiculo()"><i class="fa-user"></i>  Add Veículo</button>
+        							</div>
+								<?php endif;?>
+								
 							</div>
 							
 							<div class="form-group">
@@ -149,7 +156,12 @@
 								
 								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Tipo </label>
 								<div class="col-lg-2 col-md-2">
-									<input type="text" class="form-control" id="st_tipo_logradouro" name="st_tipo_logradouro" value="<?php echo $this->dadospagina['st_tipo_logradouro']?>" />
+									<select id="st_tipo_logradouro" class="form-control select2" autofocus="autofocus" required name="st_tipo_logradouro">
+										<option></option>
+										<?php foreach ($this->TipoLogradouro as $value):?>
+											<option value="<?php echo $value['id_tipo_logradouro']?>" <?php if($this->dadospagina['st_tipo_logradouro'] == $value['id_tipo_logradouro']) echo "selected"?>><?php echo strtoupper( $value['st_nome']) ?></option>
+										<?php endforeach;?>
+									</select>
 								</div>
 								
 								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Logradouro</label>
