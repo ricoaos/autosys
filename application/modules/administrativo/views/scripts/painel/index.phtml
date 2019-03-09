@@ -5,14 +5,14 @@
             <!-- Start .row -->
             <!-- Start .page-header -->
             <div class="col-lg-12 heading">
-                <h1 class="page-header"><i class="fa-home"></i> Dashboard</h1>
+                <h1 class="page-header"><i class="fa fa-home"></i> Dashboard</h1>
                
             
         <div class="outlet">
             <!-- Start .outlet -->
             <!-- Page start here ( usual with .row ) -->
             <div class="row">
-                <h3>Seja bem vindo ao Sistema de Gerenciamento de Ofinica</h3>
+                <h3>Seja bem vindo <?php echo strtoupper(App_Identity::get('st_usuario')) ?>, ao Sistema de Gerenciamento de Ofinica</h3>
                 
                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="carousel-tile carousel vertical slide">
@@ -434,4 +434,7 @@
     <!-- End .content-wrapper -->
     <div class="clearfix"></div>
 </div>
+</div>
+</div>
+
 
