@@ -70,18 +70,43 @@ $(document).ready(function(){
 	});  	
     
 	$("#st_cep").change(function(){
-		 getLogradouro($("#st_cep").val());
+		var cep = $(this).val().replace(/\D/g,"");
+		$.ajax({
+			url : 'http://cep.republicavirtual.com.br/web_cep.php?cep='+cep+'&formato=json',
+	        dataType: 'json',
+	        success: function(response){
+	        	var objResult = response;
+	            if(objResult.resultado != 0){
+	                $("#st_numero,#st_complemento").attr('readonly',false).css({'background':'#FFF'});
+	                $('#st_logradouro').val(objResult.logradouro);
+	                $('#st_bairro').val(objResult.bairro);
+	                $('#st_cidade').val(objResult.cidade);
+	                $('#st_estado').val(objResult.uf);
+	                $("#st_tipo_logradouro").val(objResult.tipo_logradouro);
+	                //$("#id_municipio").val(objResult.municipio);
+	                $("#st_numero").focus();
+	            }else{
+	                alert(objResult.resultado_txt);
+	                $("#st_cep").val('').focus();
+	            }
+	        },
+		    error: function (request, status, erro) {
+		    	alert(request.responseText);
+		        alert("Problema ocorrido: " + status + "\nDescição: " + erro);
+		        alert("Informações da requisição: \n" + request.getAllResponseHeaders());
+		    }
+		 });
+    });
+	
+	$("#st_cep").click(function(){
+        $("#st_logradouro,#st_bairro,#st_cidade,#st_estado,#st_tipo_logradouro,#st_numero,#st_complemento").val('');
+        $("#st_cep").val('');
     });
 	
 	$("#dt_nascimento").change(function(){
 		dateValidate($(this).val(),'dt_nascimento');
 	});
-   
-    $("#st_cep").click(function(){
-        $("#st_logradouro,#st_bairro,#st_cidade,#st_estado,#st_tipo_logradouro,#st_numero,#st_complemento").val('').attr('readonly',true).css({'background':'#CCC'});
-        $("#st_cep").val('');
-    });
-    
+       
     $("#btnLimpar").click(function(){
     	window.location.href = baseUrl+'/cliente/cliente/index';
     });
