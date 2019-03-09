@@ -72,7 +72,7 @@ $(document).ready(function(){
 	$("#st_cep").change(function(){
 		var cep = $(this).val().replace(/\D/g,"");
 		$.ajax({
-			url : 'http://cep.republicavirtual.com.br/web_cep.php?cep='+cep+'&formato=json',
+			url : 'https://viacep.com.br/ws/'+cep+'/json/',
 	        dataType: 'json',
 	        success: function(response){
 	        	var objResult = response;
@@ -80,10 +80,10 @@ $(document).ready(function(){
 	                $("#st_numero,#st_complemento").attr('readonly',false).css({'background':'#FFF'});
 	                $('#st_logradouro').val(objResult.logradouro);
 	                $('#st_bairro').val(objResult.bairro);
-	                $('#st_cidade').val(objResult.cidade);
+	                $('#st_cidade').val(objResult.localidade);
 	                $('#st_estado').val(objResult.uf);
-	                $("#st_tipo_logradouro").val(objResult.tipo_logradouro);
-	                //$("#id_municipio").val(objResult.municipio);
+	                //$("#st_tipo_logradouro").val(objResult.tipo_logradouro);
+	                $("#id_municipio").val(objResult.ibge);
 	                $("#st_numero").focus();
 	            }else{
 	                alert(objResult.resultado_txt);
