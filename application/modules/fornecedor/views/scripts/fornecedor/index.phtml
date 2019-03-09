@@ -57,8 +57,7 @@
 								</div>
 								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Registro: </label>
 								<div class="col-lg-3 col-md-3">
-									<input class="form-control left-icon" type="text" id="id_fornecedor" name="id_fornecedor" readonly="readonly" value="<?php echo $this->dadospagina['id_fornecedor']?>" />
-								    <i class="st-tag s16 left-input-icon"></i>
+									<input class="form-control" type="text" id="id_fornecedor" name="id_fornecedor" readonly="readonly" value="<?php echo $this->dadospagina['id_fornecedor']?>" />
 								</div>
 								<div class="col-lg-2 col-md-2">
 									<label class="checkbox-inline">
@@ -77,8 +76,7 @@
 								</div>
 								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Email:</label>
 								<div class="col-lg-3 col-md-3">
-									<input type="text" class="form-control left-icon" id="st_email" name="st_email" value="<?php echo $this->dadospagina['st_email']?>" />
-								    <i class="st-email2 s16 left-input-icon"></i>
+									<input type="text" class="form-control" id="st_email" name="st_email" value="<?php echo $this->dadospagina['st_email']?>" />
 								</div>
 							</div>
 							
@@ -99,8 +97,7 @@
 							<div class="form-group">
 								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Cep </label>
 								<div class="col-lg-2 col-md-2">
-									<input type="text" class="form-control left-icon" id="st_cep" name="st_cep" value="<?php echo $this->dadospagina['st_cep']?>" />
-								    <i class="ec-mail s16 left-input-icon"></i>
+									<input type="text" class="form-control" id="st_cep" name="st_cep" value="<?php echo $this->dadospagina['st_cep']?>" />
 								</div>
 								
 								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Tipo </label>
@@ -108,17 +105,13 @@
 									<input type="text" class="form-control" id="st_tipo_logradouro" name="st_tipo_logradouro" value="<?php echo $this->dadospagina['st_tipo_logradouro']?>" />
 								</div>
 								
-								<label class="col-lg-1 col-md-1 col-sm-12 control-label">UF</label>
-								<div class="col-lg-2 col-md-2">
-									<input type="text" class="form-control" id="st_estado" name="st_estado" value="<?php echo $this->dadospagina['st_estado']?>">
-								</div>
-							</div>
-							<div class="form-group">
 								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Logradouro</label>
-								<div class="col-lg-10 col-md-10">
+								<div class="col-lg-5 col-md-5">
 									<input type="text" class="form-control" id="st_logradouro" name="st_logradouro" value="<?php echo $this->dadospagina['st_logradouro']?>">
 								</div>
+																
 							</div>
+							
 							<div class="form-group">
 								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Complemento</label>
 								<div class="col-lg-6 col-md-6">
@@ -139,6 +132,11 @@
 								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Cidade</label>
 								<div class="col-lg-4 col-md-4">
 									<input type="text" class="form-control" id="st_cidade" name="st_cidade" value="<?php echo $this->dadospagina['st_cidade']?>">
+								</div>
+								
+								<label class="col-lg-1 col-md-1 col-sm-12 control-label">UF</label>
+								<div class="col-lg-1 col-md-1">
+									<input type="text" class="form-control" id="st_estado" name="st_estado" value="<?php echo $this->dadospagina['st_estado']?>">
 								</div>
 							</div>									
 						</div>

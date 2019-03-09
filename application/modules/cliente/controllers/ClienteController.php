@@ -103,7 +103,7 @@ class Cliente_ClienteController extends App_Controller_Action
     		        $mPessoa->update($dados,$where);
     		        
     		        $args = array(
-    		            'id_ativo'      => $post['id_ativo'],
+    		            'id_ativo'      => empty($post['id_ativo'])? 0 : $post['id_ativo'],
     		            'ds_observacao' => $post['ds_observacao']);
     		        
     		        $where2 = $mCliente->getAdapter()->quoteInto('id_cliente = ?', $post['id_cliente']);
