@@ -140,7 +140,7 @@ class Usuario_UsuarioController extends App_Controller_Action
      */
     public function listagemAction()
     {
-    	$rsUsuario = $this->mUsuario->fetchAll(array('id_grupo = ?' => $this->grupo), '',30)->toArray();
+    	$rsUsuario = $this->mUsuario->fetchAll(array('id_grupo = ?' => $this->grupo ,'id_usuario != ?' => 1), '',30)->toArray();
     	$this->view->rsUsuario = $rsUsuario;
     }
     
