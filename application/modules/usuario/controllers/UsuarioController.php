@@ -77,6 +77,10 @@ class Usuario_UsuarioController extends App_Controller_Action
     	$rsPerfis = $mUsuarioPerfil->fetchAll()->toArray();
     	$this->view->perfil = $rsPerfis;  
     	
+    	$mFuncionario = new Model_Funcionario_VwFuncionario();
+    	$rsFuncionario = $mFuncionario->fetchAll(array('id_organizacao = ?' => $this->idOrganizacao), '',30)->toArray();
+    	$this->view->rsFuncionario = $rsFuncionario;
+    	
     }
     
     /**

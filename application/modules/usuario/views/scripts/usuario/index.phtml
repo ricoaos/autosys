@@ -35,7 +35,14 @@
 							<div class="form-group">
 								<label class="col-lg-1 col-md-1 col-sm-12 control-label ">FUNCIONÁRIO<b style="color: red;"> *</b></label>
 								<div class="col-lg-8 col-md-8">
-									<input type="text" class="form-control" autofocus="autofocus" id="nm_usuario" name="nm_usuario" required  value="<?php echo $dados['geral']['nm_usuario']?>" />
+									
+									<select id="nm_usuario" class="form-control select2" required name="nm_usuario">
+										<option></option>
+										<?php foreach ($this->rsFuncionario as $value):?>
+											<option value="<?php echo $value['id_funcionario']?>"><?php echo strtoupper( $value['st_nome']) ?></option>
+										<?php endforeach;?>
+									</select>
+								
 								</div>
 								<div class="col-lg-2 col-md-2">
 									<label class="checkbox-inline">
