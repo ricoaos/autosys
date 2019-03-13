@@ -23,16 +23,15 @@
                 <!-- End .option-buttons -->
             </div>
 		</div>
-		<form id="formCadastro" class="form-horizontal group-border hover-stripped" role="form" method="post" action="<?php echo $this->baseUrl('/usuario/usuario/index')?>">
+		<form id="formCadastro" class="form-horizontal group-border hover-stripped" role="form" method="post" action="<?php echo $this->baseUrl('/funcionario/funcionario/index')?>">
 			<input type="hidden" id="imagem" name="imagem" value="">
 			<input type="hidden" id="id_foto" name="id_foto" value="<?php echo $dados['geral']['sn_foto']?>">
-			<input type="hidden" id="usuario" name="usuario" value="<?php echo $dados['geral']['id_usuario']?>">
 			<div class="row">
 				<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12" id="wrapper_booth" style="display: none;">
 					<div class="panel panel-primary">
 						<div class="panel-heading">
 							<h4 class="panel-title" style="text-align: center;">									
-								<span>Compartilhe o dispositivo, clique no crop (Quadrado pontilhado)::: para limitar o tamanho da foto, enquadre com o rosto do cliente e clique na câmera para tirar a foto</span>
+								<span>Compartilhe o dispositivo, clique no crop (Quadrado pontilhado)::: para limitar o tamanho da foto, enquadre com o rosto e clique na câmera para tirar a foto</span>
 							</h4>
 						</div>
 						<div class="panel-body">
@@ -75,14 +74,13 @@
 							</div>
 							
 							<div class="form-group">
+								<label class="col-lg-1 col-md-1 col-sm-12 control-label">CPF:</label>
+								<div class="col-lg-3 col-md-3">
+									<input type="text" class="form-control" id="st_cpf" name="st_cpf" value="<?php echo $this->dadospagina['st_cpf']?>" />
+								</div>
 								<label class="col-lg-1 col-md-1 col-sm-12 control-label ">Nome<b style="color: red;">*</b>:</label>
 								<div class="col-lg-6 col-md-6">
 									<input type="text" class="form-control" id="st_nome" name="st_nome" required  value="<?php echo $this->dadospagina['st_nome']?>" />
-								</div>
-								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Sexo<b style="color: red;">*</b>:</label> 
-								<div class="col-lg-4 col-md-4">
-									<label class="radio-inline"> <input type="radio" name="st_sexo" value="M" <?php if($this->dadospagina['st_sexo'] == "M")  echo "checked"?> required >Masculino</label> 
-									<label class="radio-inline"> <input type="radio" name="st_sexo" value="F" <?php if($this->dadospagina['st_sexo'] == "F")  echo "checked"?> required >Feminino</label>
 								</div>
 							</div>
 							<div class="form-group">
@@ -101,19 +99,20 @@
 							</div>
 							
 							<div class="form-group">
-								<label class="col-lg-1 col-md-1 col-sm-12 control-label">CPF:</label>
-								<div class="col-lg-3 col-md-3">
-									<input type="text" class="form-control" id="st_cpf" name="st_cpf" value="<?php echo $this->dadospagina['st_cpf']?>" />
-								</div>
 								<label class="col-lg-1 col-md-1 col-sm-12 control-label">RG</label>
 								<div class="col-lg-3 col-md-3">
 									<input type="text" class="form-control" id="st_rg" name="st_rg" maxlength="10" value="<?php echo $dados['geral']['nr_rg']?>" />
 								</div>
+								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Sexo<b style="color: red;">*</b>:</label> 
+								<div class="col-lg-3 col-md-3">
+									<label class="radio-inline"> <input type="radio" name="st_sexo" value="M" <?php if($this->dadospagina['st_sexo'] == "M")  echo "checked"?> required >Masculino</label> 
+									<label class="radio-inline"> <input type="radio" name="st_sexo" value="F" <?php if($this->dadospagina['st_sexo'] == "F")  echo "checked"?> required >Feminino</label>
+								</div>
 								<label class="col-lg-1 col-md-1 col-sm-12 control-label">CARGO</label>
 								<div class="col-lg-3 col-md-3">
-									<select id="st_tipo_logradouro" class="form-control select2" autofocus="autofocus" required name="st_tipo_logradouro">
-										<option>GERENTE</option>
-										<?php foreach ($this->cargo as $value):?>
+									<select id="id_cargo" class="form-control select2" autofocus="autofocus" required name="id_cargo">
+										<option></option>
+										<?php foreach ($this->rsCargo as $value):?>
 											<option value="<?php echo $value['id_cargo']?>" <?php if($this->dadospagina['id_cargo'] == $value['id_cargo']) echo "selected"?>><?php echo strtoupper( $value['st_nome']) ?></option>
 										<?php endforeach;?>
 									</select>
@@ -140,34 +139,44 @@
 								
 								<label class="col-lg-1 col-md-1 col-sm-12 control-label">ADMISSÃO </label>
 								<div class="col-lg-2 col-md-2">
-									<input type="text" class="form-control" id="st_serie" name="st_serie" value="<?php echo $this->dadospagina['st_serie']?>" />
+									<input type="text" class="form-control" id="dt_admissao" name="dt_admissao" value="<?php echo $this->dadospagina['dt_admissao']?>" />
 								</div>
 								
-								<label class="col-lg-1 col-md-1 col-sm-12 control-label">VL SALÁRIO </label>
+								<label class="col-lg-1 col-md-1 col-sm-12 control-label">SALÁRIO </label>
 								<div class="col-lg-2 col-md-2">
-									<input type="text" class="form-control" id="st_serie" name="st_serie" value="<?php echo $this->dadospagina['st_serie']?>" />
+									<input type="text" class="form-control" id="vl_salario" name="vl_salario" value="<?php echo $this->dadospagina['vl_salario']?>" />
 								</div>
 							</div>
 							
 							<div class="form-group">
 								<label class="col-lg-1 col-md-1 col-sm-12 control-label">BANCO </label>
 								<div class="col-lg-2 col-md-2">
-									<input type="text" class="form-control" id="st_ctps" name="st_ctps" value="<?php echo $this->dadospagina['st_ctps']?>" />
+									<select id="id_banco" class="form-control select2" autofocus="autofocus" required name="id_banco">
+										<option></option>
+										<?php foreach ($this->rsBanco as $value):?>
+											<option value="<?php echo $value['id_banco']?>" <?php if($this->dadospagina['id_banco'] == $value['id_banco']) echo "selected"?>><?php echo strtoupper( $value['st_nome']) ?></option>
+										<?php endforeach;?>
+									</select>
 								</div>
 								
 								<label class="col-lg-1 col-md-1 col-sm-12 control-label">AGÊNCIA </label>
 								<div class="col-lg-2 col-md-2">
-									<input type="text" class="form-control" id="st_serie" name="st_serie" value="<?php echo $this->dadospagina['st_serie']?>" />
+									<input type="text" class="form-control" id="st_agencia" name="st_agencia" value="<?php echo $this->dadospagina['st_agencia']?>" />
 								</div>
 								
 								<label class="col-lg-1 col-md-1 col-sm-12 control-label">CONTA </label>
 								<div class="col-lg-2 col-md-2">
-									<input type="text" class="form-control" id="st_serie" name="st_serie" value="<?php echo $this->dadospagina['st_serie']?>" />
+									<input type="text" class="form-control" id="st_conta" name="st_conta" value="<?php echo $this->dadospagina['st_conta']?>" />
 								</div>
 								
 								<label class="col-lg-1 col-md-1 col-sm-12 control-label">TIPO CONTA </label>
 								<div class="col-lg-2 col-md-2">
-									<input type="text" class="form-control" id="st_serie" name="st_serie" value="<?php echo $this->dadospagina['st_serie']?>" />
+									<select id="id_conta_banco" class="form-control select2" autofocus="autofocus" required name="id_conta_banco">
+										<option></option>
+										<?php foreach ($this->rsContaBanco as $value):?>
+											<option value="<?php echo $value['id_conta_banco']?>" <?php if($this->dadospagina['id_conta_banco'] == $value['id_conta_banco']) echo "selected"?>><?php echo strtoupper( $value['st_nome']) ?></option>
+										<?php endforeach;?>
+									</select>
 								</div>
 							</div>
 						
@@ -234,7 +243,7 @@
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="panel panel-default toggle">
         				<button class="btn btn-success  ml15" type="submit"><i class="fa-ok"></i> Cadastrar</button>
-        				<a class="btn dropdown-toggle" id="dropdownMenu1" href="<?php echo $this->baseUrl('/cliente/cliente/')?>">
+        				<a class="btn dropdown-toggle" id="dropdownMenu1" href="<?php echo $this->baseUrl('/funcionario/funcionario/')?>">
         					<button class="btn btn-primary" type="button"><i class="fa-plus-sign"></i> Cadastrar Novo</button>
         				</a>
         			</div>	
@@ -305,7 +314,7 @@
 <script type="text/javascript" src="<?php echo $this->baseUrl('/js/photobooth/photobooth_min.js')?>"> </script>
 <script type="text/javascript" src="<?php echo $this->baseUrl('/js/photobooth/script.js')?>"> </script>
 <script type="text/javascript" src="<?php echo $this->baseUrl('/js/photobooth/hijs.js')?>"> </script>
-<script type="text/javascript" src="<?php echo $this->baseUrl('/js/usuario/usuario.js')?>"> </script>
+<script type="text/javascript" src="<?php echo $this->baseUrl('/js/funcionario/funcionario.js')?>"> </script>
 <script type="text/javascript" src="<?php echo $this->baseUrl('/js/plugins/function.js')?>"> </script>
 <link href="<?php echo $this->baseUrl('/js/photobooth/page.css')?>" rel="stylesheet" />
 
