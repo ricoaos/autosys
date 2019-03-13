@@ -121,7 +121,7 @@ class Funcionario_FuncionarioController extends App_Controller_Action
                     $rsCliente = $post["id_cliente"];
                 }
                 
-                $getdados = self::getdadoscadastrados($rsCliente);
+                $getdados = self::getdadoscadastrados($rsfuncionario);
                 $this->view->dadospagina = $getdados;
                 
                 //Realiza o decode da imagem e grava no diretorio informado
@@ -220,27 +220,21 @@ class Funcionario_FuncionarioController extends App_Controller_Action
      */
     public function listagemAction()
     {
-    	$rsUsuario = $this->mUsuario->fetchAll(array('id_grupo = ?' => $this->grupo), '',30)->toArray();
-    	$this->view->rsUsuario = $rsUsuario;
+        $mFuncionario = new Model_Funcionario_VwFuncionario();
+        $rsFuncionario = $mFuncionario->fetchAll(array('id_organizacao = ?' => $this->idOrganizacao), '',30)->toArray();
+        $this->view->rsFuncionario = $rsFuncionario;
     }
-    
     /**
      *
      * @param unknown $params
      * @return string
      */
     public function getdadoscadastrados($params)
-    {
-    	$dadospagina = $this->mUsuario->fetchAll(array('id_usuario = ?' => $params))->toArray();
-    	$mUsuarioOrg = new Model_Usuario_UsuarioOrganizacao();
-    	$rsPerfis = $mUsuarioOrg->getPerfilByParams($params,$this->grupo)->toArray();
+    {    	
+    	$mFuncionario = new Model_Funcionario_VwFuncionario();
+    	$dadospagina = $mFuncionario->fetchAll(array('id_funcionario = ?' => $params))->toArray();
     	list($YY,$mm,$dd) = explode('-',$dadospagina[0]["dt_nascimento"]);
     	$dadospagina[0]["dt_nascimento"] = $dd.'/'.$mm.'/'.$YY;
-    	$dados = array(
-    			'geral'  => $dadospagina[0],
-    	        'perfil' => $rsPerfis
-    	) ;
-    	
-    	return $dados;
+    	return $dadospagina[0];
     }
 }
