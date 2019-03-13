@@ -1,6 +1,6 @@
 <?php
 
-class Usuario_UsuarioController extends App_Controller_Action
+class Funcionario_FuncionarioController extends App_Controller_Action
 {
 	public function init()
 	{

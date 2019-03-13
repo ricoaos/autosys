@@ -1,13 +1,19 @@
-<div id="content">
+<div id="content">		
 	<div class="content-wrapper">		
 		<div class="row">
 			<div class="col-lg-12 heading">
                 <h1 class="page-header"><i class="ec-pencil2"></i><strong>LISTAGEM DE USUÁRIOS</strong></h1>
-				<div style="text-align: right;">
-					<a class="btn dropdown-toggle" id="dropdownMenu1" href="<?php echo $this->baseUrl('/usuario/usuario/')?>">
-						<button class="btn btn-dark" type="button">ADICIONAR USUÁRIO</button>
-					</a>
-				</div>
+                <ul id="crumb" class="breadcrumb">
+                </ul>
+                <div class="option-buttons">
+                    <div class="btn-toolbar" role="toolbar">
+                        <div class="btn-group">
+                            <a class="btn dropdown-toggle" id="dropdownMenu1" href="<?php echo $this->baseUrl('/usuario/usuario/')?>">
+								<button class="btn btn-primary" type="button"><i class="st-file-add"></i> ADICIONAR USUÁRIO</button>
+							</a>
+                        </div>
+                    </div>
+                </div>
             </div>
 		</div>
 		
