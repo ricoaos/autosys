@@ -59,15 +59,6 @@
 							</div>
 							
 							<div class="form-group">
-								<label class="col-lg-1 col-md-1 col-sm-12 control-label">ORGANIZAÇÃO<b style="color: red;"> *</b></label>
-								<div class="col-lg-4 col-md-4">
-									<select id="id_organizacao" class="form-control select2" required name="id_organizacao">
-										<option></option>
-										<?php foreach ($this->organizacao as $value):?>
-											<option value="<?php echo $value['id_organizacao']?>"><?php echo strtoupper( $value['st_nome_fantasia']) ?></option>
-										<?php endforeach;?>
-									</select>
-								</div>
 								<label class="col-lg-1 col-md-1 col-sm-12 control-label">PERFIL<b style="color: red;"> *</b></label>
 								<div class="col-lg-4 col-md-4">
 									<select id="id_perfil" class="form-control select2" required name="id_perfil">
@@ -77,44 +68,7 @@
 										<?php endforeach;?>
 									</select>
 								</div>
-								<div class="col-lg-2 col-md-2">
-									<button class="btn btn-success  ml15" id="btnAddPerfil" type="button">Adicionar</button>
-								</div>
-							</div>
-							
-							<div class="outlet">
-        						<div class="slimScrollDiv" style="position: relative; overflow: hidden; width: 100%; height: auto;">
-        							<div class="table-responsive" style="overflow: hidden; width: 100%; height: auto;">
-        								<table class="table table-bordered">
-        									<thead>
-        										<tr>
-        											<th style="text-align: center;">Organização</th>
-        											<th style="text-align: center;">Perfil</th>
-        											<th style="text-align: center;">Status</th>
-        											<th style="text-align: center;">Ação</th>
-        										</tr>
-        									</thead>
-        									<tbody>
-        										<?php if(!empty($dados['perfil'])) :?>
-            										<?php foreach ($dados['perfil'] as $rsPerfil) : ?>
-            											<tr>
-            												<td><?php echo strtoupper($rsPerfil['st_nome_fantasia']); ?></td>
-            												<td><?php echo strtoupper($rsPerfil['st_nome']) ?></td>
-                                                            <td><?php echo $rsPerfil['sn_ativo'] == 1 ? 'ATIVO':'INATIVO';?></td>
-                                                            <td style="text-align: center;">
-                            									<a><span class="fa-remove s20" title="Inativar Registro" onclick="excluirRegistro(<?php echo $rsPerfil['id_organizacao'] ?>,<?php echo $rsPerfil['id_usuario'] ?>)" style="cursor: pointer;"></span></a>
-                                                            </td>
-                                                        </tr>
-            										<?php endforeach; ?>
-            									<?php endif;?>
-        									</tbody>
-        								</table>
-        							</div>
-        							<div class="slimScrollBar ui-draggable" style="background: rgb(153, 153, 153) none repeat scroll 0% 0%; height: 5px; position: absolute; bottom: 3px; opacity: 0.4; display: none; border-radius: 5px; z-index: 99; width: 1060px; left: 0px;"></div>
-        							<div class="slimScrollRail" style="width: 100%; height: 5px; position: absolute; bottom: 3px; display: none; border-radius: 5px; background: rgb(51, 51, 51) none repeat scroll 0% 0%; opacity: 0.5; z-index: 90;"></div>
-        						</div>
-        					</div>
-							
+							</div>							
 						</div>
 					</div>
 				</div>
