@@ -57,7 +57,7 @@ class Funcionario_FuncionarioController extends App_Controller_Action
                 'st_sexo'            => $post['st_sexo'],
                 'st_fonecontato'     => preg_replace('/\D+/', '', $post["st_fonecontato"]),
                 'dt_nascimento'      => $YY.'-'.$mm.'-'.$dd,
-                'id_foto'           => !empty($post["imagem"]) ? 1 : (!empty($post['id_foto'])? $post['id_foto'] : null),
+                'st_foto'           => !empty($post["imagem"]) ? 1 : (!empty($post['id_foto'])? $post['id_foto'] : null),
                 'st_email'           => $post['st_email'],
                 'st_cpf'             => preg_replace('/\D+/', '', $post["st_cpf"]),
                 'id_tipo_pessoa'    => 1,
@@ -85,6 +85,8 @@ class Funcionario_FuncionarioController extends App_Controller_Action
                         $rspessoa = $post["id_pessoa"];
                     }
                     
+                    list($dd,$mm,$YY) = explode('/',$post["dt_admissao"]);
+                    
                     $args = array(
                         'id_pessoa'     => $rspessoa,
                         'id_ativo'      => 1,
@@ -92,7 +94,7 @@ class Funcionario_FuncionarioController extends App_Controller_Action
                         'id_cargo'      => $post['id_cargo'],
                         'st_ctps'       => $post['st_ctps'],
                         'st_serie'      => $post['st_serie'],
-                        'dt_admissao'   => $post['dt_admissao'],
+                        'dt_admissao'   => $YY.'-'.$mm.'-'.$dd,
                         'vl_salario'    => $post['vl_salario'],
                         'id_banco'      => $post['id_banco'],
                         'st_agencia'    => $post['st_agencia'],
@@ -113,12 +115,23 @@ class Funcionario_FuncionarioController extends App_Controller_Action
                     
                     $args = array(
                         'id_ativo'      => empty($post['id_ativo'])? 0 : $post['id_ativo'],
-                        'ds_observacao' => $post['ds_observacao']);
+                        'st_rg'         => $post['st_rg'],
+                        'id_cargo'      => $post['id_cargo'],
+                        'st_ctps'       => $post['st_ctps'],
+                        'st_serie'      => $post['st_serie'],
+                        'dt_admissao'   => $YY.'-'.$mm.'-'.$dd,
+                        'vl_salario'    => $post['vl_salario'],
+                        'id_banco'      => $post['id_banco'],
+                        'st_agencia'    => $post['st_agencia'],
+                        'st_conta'      => $post['st_conta'],
+                        'id_conta_banco'=> $post['id_conta_banco'],
+                        'ds_observacao' => $post['ds_observacao']
+                    );
                     
-                    $where2 = $mCliente->getAdapter()->quoteInto('id_cliente = ?', $post['id_cliente']);
-                    $mCliente->update($args,$where2);
+                    $where2 = $mFuncionario->getAdapter()->quoteInto('id_funcionario = ?', $post['id_funcionario']);
+                    $mFuncionario->update($args,$where2);
                     
-                    $rsCliente = $post["id_cliente"];
+                    $rsfuncionario = $post["id_funcionario"];
                 }
                 
                 $getdados = self::getdadoscadastrados($rsfuncionario);
@@ -158,62 +171,7 @@ class Funcionario_FuncionarioController extends App_Controller_Action
     	$rsTipoLogradouro = $mTipoLogradouro->fetchAll()->toArray();
     	$this->view->TipoLogradouro = $rsTipoLogradouro;
     }
-    
-    /**
-     * 
-     */
-    public function acessoAction()
-    {
-    	if($this->_request->isPost())
-    	{
-    		$post = $this->_request->getPost();
-    		$dtcadastro = date('Y-m-d H:i:s');
-    		$mUsuarioOrg = new Model_Usuario_UsuarioOrganizacao();
-    		$rsPerfis = $mUsuarioOrg->fetchAll(array('id_usuario=?'=>$post['id_usuario'],'id_organizacao=?'=>$post['id_organizacao'],'id_grupo=?'=>$this->grupo))->toArray();
-    		
-    		if(!empty($rsPerfis))
-    		{   			
-    			$msg="Já existe um cadastro com esses parâmetros";
-    		}else{
-    			
-    			$dados = array(
-    					'id_usuario' => $post['id_usuario'],
-    					'id_organizacao' => $post['id_organizacao'],
-    					'id_perfil' => $post['id_perfil'],
-    					'id_grupo' => $this->grupo,
-    					'sn_ativo' => 1,
-    					'dt_cadastro' => $dtcadastro,
-    					'cd_user_cadastro' => $this->idUsuario
-    			);
-    			
-    			$mUsuarioOrg->insert($dados);
-    			$data = array('id_organizacao_atual'=>$post['id_organizacao']);
-    			$where = $this->mUsuario->getAdapter()->quoteInto('id_usuario = ?', $post["id_usuario"]);
-    			$this->mUsuario->update($data, $where);
-    			
-    			$msg="Cadastrado";
-    		}
-    		
-    		$this->_helper->layout->disableLayout();
-    		$this->getHelper('viewRenderer')->setNoRender();
-    		$this->getResponse()->setBody(json_encode(array('result' => $msg)));
-    	}
-    }
-    
-    /**
-     * 
-     */
-    public function deleteperfilAction()
-    {
-    	if($this->_request->isPost())
-    	{
-    		$post = $this->_request->getPost();
-    		$mUsuarioOrg = new Model_Usuario_UsuarioOrganizacao();
-    		$rsPerfil = $mUsuarioOrg->deleteReg($post);
-    		$this->getHelper('viewRenderer')->setNoRender();
-    	}
-    }
-    
+     
     /**
      *
      * Enter description here ...
@@ -224,6 +182,23 @@ class Funcionario_FuncionarioController extends App_Controller_Action
         $rsFuncionario = $mFuncionario->fetchAll(array('id_organizacao = ?' => $this->idOrganizacao), '',30)->toArray();
         $this->view->rsFuncionario = $rsFuncionario;
     }
+    
+    /**
+     *
+     * Enter description here ...
+     */
+    public function inativarregistroAction()
+    {
+        if($this->_request->getParam('id'))
+        {
+            list($date,$id) = explode('@',base64_decode($this->_request->getParam('id')));
+            $mfuncionario = new Model_Funcionario_Funcionario();
+            $where = $mfuncionario->getAdapter()->quoteInto('id_funcionario = ?', $id );
+            $mfuncionario->update(array('id_ativo'=> 0),$where);
+            $this->_redirect('funcionario/funcionario/listagem');
+        }
+    }
+    
     /**
      *
      * @param unknown $params
@@ -234,7 +209,9 @@ class Funcionario_FuncionarioController extends App_Controller_Action
     	$mFuncionario = new Model_Funcionario_VwFuncionario();
     	$dadospagina = $mFuncionario->fetchAll(array('id_funcionario = ?' => $params))->toArray();
     	list($YY,$mm,$dd) = explode('-',$dadospagina[0]["dt_nascimento"]);
+    	list($YYa,$mma,$dda) = explode('-',$dadospagina[0]["dt_admissao"]);
     	$dadospagina[0]["dt_nascimento"] = $dd.'/'.$mm.'/'.$YY;
+    	$dadospagina[0]["dt_admissao"] = $dda.'/'.$mma.'/'.$YYa;
     	return $dadospagina[0];
     }
 }

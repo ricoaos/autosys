@@ -23,9 +23,24 @@
                 <!-- End .option-buttons -->
             </div>
 		</div>
+		<?php if(!empty($this->msg)):?>
+        	<?php if($this->msg == 2) :?>
+        		<div class="alert alert-success fade in">
+        			<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+        			<i class="fa-ok alert-icon s24"></i>
+        			<strong>Registro gravado com sucesso!</strong>
+        		</div>
+        	<?php else :?>
+        		<div class="alert alert-danger fade in">
+        			<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+        			<strong>Ocorreu um erro ao gravar!</strong>
+        		</div>
+        	<?php endif;?>
+        <?php endif;?>
 		<form id="formCadastro" class="form-horizontal group-border hover-stripped" role="form" method="post" action="<?php echo $this->baseUrl('/funcionario/funcionario/index')?>">
 			<input type="hidden" id="imagem" name="imagem" value="">
-			<input type="hidden" id="id_foto" name="id_foto" value="<?php echo $dados['geral']['sn_foto']?>">
+			<input type="hidden" id="id_pessoa" name="id_pessoa" value="<?php echo $this->dadospagina['id_pessoa']?>">
+			<input type="hidden" id="id_foto" name="id_foto" value="<?php echo $this->dadospagina['id_foto']?>">
 			<div class="row">
 				<div class="col-lg-9 col-md-9 col-sm-9 col-xs-12" id="wrapper_booth" style="display: none;">
 					<div class="panel panel-primary">
@@ -101,7 +116,7 @@
 							<div class="form-group">
 								<label class="col-lg-1 col-md-1 col-sm-12 control-label">RG</label>
 								<div class="col-lg-3 col-md-3">
-									<input type="text" class="form-control" id="st_rg" name="st_rg" maxlength="10" value="<?php echo $dados['geral']['nr_rg']?>" />
+									<input type="text" class="form-control" id="st_rg" name="st_rg" maxlength="10" value="<?php echo $this->dadospagina['st_rg']?>" />
 								</div>
 								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Sexo<b style="color: red;">*</b>:</label> 
 								<div class="col-lg-3 col-md-3">
@@ -129,12 +144,12 @@
 							<div class="form-group">
 								<label class="col-lg-1 col-md-1 col-sm-12 control-label">CTPS </label>
 								<div class="col-lg-2 col-md-2">
-									<input type="text" class="form-control" id="st_ctps" name="st_ctps" value="<?php echo $this->dadospagina['st_ctps']?>" />
+									<input type="text" class="form-control" id="st_ctps" name="st_ctps" maxlength="10" value="<?php echo $this->dadospagina['st_ctps']?>" />
 								</div>
 								
 								<label class="col-lg-1 col-md-1 col-sm-12 control-label">SÉRIE </label>
 								<div class="col-lg-2 col-md-2">
-									<input type="text" class="form-control" id="st_serie" name="st_serie" value="<?php echo $this->dadospagina['st_serie']?>" />
+									<input type="text" class="form-control" id="st_serie" name="st_serie" maxlength="6" value="<?php echo $this->dadospagina['st_serie']?>" />
 								</div>
 								
 								<label class="col-lg-1 col-md-1 col-sm-12 control-label">ADMISSÃO </label>
@@ -295,22 +310,6 @@
 </div>
 <!-- Fim Modal valida CPF--> 
 
-
-<?php if(!empty($this->msg)):?>
-	<?php if($this->msg == 2) :?>
-		<div class="alert alert-success fade in">
-			<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
-			<i class="fa-ok alert-icon s24"></i>
-			<strong>Registro gravado com sucesso!</strong>
-		</div>
-	<?php else :?>
-		<div class="alert alert-danger fade in">
-			<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
-			<strong>Ocorreu um erro ao gravar!</strong>
-		</div>
-	<?php endif;?>
-<?php endif;?>
-
 <script type="text/javascript" src="<?php echo $this->baseUrl('/js/photobooth/photobooth_min.js')?>"> </script>
 <script type="text/javascript" src="<?php echo $this->baseUrl('/js/photobooth/script.js')?>"> </script>
 <script type="text/javascript" src="<?php echo $this->baseUrl('/js/photobooth/hijs.js')?>"> </script>
@@ -321,41 +320,7 @@
 <script src="<?php echo $this->baseUrl()?>/assets/plugins/forms/maxlength/bootstrap-maxlength.js"></script>
 <script src="<?php echo $this->baseUrl()?>/assets/plugins/forms/bootstrap-filestyle/bootstrap-filestyle.js"></script>
 <script src="<?php echo $this->baseUrl()?>/assets/plugins/forms/maskedinput/jquery.maskedinput.js"></script>
+<script type="text/javascript" src="<?php echo $this->baseUrl('/js/mascara.js')?>"> </script>
 
-<script type="text/javascript">
 
-function mascara(o,f){
-    v_obj=o;
-    v_fun=f;
-    setTimeout("execmascara()",1);
-}
-function execmascara(){
-    v_obj.value=v_fun(v_obj.value);
-}
-function mtel(v){
-    v=v.replace(/\D/g,"");
-    v=v.replace(/^(\d{2})(\d)/g,"($1) $2");
-    v=v.replace(/(\d)(\d{4})$/,"$1-$2");
-    return v;
-}
-function data(v){
-	v=v.replace(/\D/g,"");
-    v=v.replace(/(\d{2})(\d)/,"$1/$2");
-    v=v.replace(/(\d{2})(\d)/,"$1/$2");    
-    return v;
-}
-function id( el ){
-	return document.getElementById( el );
-}
-window.onload = function(){
-	id('st_fonecontato').onkeypress = function(){
-		mascara( this, mtel );
-	},
-	id('st_fonecelular').onkeypress = function(){
-		mascara( this, mtel );
-	},
-	id('dt_nascimento').onkeypress = function(){
-		mascara( this, data );
-	}
-}
-</script>
+

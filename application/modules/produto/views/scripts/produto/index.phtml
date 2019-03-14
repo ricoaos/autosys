@@ -22,7 +22,20 @@
                 </div> 
             </div>
 		</div>
-		
+		<?php if(!empty($this->msg)):?>
+        	<?php if($this->msg == 2) :?>
+        		<div class="alert alert-success fade in">
+        			<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+        			<i class="fa-ok alert-icon s24"></i>
+        			<strong>Registro gravado com sucesso!</strong>
+        		</div>
+        	<?php else :?>
+        		<div class="alert alert-danger fade in">
+        			<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
+        			<strong>Ocorreu um erro ao gravar!</strong>
+        		</div>
+        	<?php endif;?>
+        <?php endif;?>		
 		<div class="outlet">
             <!-- Start .outlet -->
             <!-- Page start here ( usual with .row ) -->

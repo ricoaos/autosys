@@ -1,8 +1,11 @@
 $(document).ready(function(){
 	
+	$("#vl_salario").mask('#.##0,00',{reverse:true});
 	$("#st_cpf").mask('999.999.999-99');
+	$("#st_fonecontato").mask('(99)99999-9999');
 	$("#dt_nascimento, #dt_admissao").mask('99/99/9999');
 	$("#st_cep").mask('99.999-999');
+	
 	$("#wrapper_booth").hide();
           
     $("#foto").click(function(){
