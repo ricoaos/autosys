@@ -24,7 +24,7 @@ class Produto_ProdutoController extends App_Controller_Action
 		if($this->_request->isPost())
     	{
     	    
-			
+			Zend_Debug::dump($_POST);
     		
 			
     		$this->view->msg = $msg;
@@ -41,6 +41,10 @@ class Produto_ProdutoController extends App_Controller_Action
 		$mMarcaProduto = new Model_Produto_MarcaProduto();
 		$rMarcaProduto = $mMarcaProduto->fetchAll()->toArray();
 		$this->view->marcaProduto = $rMarcaProduto;
+		
+		$mFornecedor = new Model_Fornecedor_Fornecedor();
+		$rFornecedor = $mFornecedor->fetchAll()->toArray();
+		$this->view->fornecedor = $rFornecedor;
 		
 	}
 	

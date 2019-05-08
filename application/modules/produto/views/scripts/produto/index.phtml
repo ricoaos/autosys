@@ -35,208 +35,148 @@
         			<strong>Ocorreu um erro ao gravar!</strong>
         		</div>
         	<?php endif;?>
-        <?php endif;?>		
-		<div class="outlet">
-            <!-- Start .outlet -->
-            <!-- Page start here ( usual with .row ) -->
-            <form id="wizard" class="form-horizontal form-wizard" role="form">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <!-- col-lg-6 start here -->
-                        <div class="panel panel-primary toggle">
-                            <!-- Start .panel -->
-                            <div class="panel-heading">
-                               <h4 class="panel-title"></h4>
-                            </div>
-                            <div class="panel-body">
-                                <div class="msg"></div>
-                                <div class="wizard-steps"></div>
-                                <div class="step" id="first">
-                                    <span data-icon="ec-user" data-text="Dados"></span>
-                                    <div class="form-group">
-                                        <label class="col-lg-1 control-label">Produto <b style="color: red;">*</b></label>
-                                        <div class="col-lg-5">
-                                            <input class="form-control" name="firstname" type="text">
-                                        </div>
-                                        
-                                        <label class="col-lg-1 control-label">Grupo <b style="color: red;">*</b></label>
-                                        <div class="col-lg-2">
-                                            <select id="id_grupo_produto" class="form-control select2" name="id_grupo_produto">
-                                            	<option></option>
-        										<?php foreach ($this->grupoProduto as $value):?>
-        											<option value="<?php echo $value['id_grupo_produto']?>" <?php if($this->dadospagina['id_grupo_produto'] == $value['id_grupo_produto']) echo "selected"?>><?php echo strtoupper( $value['st_nome']) ?></option>
-        										<?php endforeach;?>
-    										</select>
-                                        </div>
-                                        
-                                        <label class="col-lg-1 control-label">Unidade <b style="color: red;">*</b></label>
-                                        <div class="col-lg-2">
-                                            <select id="id_unimed" class="form-control select2" name="id_unimed">
-    											<option></option>
-        										<?php foreach ($this->unimed as $value):?>
-        											<option value="<?php echo $value['id_unimed']?>" <?php if($this->dadospagina['id_unimed'] == $value['id_unimed']) echo "selected"?>><?php echo strtoupper( $value['st_nome']) ?></option>
-        										<?php endforeach;?>
-    										</select>
-                                        </div>
-                                    </div>
-                                    
-                                    
-                                    <div class="form-group">
-                                        <label class="col-lg-1 control-label">Marca <b style="color: red;">*</b></label>
-                                        <div class="col-lg-2">
-                                            <select id="id_marca_produto" class="form-control select2" name="id_marca_produto">
-    											<option></option>
-        										<?php foreach ($this->marcaProduto as $value):?>
-        											<option value="<?php echo $value['id_marca_produto']?>" <?php if($this->dadospagina['id_marca_produto'] == $value['id_marca_produto']) echo "selected"?>><?php echo strtoupper( $value['st_nome']) ?></option>
-        										<?php endforeach;?>
-    										</select>
-                                        </div>
-                                        
-                                        <label class="col-lg-1 control-label">Modelo </label>
-                                        <div class="col-lg-2">
-                                           <input class="form-control" name="firstname" type="text">												
-                                        </div>
-                                        
-                                        <label class="col-lg-1 control-label">lote <b style="color: red;">*</b></label>
-                                        <div class="col-lg-2">
-                                            <input class="form-control" name="firstname" type="text">
-                                        </div>
-                                        
-                                        <label class="col-lg-1 control-label">Validade <b style="color: red;">*</b></label>
-                                        <div class="col-lg-2">
-                                            <input class="form-control datepicker" type="text" value="">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-lg-1 control-label">Peso</label>
-                                        <div class="col-lg-2">
-                                            <input class="form-control" name="email" type="email">
-                                        </div>
-                                        <label class="col-lg-1 control-label">Altura</label>
-                                        <div class="col-lg-2">
-                                            <input class="form-control" name="phone" type="text">
-                                        </div>
-                                        <label class="col-lg-1 control-label">Largura</label>
-                                        <div class="col-lg-2">
-                                            <input class="form-control" name="phone" type="text">
-                                        </div>
-                                        <label class="col-lg-1 control-label">Comprimento</label>
-                                        <div class="col-lg-2">
-                                            <input class="form-control" name="phone" type="text">
-                                        </div>
-                                    </div>
-                                </div>
-                                                                
-                                <div class="step" id="account">
-                                	<div class="col-lg-6">
-                                        <span data-icon="ec-unlocked" data-text="Valores"></span>
-                                        <div class="form-group">
-                                            <label class="col-lg-3 control-label">Valor de Custo</label>
-                                            <div class="col-lg-6">
-                                                <input class="form-control" name="num_valor_custo" id="num_valor_custo" type="text" >
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-lg-3 control-label">Despesas com Acessórios</label>
-                                            <div class="col-lg-6">
-                                                <input class="form-control" name="num_desp_acessorio" id="num_desp_acessorio" type="text" value='0,00'>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-lg-3 control-label">Outros Custos</label>
-                                            <div class="col-lg-6">
-                                                <input class="form-control" name="num_outro_custo" id="num_outro_custo" type="text" value='0,00'>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-lg-3 control-label">Custos Final</label>
-                                            <div class="col-lg-6">
-                                                <input class="form-control" name="num_custo_final" id="num_custo_final" type="text" value='0,00'>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label class="col-lg-3 control-label">Valor de Venda</label>
-                                            <div class="col-lg-6">
-                                                <input class="form-control" name="num_valor_venda" id="num_valor_venda" type="text">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-lg-3 control-label">Lucro Utilizado (%)</label>
-                                            <div class="col-lg-6">
-                                                <input class="form-control" name="st_lucro" id="st_lucro" type="text">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-lg-3 control-label">Comissão (%)</label>
-                                            <div class="col-lg-6">
-                                                <input class="form-control" name="st_comissao" id="st_comissao" type="text">
-                                            </div>
-                                        </div>
-                                    </div>
+        <?php endif;?>	
+        
+      	<form id="formCadastro" class="form-horizontal group-border hover-stripped" role="form" method="post" action="<?php echo $this->baseUrl('/produto/produto/index')?>">
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-9 col-xs-12">
+					<div class="panel panel-default plain">
+						<div class="panel-heading white-bg"></div>
+						<div class="panel-body">
+							<div class="form-group">
+								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Registro: </label>
+								<div class="col-lg-3 col-md-3">
+									<input class="form-control" type="text" id="id_fornecedor" name="id_fornecedor" readonly="readonly" value="<?php echo $this->dadospagina['id_fornecedor']?>" />
+								</div>
+							</div>						
+							<div class="form-group">
+								<label class="col-lg-1 col-md-1 col-sm-12 control-label ">Nome <b style="color: red;"> *</b></label>
+								<div class="col-lg-5 col-md-5">
+									<input type="text" class="form-control" id="st_nome" name="st_nome" required  value="<?php echo $this->dadospagina['st_nome']?>" />
+								</div>
+								<label class="col-lg-1 col-md-1 col-sm-12 control-label ">Categoria<b style="color: red;"> *</b></label>
+								<div class="col-lg-2 col-md-2">
+									<select id="id_grupo_produto" class="form-control select2" name="id_grupo_produto" required>
+                                    	<option></option>
+										<?php foreach ($this->grupoProduto as $value):?>
+											<option value="<?php echo $value['id_grupo_produto']?>" <?php if($this->dadospagina['id_grupo_produto'] == $value['id_grupo_produto']) echo "selected"?>><?php echo strtoupper( $value['st_nome']) ?></option>
+										<?php endforeach;?>
+									</select>
+								</div>
+								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Unidade <b style="color: red;"> *</b></label>
+								<div class="col-lg-2 col-md-2">
+									<select id="id_unimed" class="form-control select2" name="id_unimed" required>
+										<option></option>
+										<?php foreach ($this->unimed as $value):?>
+											<option value="<?php echo $value['id_unimed']?>" <?php if($this->dadospagina['id_unimed'] == $value['id_unimed']) echo "selected"?>><?php echo strtoupper( $value['st_nome']) ?></option>
+										<?php endforeach;?>
+									</select>
+								</div>
+							</div>
+							
+							<div class="form-group">
+                                <label class="col-lg-1 control-label">Marca <b style="color: red;">*</b></label>
+                                <div class="col-lg-2">
+                                    <select id="id_marca_produto" class="form-control select2" name="id_marca_produto" required >
+										<option></option>
+										<?php foreach ($this->marcaProduto as $value):?>
+											<option value="<?php echo $value['id_marca_produto']?>" <?php if($this->dadospagina['id_marca_produto'] == $value['id_marca_produto']) echo "selected"?>><?php echo strtoupper( $value['st_nome']) ?></option>
+										<?php endforeach;?>
+									</select>
                                 </div>
                                 
-                                <div class="step" id="estoque">
-                                    <span data-icon="fa-envelope" data-text="Estoque"></span>
-                                    <div class="form-group">
-                                        <label class="col-lg-1 control-label">Estoque Minímmo</label>
-                                        <div class="col-lg-3">
-                                            <input class="form-control" name="email" type="email">
-                                        </div>
-                                        <label class="col-lg-1 control-label">Estoque Máximo</label>
-                                        <div class="col-lg-3">
-                                            <input class="form-control" name="phone" type="text">
-                                        </div>
-                                        <label class="col-lg-1 control-label">Quantidade Atual</label>
-                                        <div class="col-lg-3">
-                                            <input class="form-control" name="phone" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-lg-1 control-label">Localização</label>
-                                        <div class="col-lg-3">
-                                            <input class="form-control" name="id_localizacao" id="id_localizacao" type="text" value="<?php echo $this->dadospagina['id_localizacao']?>">
-                                        </div>
-                                    </div>
+                                <label class="col-lg-1 control-label">Modelo </label>
+                                <div class="col-lg-2">
+                                   <input class="form-control" name="st_modelo" id="st_modelo" type="text" value="<?php echo $this->dadospagina['st_modelo']?>">												
                                 </div>
-                                                                
-                                <div class="step submit_step" id="est">
-                                    <span data-icon="ec-unlocked" data-text="Fornecedor"></span>
-                                    <div class="form-group">
-                                       <div class="form-group">
-                                            <label class="col-lg-2 col-md-2 col-sm-12 control-label">Fornecedores</label>
-                                            <div class="col-lg-10 col-md-10">
-                                                <select multiple="multiple" size="10" name="duallistbox" class="duallistbox col-lg-12">
-                                                    <optgroup label="Alaskan/Hawaiian Time Zone">
-                                                        <option value="AK">Comando Alto Peças</option>
-                                                        <option value="HI">Estação das Motos</option>
-                                                        <option value="HI">SMAFF</option>
-                                                        <option value="HI">Planalto Alto Peças</option>
-                                                        <option value="HI">MARMOTA</option>
-                                                        <option value="HI">Preguiça</option>
-                                                    </optgroup>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
+                                
+                                <label class="col-lg-1 control-label">lote </label>
+                                <div class="col-lg-2">
+                                    <input class="form-control" name="st_lote" id="st_lote" type="text" value="<?php echo $this->dadospagina['st_lote']?>">
                                 </div>
-                                <div class="wizard-actions">
-                                    <button class="btn pull-left" type="reset"><i class="en-arrow-left5"></i>Back</button>
-                                    <button class="btn pull-right" type="submit">Next<i class="en-arrow-right5"></i>
-                                    </button>
+                                
+                                <label class="col-lg-1 control-label">Validade <b style="color: red;">*</b></label>
+                                <div class="col-lg-2">
+                                    <input class="form-control" type="text" name="dt_validade" id="dt_validade" value="<?php echo $this->dadospagina['dt_validade']?>">
                                 </div>
                             </div>
-                        </div>
-                    </div>
-        		</div>
-    			<div class="panel panel-default toggle">
-					<button class="btn btn-success  ml15" type="submit"><i class="fa-ok"></i> Cadastrar</button>
-					<button class="btn btn-danger  ml15" type="submit"><i class="fa-remove"></i> Cancelar</button>
-    			</div>	
-			</form>
-		</div>
+							<div class="form-group">
+                                <label class="col-lg-1 control-label">Estoque Minímmo <b style="color: red;">*</b></label>
+                                <div class="col-lg-3">
+                                    <input class="form-control" name="qt_estoque_minimo" id="qt_estoque_minimo" type="text" required value="<?php echo $this->dadospagina['qt_estoque_minimo']?>">
+                                </div>
+                                <label class="col-lg-1 control-label">Quantidade saldo</label>
+                                <div class="col-lg-3">
+                                    <input class="form-control" name="qt_saldo" name="qt_saldo" type="text" value="<?php echo $this->dadospagina['qt_saldo']?>">
+                                </div>
+                                <label class="col-lg-1 control-label">Localização <b style="color: red;">*</b></label>
+                                <div class="col-lg-3">
+                                    <input class="form-control" name="st_localizacao" id="st_localizacao" type="text" required value="<?php echo $this->dadospagina['st_localizacao']?>">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-1 control-label">Fornecedor <b style="color: red;">*</b></label>
+                                <div class="col-lg-11">
+                                    <select name="id_fornecedor[]" id="id_fornecedor[]" class="form-control select2" multiple required>
+                                    	<option></option>
+                                        <?php foreach ($this->fornecedor as $value):?>
+											<option value="<?php echo $value['id_fornecedor']?>" <?php if($this->dadospagina['id_fornecedor'] == $value['id_fornecedor']) echo "selected"?>><?php echo strtoupper( $value['st_nome']) ?></option>
+										<?php endforeach;?>
+                                    </select>
+                                </div>
+                            </div>
+														
+							<div class="form-group">
+                                <label class="col-lg-2 control-label">Valor de Compra</label>
+                                <div class="col-lg-4">
+                                    <input class="form-control" name="num_valor_custo" id="num_valor_custo" type="text" required value="<?php echo $this->dadospagina['num_valor_custo']?>">
+                                </div>
+
+                                <label class="col-lg-2 control-label">Valor de Venda</label>
+                                <div class="col-lg-4">
+                                    <input class="form-control" name="num_valor_venda" id="num_valor_venda" type="text" required value="<?php echo $this->dadospagina['num_valor_venda']?>">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label">Despesas com Acessórios</label>
+                                <div class="col-lg-4">
+                                    <input class="form-control" name="num_desp_acessorio" id="num_desp_acessorio" type="text" value="<?php echo empty($this->dadospagina['num_desp_acessorio']) ? '0,00':$this->dadospagina['num_desp_acessorio']?>">
+                                </div>
+                                <label class="col-lg-2 control-label">Lucro Utilizado (%)</label>
+                                <div class="col-lg-4">
+                                    <input class="form-control" name="st_lucro" id="st_lucro" type="text" value="<?php echo $this->dadospagina['st_lucro']?>">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label">Outros Custos</label>
+                                <div class="col-lg-4">
+                                    <input class="form-control" name="num_outro_custo" id="num_outro_custo" type="text" value="<?php echo empty($this->dadospagina['num_outro_custo']) ? '0,00':$this->dadospagina['num_outro_custo']?>">
+                                </div>
+                                <label class="col-lg-2 control-label">Comissão (%)</label>
+                                <div class="col-lg-4">
+                                    <input class="form-control" name="st_comissao" id="st_comissao" type="text" value="<?php echo $this->dadospagina['st_comissao']?>">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-lg-2 control-label">Custos Final</label>
+                                <div class="col-lg-4">
+                                    <input class="form-control" name="num_custo_final" id="num_custo_final" type="text" value="<?php echo $this->dadospagina['num_custo_final']?>">
+                                </div>
+                            </div>
+						</div>
+					</div>
+				</div>
+							
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="panel panel-default toggle">
+        				<button class="btn btn-success  ml15" type="submit"><i class="fa-ok"></i> Cadastrar</button>
+        				<a class="btn dropdown-toggle" id="dropdownMenu1" href="<?php echo $this->baseUrl('/produto/produto/')?>">
+        					<button class="btn btn-primary" type="button"><i class="fa-plus-sign"></i> Cadastrar Novo</button>
+        				</a>
+        			</div>	
+				</div>
+			</div>
+        </form>
 	</div>
 </div>
 <div class="clearfix"></div>
