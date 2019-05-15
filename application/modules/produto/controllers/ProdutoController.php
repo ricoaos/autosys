@@ -23,8 +23,6 @@ class Produto_ProdutoController extends App_Controller_Action
 		$post = $this->_request->getPost();
 		$dtcadastro = date('Y-m-d H:i:s');
 		
-		$msg=null;
-
 	    //Realiza a inserção das informações 
 		if($this->_request->isPost())
     	{
@@ -39,8 +37,7 @@ class Produto_ProdutoController extends App_Controller_Action
     	        'st_comissao'         => $post['st_comissao'],
     	        'id_usuario_cadastro' => $this->idUsuario
     	    );
-    	    
-    	        	    
+    	      
     	    try {
     	    
         	    if(empty($post['id_produto'])){
@@ -50,8 +47,9 @@ class Produto_ProdutoController extends App_Controller_Action
         	        
         	        $args = array(
         	            'id_produto' => $rsProduto,
-        	            'qt_estoque_minimo' => $post['qt_estoque_minimo'],
-        	            'st_localizacao' => $post['st_localizacao'],
+        	            'qt_estoque_minimo'   => $post['qt_estoque_minimo'],
+        	            'st_localizacao'      => $post['st_localizacao'],
+        	            'qt_saldo'            => $post['qt_entrada'],
         	            'id_usuario_cadastro' => $this->idUsuario
         	        );
         	        
@@ -59,17 +57,18 @@ class Produto_ProdutoController extends App_Controller_Action
         	        
         	        $entrada  = array(
         	            'id_estoque'         => $rsEstoque,
-        	            'qt_entrada'         => $post['qt_entrada']
+        	            'qt_entrada'         => $post['qt_entrada'],
         	            'num_valor_custo'    => $post['num_valor_custo'],
         	            'num_valor_venda'    => $post['num_valor_venda'],
         	            'num_desp_acessorio' => $post['num_desp_acessorio'],
-        	            'st_lucro'           => $post['st_lucro'],
+        	            'st_margem_lucro'    => (int)$post['st_lucro'],
         	            'num_outro_custo'    => $post['num_outro_custo'],
-        	            'num_custo_final'    => $post['num_custo_final']
+        	            'num_custo_final'    => $post['num_custo_final'],
+        	            'id_usuario_cadastro'=> $this->idUsuario,
+        	            'dt_cadastro'        => $dtcadastro
         	        );
         	        
         	        $rsEntrada = $this->mEstoqueEntrada->insert($entrada);
-        	        
         	        
         	    }else{
         	        
