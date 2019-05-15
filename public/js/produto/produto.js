@@ -2,7 +2,7 @@ $(document).ready(function(){
 		
 	$('#num_valor_custo,#num_desp_acessorio,#num_outro_custo,#num_valor_venda').mask('#.##0,00',{reverse:true});
 	$('#dt_validade').mask('99/9999')
-	$('#num_custo_final').attr('readonly',true).css({'background':'#CCC'})
+	$('#num_custo_final,#qt_saldo').attr('readonly',true).css({'background':'#CCC'})
 	
 	$('#num_valor_custo,#num_desp_acessorio,#num_outro_custo').click(function(){
 		$(this).val('');

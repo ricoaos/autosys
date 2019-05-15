@@ -2,14 +2,14 @@
 	<div class="content-wrapper">		
 		<div class="row">
 			<div class="col-lg-12 heading">
-                <h1 class="page-header"><i class="ec-pencil2"></i>Listar Clientes</h1>
+                <h1 class="page-header"><i class="ec-pencil2"></i>Listar Produtos</h1>
 				<ul id="crumb" class="breadcrumb">
                 </ul>
                 <div class="option-buttons">
                     <div class="btn-toolbar" role="toolbar">
                         <div class="btn-group">
-							<a href="<?php echo $this->baseUrl('/corporativo/cliente/')?>">
-								<button class="btn btn-success" type="button"><span class="fa fa-plus-circle"></span> Adicionar Cliente</i></button>
+							<a href="<?php echo $this->baseUrl('/produto/produto/')?>">
+								<button class="btn btn-success" type="button"><span class="fa fa-plus-circle"></span> Adicionar Produto</i></button>
 							</a>
 						</div>
 					</div>
@@ -28,10 +28,8 @@
 											<tr>
 												<th>Registro</th>
 												<th>Nome</th>
-												<th>Nascido em</th>
-												<th>Sexo</th>
-												<th>E-mail</th>
-												<th>Status</th>
+												<th>Estoque Atual</th>
+												<th>Localizacao</th>
 												<th>Ação</th>
 											</tr>
 										</thead>
@@ -58,8 +56,8 @@
                                                     <td><?php echo $rPaciente['st_email'] ?></td>
                                                     <td><?php echo $rPaciente['id_ativo'] == 1 ? 'ATIVO':'INATIVO';?></td>
                                                     <td style="text-align: center;">
-                										<a href="<?php echo $this->baseUrl('/corporativo/cliente/index/id/'.base64_encode($rPaciente["dt_nascimento"].'@'.$rPaciente['id_entidade']))?>"><span class="fa-edit s20" title="Editar Registro"></span></a> | 
-                										<a href="<?php echo $this->baseUrl('/corporativo/cliente/inativarregistro/id/'.base64_encode($rPaciente["dt_nascimento"].'@'.$rPaciente['id_entidade']))?>"><span class="fa-remove s20" title="Inativar Registro"></span></a>
+                										<a href="<?php echo $this->baseUrl('/produto/produto/index/id/'.base64_encode($rPaciente["dt_nascimento"].'@'.$rPaciente['id_entidade']))?>"><span class="fa-edit s20" title="Editar Registro"></span></a> | 
+                										<a href="<?php echo $this->baseUrl('/produto/produto/inativarregistro/id/'.base64_encode($rPaciente["dt_nascimento"].'@'.$rPaciente['id_entidade']))?>"><span class="fa-remove s20" title="Inativar Registro"></span></a>
                                                     </td>
                                                 </tr>
                                             <?php endforeach; ?>
@@ -73,7 +71,7 @@
     		</div>
 		<?php else :?>
             <div class="alert alert-danger fade in" style="text-align: center;">
-                <strong>NÃO EXISTEM CLIENTES CADASTRADOS, CLIQUE NO BOTÃO "ADICIONAR CLIENTE" PARA REALIZAR OS CADASTROS</strong>
+                <strong>NÃO EXISTEM PRODUTOS CADASTRADOS, CLIQUE NO BOTÃO "ADICIONAR PRODUTO" PARA REALIZAR OS CADASTROS</strong>
             </div>
 		<?php endif;?>
 	</div>

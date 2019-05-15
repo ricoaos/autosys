@@ -46,7 +46,7 @@
 							<div class="form-group">
 								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Registro: </label>
 								<div class="col-lg-3 col-md-3">
-									<input class="form-control" type="text" id="id_fornecedor" name="id_fornecedor" readonly="readonly" value="<?php echo $this->dadospagina['id_fornecedor']?>" />
+									<input class="form-control" type="text" id="id_produto" name="id_fornecedor" readonly="readonly" value="<?php echo $this->dadospagina['id_produto']?>" />
 								</div>
 							</div>						
 							<div class="form-group">
@@ -101,17 +101,21 @@
                                 </div>
                             </div>
 							<div class="form-group">
+								<label class="col-lg-1 control-label">Estoque Inicial </label>
+                                <div class="col-lg-2">
+                                    <input class="form-control" name="qt_entrada" id="qt_entrada" type="text" value="<?php echo $this->dadospagina['qt_entrada']?>">
+                                </div>
                                 <label class="col-lg-1 control-label">Estoque Minímo <b style="color: red;">*</b></label>
-                                <div class="col-lg-3">
+                                <div class="col-lg-2">
                                     <input class="form-control" name="qt_estoque_minimo" id="qt_estoque_minimo" type="text" required value="<?php echo $this->dadospagina['qt_estoque_minimo']?>">
                                 </div>
-                                <label class="col-lg-1 control-label">Estoque Atual</label>
-                                <div class="col-lg-3">
-                                    <input class="form-control" name="qt_saldo" name="qt_saldo" type="text" value="<?php echo $this->dadospagina['qt_saldo']?>">
-                                </div>
                                 <label class="col-lg-1 control-label">Localização <b style="color: red;">*</b></label>
-                                <div class="col-lg-3">
-                                    <input class="form-control" name="st_localizacao" id="st_localizacao" type="text" required value="<?php echo $this->dadospagina['st_localizacao']?>">
+                                <div class="col-lg-2">
+                                    <input class="form-control" name="st_localizacao" id="st_localizacao" type="text" value="<?php echo $this->dadospagina['st_localizacao']?>">
+                                </div>
+                                <label class="col-lg-1 control-label">Estoque Atual</label>
+                                <div class="col-lg-2">
+                                    <input class="form-control" name="qt_saldo" id="qt_saldo" type="text" value="<?php echo $this->dadospagina['qt_saldo']?>">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -129,12 +133,12 @@
 							<div class="form-group">
                                 <label class="col-lg-2 control-label">Valor de Compra</label>
                                 <div class="col-lg-4">
-                                    <input class="form-control" name="num_valor_custo" id="num_valor_custo" type="text" required value="<?php echo $this->dadospagina['num_valor_custo']?>">
+                                    <input class="form-control" name="num_valor_custo" id="num_valor_custo" type="text"  value="<?php echo $this->dadospagina['num_valor_custo']?>">
                                 </div>
 
                                 <label class="col-lg-2 control-label">Valor de Venda</label>
                                 <div class="col-lg-4">
-                                    <input class="form-control" name="num_valor_venda" id="num_valor_venda" type="text" required value="<?php echo $this->dadospagina['num_valor_venda']?>">
+                                    <input class="form-control" name="num_valor_venda" id="num_valor_venda" type="text"  value="<?php echo $this->dadospagina['num_valor_venda']?>">
                                 </div>
                             </div>
                             <div class="form-group">
