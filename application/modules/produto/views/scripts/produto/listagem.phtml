@@ -2,21 +2,21 @@
 	<div class="content-wrapper">		
 		<div class="row">
 			<div class="col-lg-12 heading">
-                <h1 class="page-header"><i class="ec-pencil2"></i>Listar Produtos</h1>
+                <h1 class="page-header"><i class="fa fa-barcode"></i> <strong>LISTAGEM DE PRODUTOS</strong></h1>
 				<ul id="crumb" class="breadcrumb">
                 </ul>
                 <div class="option-buttons">
                     <div class="btn-toolbar" role="toolbar">
-                        <div class="btn-group">
-							<a href="<?php echo $this->baseUrl('/produto/produto/')?>">
-								<button class="btn btn-success" type="button"><span class="fa fa-plus-circle"></span> Adicionar Produto</i></button>
+                    	<div class="btn-group">
+                            <a class="btn dropdown-toggle" id="dropdownMenu1" href="<?php echo $this->baseUrl('/produto/produto/')?>">
+								<button class="btn btn-primary" type="button"><i class="st-file-add"></i> ADICIONAR PRODUTO</button>
 							</a>
-						</div>
+                        </div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<?php if(!empty($this->rsPacientes)):?>
+		<?php if(!empty($this->rsProduto)):?>
 			<div class="outlet">
     			<form class="form-horizontal group-border hover-stripped" role="form">
 					<div class="row">
@@ -30,34 +30,21 @@
 												<th>Nome</th>
 												<th>Estoque Atual</th>
 												<th>Localizacao</th>
+												<th>Valor Venda</th>
 												<th>Ação</th>
 											</tr>
 										</thead>
 										<tbody>
-											<?php foreach ($this->rsPacientes as $rPaciente) : ?>
+											<?php foreach ($this->rsProduto as $rProduto) : ?>
 												<tr>
-                                                	<td>
-                                                		<?php $imagem = empty($rPaciente['id_foto']) ?'/assets/img/user.png' : '/img/fotos/'.$rPaciente['id_entidade'].'.png';?>
-                                                    	<img width="45" height="50" class="chat-avatar" src="<?php  echo $this->baseUrl($imagem)?>"><br/>
-														<?php echo str_pad($rPaciente['id_entidade'], 5, "0", STR_PAD_LEFT); ?>
-													</td>
-                                                    <td>
-                                                        <?php echo $rPaciente['st_nome'] ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php
-                                                        	if(!empty($rPaciente["dt_nascimento"])){
-	                                                            list($YY,$mm,$dd) = explode('-',$rPaciente["dt_nascimento"]);
-	                                                            echo $dd.'/'.$mm.'/'.$YY; 
-                                                        	}
-                                                        ?>
-                                                    </td>
-                                                    <td><?php echo $rPaciente['st_sexo'] == 'M' ? 'Masculino' : 'Feminino' ?></td>
-                                                    <td><?php echo $rPaciente['st_email'] ?></td>
-                                                    <td><?php echo $rPaciente['id_ativo'] == 1 ? 'ATIVO':'INATIVO';?></td>
+                                                	<td><?php echo str_pad($rProduto['id_produto'], 5, "0", STR_PAD_LEFT); ?></td>
+                                                    <td><?php echo $rProduto['st_nome'] ?></td>
+                                                    <td><?php echo $rProduto['qt_saldo'] ?></td>
+                                                    <td><?php echo $rProduto['st_localizacao'] ?></td>
+                                                    <td><?php echo $rProduto['num_valor_venda'] ?></td>
                                                     <td style="text-align: center;">
-                										<a href="<?php echo $this->baseUrl('/produto/produto/index/id/'.base64_encode($rPaciente["dt_nascimento"].'@'.$rPaciente['id_entidade']))?>"><span class="fa-edit s20" title="Editar Registro"></span></a> | 
-                										<a href="<?php echo $this->baseUrl('/produto/produto/inativarregistro/id/'.base64_encode($rPaciente["dt_nascimento"].'@'.$rPaciente['id_entidade']))?>"><span class="fa-remove s20" title="Inativar Registro"></span></a>
+                										<a href="<?php echo $this->baseUrl('/produto/produto/index/id/'.base64_encode($rProduto["dt_cadastro"].'@'.$rProduto['id_produto']))?>"><span class="fa-edit s20" title="Editar Registro"></span></a> | 
+                										<a href="<?php echo $this->baseUrl('/produto/produto/inativarregistro/id/'.base64_encode($rProduto["dt_cadastro"].'@'.$rProduto['id_produto']))?>"><span class="fa-remove s20" title="Inativar Registro"></span></a>
                                                     </td>
                                                 </tr>
                                             <?php endforeach; ?>

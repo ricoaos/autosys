@@ -8,6 +8,7 @@ class Produto_ProdutoController extends App_Controller_Action
 		$this->mProduto = new Model_Produto_Produto();
 		$this->mEstoque = new Model_Produto_Estoque();
 		$this->mEstoqueEntrada = new Model_Produto_EstoqueEntrada();
+		$this->mVwProduto = new Model_Produto_VwProduto();
 	}
 
 	public function indexAction()
@@ -61,7 +62,7 @@ class Produto_ProdutoController extends App_Controller_Action
         	            'num_valor_custo'    => $post['num_valor_custo'],
         	            'num_valor_venda'    => $post['num_valor_venda'],
         	            'num_desp_acessorio' => $post['num_desp_acessorio'],
-        	            'st_margem_lucro'    => (int)$post['st_lucro'],
+        	            'st_margem_lucro'    => (int)$post['st_margem_lucro'],
         	            'num_outro_custo'    => $post['num_outro_custo'],
         	            'num_custo_final'    => $post['num_custo_final'],
         	            'id_usuario_cadastro'=> $this->idUsuario,
@@ -82,19 +83,6 @@ class Produto_ProdutoController extends App_Controller_Action
     	    
     	    //Zend_Debug::dump($dados);
     	    
-    	   /* array(18) {
-    	        ["id_fornecedor"] => array(1) {
-    	            [0] => string(1) "3"
-    	        }
-    	        
-    	        ["num_valor_custo"] => string(6) "100,00"
-    	        ["num_valor_venda"] => string(6) "190,00"
-    	        ["num_desp_acessorio"] => string(4) "0,00"
-    	        ["st_lucro"] => string(5) "90,00"
-    	        ["num_outro_custo"] => string(4) "0,00"
-    	        ["num_custo_final"] => string(6) "100,00"
-    	    }*/
-    		
         	    $msg=2;
         	    
     	    } catch (Zend_Db_Exception $e) {
@@ -129,7 +117,8 @@ class Produto_ProdutoController extends App_Controller_Action
 	 */
 	public function listagemAction()
 	{
-		
+	    $rsProduto = $this->mVwProduto->fetchAll()->toArray();
+	    $this->view->rsProduto = $rsProduto;
 	}
 		
 	/**
@@ -152,6 +141,7 @@ class Produto_ProdutoController extends App_Controller_Action
 	 */
 	public function getdadoscadastrados($params)
 	{
-	    
+	    $dadospagina = $this->mVwProduto->fetchAll(array('id_produto = ?' => $params))->toArray();
+	    return $dadospagina[0];
 	}
 }
