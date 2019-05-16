@@ -9,6 +9,7 @@ class Produto_ProdutoController extends App_Controller_Action
 		$this->mEstoque = new Model_Produto_Estoque();
 		$this->mEstoqueEntrada = new Model_Produto_EstoqueEntrada();
 		$this->mVwProduto = new Model_Produto_VwProduto();
+		$this->mProdutoFornecedor = new Model_Produto_ProdutoFornecedor();
 	}
 
 	public function indexAction()
@@ -32,8 +33,8 @@ class Produto_ProdutoController extends App_Controller_Action
     	        'id_grupo_produto'    => $post['id_grupo_produto'],
     	        'id_marca_produto'    => $post['id_marca_produto'],
     	        'id_unimed'           => $post['id_unimed'],
-    	        'st_modelo'           => $post['st_modelo'],
-    	        'st_lote'             => $post['st_lote'],
+    	        'st_modelo'           => strtoupper($post['st_modelo']),
+    	        'st_lote'             => strtoupper($post['st_lote']),
     	        'dt_validade'         => $post['dt_validade'],
     	        'st_comissao'         => $post['st_comissao'],
     	        'id_usuario_cadastro' => $this->idUsuario
@@ -49,7 +50,7 @@ class Produto_ProdutoController extends App_Controller_Action
         	        $args = array(
         	            'id_produto' => $rsProduto,
         	            'qt_estoque_minimo'   => $post['qt_estoque_minimo'],
-        	            'st_localizacao'      => $post['st_localizacao'],
+        	            'st_localizacao'      => strtoupper($post['st_localizacao']),
         	            'qt_saldo'            => $post['qt_entrada'],
         	            'id_usuario_cadastro' => $this->idUsuario
         	        );
@@ -71,8 +72,15 @@ class Produto_ProdutoController extends App_Controller_Action
         	        
         	        $rsEntrada = $this->mEstoqueEntrada->insert($entrada);
         	        
-        	    }else{
+        	        foreach($post['id_fornecedor'] as $values){
+        	            $fornecedor = array(
+        	                'id_produto' => $rsProduto,
+        	                'id_fornecedor' => $values
+        	            );
+        	            $rsProdFornecedor = $this->mProdutoFornecedor->insert($fornecedor);
+        	        }
         	        
+        	    }else{
         	        
         	        $where = $this->mProduto->getAdapter()->quoteInto('id_produto = ?', $post["id_produto"]);
         	        $this->mProduto->update($dados, $where);
@@ -80,19 +88,17 @@ class Produto_ProdutoController extends App_Controller_Action
         	    
         	    $getdados = self::getdadoscadastrados($rsProduto);
         	    $this->view->dadospagina = $getdados;
-    	    
-    	    //Zend_Debug::dump($dados);
-    	    
+
         	    $msg=2;
         	    
     	    } catch (Zend_Db_Exception $e) {
     	        $e->rollBack();
     	        $msg= $e->getMessage();
     	    }
+    	    
+    	    $this->view->msg = $msg;
     	}
     	    
-    	$this->view->msg = $msg;
-		
 		$mGrupoProduto = new Model_Produto_GrupoProduto();
 		$rGrupoProduto = $mGrupoProduto->fetchAll()->toArray();
 		$this->view->grupoProduto = $rGrupoProduto;	
@@ -108,7 +114,6 @@ class Produto_ProdutoController extends App_Controller_Action
 		$mFornecedor = new Model_Fornecedor_Fornecedor();
 		$rFornecedor = $mFornecedor->fetchAll()->toArray();
 		$this->view->fornecedor = $rFornecedor;
-		
 	}
 	
 	/**

@@ -46,7 +46,7 @@
 							<div class="form-group">
 								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Registro: </label>
 								<div class="col-lg-3 col-md-3">
-									<input class="form-control" type="text" id="id_produto" name="id_fornecedor" readonly="readonly" value="<?php echo $this->dadospagina['id_produto']?>" />
+									<input class="form-control" type="text" id="id_produto" name="id_produto" readonly="readonly" value="<?php echo $this->dadospagina['id_produto']?>" />
 								</div>
 							</div>						
 							<div class="form-group">
@@ -124,7 +124,7 @@
                                     <select name="id_fornecedor[]" id="id_fornecedor[]" class="form-control select2" multiple required>
                                     	<option></option>
                                         <?php foreach ($this->fornecedor as $value):?>
-											<option value="<?php echo $value['id_fornecedor']?>" <?php if($this->dadospagina['id_fornecedor'] == $value['id_fornecedor']) echo "selected"?>><?php echo strtoupper( $value['st_nome']) ?></option>
+											<option value="<?php echo $value['id_fornecedor']?> "><?php echo strtoupper( $value['st_nome']) ?></option>
 										<?php endforeach;?>
                                     </select>
                                 </div>

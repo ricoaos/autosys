@@ -26,14 +26,14 @@ $(document).ready(function(){
 		
 		porcentagem = ((parseFloat(valor2)-parseFloat(valor1))*100)/parseFloat(valor1);
 		porcentagem = porcentagem.toFixed(2).replace('.', ',');
-		$('#st_lucro').val(porcentagem);	
+		$('#st_margem_lucro').val(porcentagem);	
 	});
 	
-	$('#st_lucro').change(function(){
+	$('#st_margem_lucro').change(function(){
 		
 		var porcentagem = 0;
 		var valor1 = $('#num_custo_final').val();
-		var valor2 = $('#st_lucro').val();
+		var valor2 = $('#st_margem_lucro').val();
 		
 		valor1 = valor1.replace('.', '');﻿﻿
 		valor2 = valor2.replace('.', '');
