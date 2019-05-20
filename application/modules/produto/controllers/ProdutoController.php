@@ -39,12 +39,13 @@ class Produto_ProdutoController extends App_Controller_Action
     	        'st_comissao'         => $post['st_comissao'],
     	        'id_usuario_cadastro' => $this->idUsuario
     	    );
-    	      
+    	        	      
     	    try {
     	    
         	    if(empty($post['id_produto'])){
         	        
         	        $dados['dt_cadastro'] = $dtcadastro;
+        	        //$dados['id_ativo'] = 1;
         	        $rsProduto = $this->mProduto->insert($dados);
         	        
         	        $args = array(
@@ -56,6 +57,14 @@ class Produto_ProdutoController extends App_Controller_Action
         	        );
         	        
         	        $rsEstoque = $this->mEstoque->insert($args);
+        	                	        
+        	        foreach($post['id_fornecedor'] as $values){
+        	            $fornecedor['id_produto'] = $rsProduto;
+        	            $fornecedor['id_fornecedor'] = $values;
+        	            
+        	            $rsProdFornecedor = $this->mProdutoFornecedor->insert($fornecedor);
+        	        }
+        	        
         	        
         	        $entrada  = array(
         	            'id_estoque'         => $rsEstoque,
@@ -72,18 +81,38 @@ class Produto_ProdutoController extends App_Controller_Action
         	        
         	        $rsEntrada = $this->mEstoqueEntrada->insert($entrada);
         	        
-        	        foreach($post['id_fornecedor'] as $values){
-        	            $fornecedor = array(
-        	                'id_produto' => $rsProduto,
-        	                'id_fornecedor' => $values
-        	            );
-        	            $rsProdFornecedor = $this->mProdutoFornecedor->insert($fornecedor);
-        	        }
+        	       
         	        
         	    }else{
         	        
         	        $where = $this->mProduto->getAdapter()->quoteInto('id_produto = ?', $post["id_produto"]);
         	        $this->mProduto->update($dados, $where);
+        	        
+        	        $args = array(
+        	            'qt_estoque_minimo'   => $post['qt_estoque_minimo'],
+        	            'st_localizacao'      => strtoupper($post['st_localizacao']),
+        	            'qt_saldo'            => $post['qt_entrada'],
+        	            'id_usuario_cadastro' => $this->idUsuario
+        	        );
+        	        
+        	        $whereEstoque = $this->mEstoque->getAdapter()->quoteInto('id_estoque = ?', $post["id_estoque"]);
+        	        $this->mEstoque->update($args, $whereEstoque);
+        	        
+        	        $entrada  = array(
+        	            'qt_entrada'         => $post['qt_entrada'],
+        	            'num_valor_custo'    => $post['num_valor_custo'],
+        	            'num_valor_venda'    => $post['num_valor_venda'],
+        	            'num_desp_acessorio' => $post['num_desp_acessorio'],
+        	            'st_margem_lucro'    => (int)$post['st_margem_lucro'],
+        	            'num_outro_custo'    => $post['num_outro_custo'],
+        	            'num_custo_final'    => $post['num_custo_final'],
+        	            'id_usuario_cadastro'=> $this->idUsuario
+        	        );
+        	        
+        	        $whereEstoqueEntrada = $this->mEstoqueEntrada->getAdapter()->quoteInto('id_estoque_entrada = ?', $post["id_estoque_entrada"]);
+        	        $this->mEstoqueEntrada->update($entrada, $whereEstoqueEntrada);
+        	        
+        	        $rsProduto = $post['id_produto'];
         	    }
         	    
         	    $getdados = self::getdadoscadastrados($rsProduto);

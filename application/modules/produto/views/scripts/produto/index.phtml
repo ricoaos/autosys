@@ -36,6 +36,10 @@
         <?php endif;?>	
         
       	<form id="formCadastro" class="form-horizontal group-border hover-stripped" role="form" method="post" action="<?php echo $this->baseUrl('/produto/produto/index')?>">
+      	
+      		<input type="hidden" id="id_estoque" name="id_estoque" value="<?php echo $this->dadospagina['id_estoque']?>">
+			<input type="hidden" id="id_estoque_entrada" name="id_estoque_entrada" value="<?php echo $this->dadospagina['id_estoque_entrada']?>">
+      	
 			<div class="row">
 				<div class="col-lg-12 col-md-12 col-sm-9 col-xs-12">
 					<div class="panel panel-default plain">
@@ -122,7 +126,7 @@
                                     <select name="id_fornecedor[]" id="id_fornecedor[]" class="form-control select2" multiple required>
                                     	<option></option>
                                         <?php foreach ($this->fornecedor as $value):?>
-											<option value="<?php echo $value['id_fornecedor']?> "><?php echo strtoupper( $value['st_nome']) ?></option>
+											<option value="<?php echo $value['id_fornecedor']?>" ><?php echo strtoupper( $value['st_nome']) ?></option>
 										<?php endforeach;?>
                                     </select>
                                 </div>
