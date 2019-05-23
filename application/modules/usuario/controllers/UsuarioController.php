@@ -8,6 +8,8 @@ class Usuario_UsuarioController extends App_Controller_Action
 		$this->grupo = App_Identity::getGrupo();
 		$this->idUsuario = App_Identity::getIdUsuario();
 		$this->mUsuario = new Model_Usuario_Usuario();
+		$this->mUserOrganizacao = new Model_Usuario_UsuarioOrganizacao();
+		$this->mVwUsuario = new Model_Usuario_VwUsuario();
 	}
 	
     public function indexAction()
@@ -23,25 +25,16 @@ class Usuario_UsuarioController extends App_Controller_Action
     	{
     		$post = $this->_request->getPost();
     		$dtcadastro = date('Y-m-d H:i:s');
-    		list($dd,$mm,$YY) = explode('/',$post["dt_nascimento"]);
     		$dados = array(
     				'st_usuario'           => strtolower($post['st_usuario']),
     				'st_senha'             => md5($post["password"]),
     				'id_grupo'             => $this->grupo,
-    				'nm_usuario'           => strtoupper($post['nm_usuario']),
-    				'ds_sexo'              => $post['st_sexo'],
-    				'dt_nascimento'        => $YY.'-'.$mm.'-'.$dd,
-    				'nr_telefone'          => preg_replace('/\D+/', '', $post["st_fonecontato"]),
-    				'nr_celular'           => preg_replace('/\D+/', '', $post["st_fonecelular"]),
-    				'nr_cpf'               => preg_replace('/\D+/', '', $post["st_cpf"]),
-    		        'nr_rg'                => !empty($post['st_rg']) ? $post['st_rg'] :0,
-    				'ds_email'             => strtolower($post['st_email']),
-    				'sn_foto'              => !empty($post["imagem"]) ? 1 : (!empty($post['id_foto'])? $post['id_foto'] : 0),
-    				'st_usuario_cadastro'  => $this->idUsuario,
+    				'id_funcionario'       => strtoupper($post['id_funcionario']),
+    				'id_usuario_cadastro'  => $this->idUsuario,
     		        'id_organizacao_atual' => $this->idOrganizacao
     		);
     		
-    		if(empty($post['usuario'])){
+    		if(empty($post['id_usuario'])){
     			$dados['dt_cadastro'] = $dtcadastro;
     			$dados['id_ativo'] = 1;
     			$rsUsuario = $this->mUsuario->insert($dados);
@@ -54,18 +47,9 @@ class Usuario_UsuarioController extends App_Controller_Action
     				unset($dados['st_senha']);
     			}
     			
-    			$where = $this->mUsuario->getAdapter()->quoteInto('id_usuario = ?', $post["usuario"]);
+    			$where = $this->mUsuario->getAdapter()->quoteInto('id_usuario = ?', $post["id_usuario"]);
     			$this->mUsuario->update($dados, $where);
-    		    $this->view->dadospagina = self::getdadoscadastrados($post["usuario"]);
-    		}
-    		
-    		//Realiza o decode da imagem e grava no diretorio informado
-    		if(!empty($post["imagem"])){
-    			$idFoto = empty($post["usuario"]) ? $rsUsuario : $post["usuario"];
-    			list($tipo,$conteudo) = explode(",", $post["imagem"]);
-    			if(!file_put_contents(APPLICATION_PATH . '/../public/img/fotos/usuario/'.$idFoto.".png", base64_decode($conteudo))){
-    				throw new Exception("Não gravou a foto");
-    			}
+    		    $this->view->dadospagina = self::getdadoscadastrados($post["id_usuario"]);
     		}
     	}
     	
@@ -107,7 +91,7 @@ class Usuario_UsuarioController extends App_Controller_Action
     					'id_grupo' => $this->grupo,
     					'sn_ativo' => 1,
     					'dt_cadastro' => $dtcadastro,
-    					'cd_user_cadastro' => $this->idUsuario
+    					'id_usuario_cadastro' => $this->idUsuario
     			);
     			
     			$mUsuarioOrg->insert($dados);
@@ -144,7 +128,7 @@ class Usuario_UsuarioController extends App_Controller_Action
      */
     public function listagemAction()
     {
-    	$rsUsuario = $this->mUsuario->fetchAll(array('id_grupo = ?' => $this->grupo ,'id_usuario != ?' => 1), '',30)->toArray();
+        $rsUsuario = $this->mVwUsuario->fetchAll(array('id_grupo = ?' => $this->grupo ,'id_usuario != ?' => 1, 'id_organizacao = ?' => $this->idOrganizacao ), '',30)->toArray();
     	$this->view->rsUsuario = $rsUsuario;
     }
     
@@ -155,16 +139,7 @@ class Usuario_UsuarioController extends App_Controller_Action
      */
     public function getdadoscadastrados($params)
     {
-    	$dadospagina = $this->mUsuario->fetchAll(array('id_usuario = ?' => $params))->toArray();
-    	$mUsuarioOrg = new Model_Usuario_UsuarioOrganizacao();
-    	$rsPerfis = $mUsuarioOrg->getPerfilByParams($params,$this->grupo)->toArray();
-    	list($YY,$mm,$dd) = explode('-',$dadospagina[0]["dt_nascimento"]);
-    	$dadospagina[0]["dt_nascimento"] = $dd.'/'.$mm.'/'.$YY;
-    	$dados = array(
-    			'geral'  => $dadospagina[0],
-    	        'perfil' => $rsPerfis
-    	) ;
-    	
-    	return $dados;
+        $dadospagina = $this->mVwUsuario->fetchAll(array('id_usuario = ?' => $params))->toArray();
+    	return $dadospagina[0];
     }
 }

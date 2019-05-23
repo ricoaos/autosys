@@ -1,8 +1,8 @@
-<div id="content">		
+<div id="content">
 	<div class="content-wrapper">		
 		<div class="row">
 			<div class="col-lg-12 heading">
-                <h1 class="page-header"><i class="ec-pencil2"></i><strong>LISTAGEM DE USUÁRIOS</strong></h1>
+                <h1 class="page-header"><i class="ec-pencil2"></i> <strong>LISTAGEM DE USUÁRIOS</strong></h1>
                 <ul id="crumb" class="breadcrumb">
                 </ul>
                 <div class="option-buttons">
@@ -30,9 +30,8 @@
 							<tr>
 								<th>Registro</th>
 								<th>Nome</th>
-								<th>Nascido em</th>
-								<th>Sexo</th>
-								<th>E-mail</th>
+								<th>Login</th>
+								<th>Perfil</th>
 								<th>Status</th>
 								<th>Ação</th>
 							</tr>
@@ -40,28 +39,14 @@
 						<tbody>
 							<?php foreach ($this->rsUsuario as $rsUsuario) : ?>
 								<tr>
-                                	<td>
-                                		<?php $imagem = empty($rsUsuario['sn_foto']) ?'/assets/img/user.png' : '/img/fotos/usuario/'.$rsUsuario['id_usuario'].'.png';?>
-                                    	<img width="45" height="50" class="chat-avatar" src="<?php  echo $this->baseUrl($imagem)?>"><br/>
-										<?php echo str_pad($rsUsuario['id_usuario'], 5, "0", STR_PAD_LEFT); ?>
-									</td>
-                                    <td>
-                                        <?php echo $rsUsuario['nm_usuario'] ?>
-                                    </td>
-                                    <td>
-                                        <?php
-                                        	if(!empty($rsUsuario["dt_nascimento"])){
-                                                list($YY,$mm,$dd) = explode('-',$rsUsuario["dt_nascimento"]);
-                                                echo $dd.'/'.$mm.'/'.$YY; 
-                                        	}
-                                        ?>
-                                    </td>
-                                    <td><?php echo $rsUsuario['ds_sexo'] == 'M' ? 'Masculino' : 'Feminino' ?></td>
-                                    <td><?php echo $rsUsuario['ds_email'] ?></td>
+                                	<td><?php echo str_pad($rsUsuario['id_usuario'], 5, "0", STR_PAD_LEFT); ?></td>
+                                    <td><?php echo $rsUsuario['nm_funcionario'] ?></td>
+                                    <td><?php echo $rsUsuario['st_usuario'] ?></td>
+                                    <td><?php echo $rsUsuario['nm_perfil'] ?></td>
                                     <td><?php echo $rsUsuario['id_ativo'] == 1 ? 'ATIVO':'INATIVO';?></td>
                                     <td style="text-align: center;">
-										<a href="<?php echo $this->baseUrl('/usuario/usuario/index/id/'.base64_encode($rsUsuario["dt_nascimento"].'@'.$rsUsuario['id_usuario']))?>"><span class="fa-edit s20" title="Editar Registro"></span></a> | 
-										<a href="<?php echo $this->baseUrl('/usuario/usuario/inativarregistro/id/'.base64_encode($rsUsuario["dt_nascimento"].'@'.$rsUsuario['id_usuario']))?>"><span class="fa-remove s20" title="Inativar Registro"></span></a>
+										<a href="<?php echo $this->baseUrl('/usuario/usuario/index/id/'.base64_encode($rsUsuario["id_funcionario"].'@'.$rsUsuario['id_usuario']))?>"><span class="fa-edit s20" title="Editar Registro"></span></a> | 
+										<a href="<?php echo $this->baseUrl('/usuario/usuario/inativarregistro/id/'.base64_encode($rsUsuario["id_funcionario"].'@'.$rsUsuario['id_usuario']))?>"><span class="fa-remove s20" title="Inativar Registro"></span></a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
