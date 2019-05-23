@@ -1,7 +1,6 @@
 $(document).ready(function(){
 	
 	$("#st_cpf").mask('999.999.999-99');
-	$("#st_fonefixo,#st_fonecelular,#st_fonecontato").mask('(99)99999-9999');
 	$("#st_cep").mask('99.999-999');
 	$("#dt_nascimento").mask('99/99/9999');
 	$("#wrapper_booth").hide();

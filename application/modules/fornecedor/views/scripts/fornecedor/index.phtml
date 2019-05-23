@@ -83,7 +83,7 @@
 							<div class="form-group">
 								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Telefone 1<b style="color: red;"> *</b></label>
 								<div class="col-lg-3 col-md-3">
-									<input type="text" class="form-control" id="st_fone1" name="st_fone1"  placeholder="DDD+NÚMERO" maxlength="15" value="<?php echo $this->dadospagina['st_fone1']?>" />
+									<input type="text" class="form-control" id="st_fone1" name="st_fone1"  required placeholder="DDD+NÚMERO" maxlength="15" value="<?php echo $this->dadospagina['st_fone1']?>" />
 								</div>
 								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Telefone 2</label>
 								<div class="col-lg-3 col-md-3">
@@ -201,23 +201,6 @@
         </div>
     </div>
 </div>
-<!-- Fim Modal valida CPF--> 
-
-
-<?php if(!empty($this->msg)):?>
-	<?php if($this->msg == 2) :?>
-		<div class="alert alert-success fade in">
-			<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
-			<i class="fa-ok alert-icon s24"></i>
-			<strong>Registro gravado com sucesso!</strong>
-		</div>
-	<?php else :?>
-		<div class="alert alert-danger fade in">
-			<button class="close" aria-hidden="true" data-dismiss="alert" type="button">×</button>
-			<strong>Ocorreu um erro ao gravar!</strong>
-		</div>
-	<?php endif;?>
-<?php endif;?>
 
 <script type="text/javascript" src="<?php echo $this->baseUrl('/js/fornecedor/fornecedor.js')?>"> </script>
 <script type="text/javascript" src="<?php echo $this->baseUrl('/js/plugins/function.js')?>"> </script>
@@ -253,10 +236,13 @@ function id( el ){
 	return document.getElementById( el );
 }
 window.onload = function(){
-	id('st_fonecontato').onkeypress = function(){
+	id('st_fone1').onkeypress = function(){
 		mascara( this, mtel );
 	},
-	id('st_fonecelular').onkeypress = function(){
+	id('st_fone2').onkeypress = function(){
+		mascara( this, mtel );
+	},
+	id('st_fone3').onkeypress = function(){
 		mascara( this, mtel );
 	},
 	id('dt_nascimento').onkeypress = function(){

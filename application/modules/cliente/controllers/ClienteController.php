@@ -60,7 +60,7 @@ class Cliente_ClienteController extends App_Controller_Action
 			}
 			
     		$dados = array(
-				'st_cpf'            => preg_replace('/\D+/', '', $post["st_cpf"]),
+				'st_cpf'            => $post["st_cpf"],
 				'st_nome'           => strtoupper($post["st_nome"]),
     			'st_nome_sondex'    => soundex($post["st_nome"]),
     			'st_nome_metaphone' => metaphone($post["st_nome"]),
@@ -69,7 +69,7 @@ class Cliente_ClienteController extends App_Controller_Action
 				'st_sexo'           => $post['st_sexo'],
 				'st_email'          => $post['st_email'],
                 'id_tipo_pessoa'    => $post['id_tipo_pessoa'],
-				'st_fonecontato'    => preg_replace('/\D+/', '', $post["st_fonecontato"]),
+				'st_fonecontato'    => $post["st_fonecontato"],
 				'st_foto'           => !empty($post["imagem"]) ? $conteudo : (!empty($post['imagem'])? $post['imagem'] : null),
     		    'st_cep'            => preg_replace('/\D+/', '', $post["st_cep"]),
     		    'st_tipo_logradouro' => $post['st_tipo_logradouro'],

@@ -25,10 +25,10 @@ class Fornecedor_FornecedorController extends App_Controller_Action
         	$dados = array(
         	    'id_tipo_pessoa'     => $_POST['id_tipo_pessoa'],
         	    'st_nome'            => strtoupper($_POST["st_nome"]),
-        	    'st_cpf_cnpj'        => preg_replace('/\D+/', '', $_POST["st_cpf_cnpj"]),
-        	    'st_fone1'           => preg_replace('/\D+/', '', $_POST["st_fone1"]),
-        	    'st_fone2'           => preg_replace('/\D+/', '', $_POST["st_fone2"]),
-        	    'st_fone3'           => preg_replace('/\D+/', '', $_POST["st_fone3"]),
+        	    'st_cpf_cnpj'        => $_POST["st_cpf_cnpj"],
+        	    'st_fone1'           => $_POST["st_fone1"],
+        	    'st_fone2'           => $_POST["st_fone2"],
+        	    'st_fone3'           => $_POST["st_fone3"],
         	    'st_cep'             => preg_replace('/\D+/', '', $_POST["st_cep"]),
         	    'st_tipo_logradouro' => $_POST['st_tipo_logradouro'],
         	    'st_estado'          => $_POST['st_estado'],
@@ -60,8 +60,7 @@ class Fornecedor_FornecedorController extends App_Controller_Action
         	        $this->mFornecedor->update($dados,$where);
         	        
         	        $args = array(
-        	            'id_ativo'      => $_POST['id_ativo'],
-        	            'ds_observacao' => $_POST['ds_observacao']);
+        	            'id_ativo'      => $_POST['id_ativo']);
         	        
         	        
         	        $rsfornecedor = $_POST["id_fornecedor"];
