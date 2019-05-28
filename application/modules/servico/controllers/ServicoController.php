@@ -13,7 +13,7 @@ class Servico_ServicoController extends App_Controller_Action
 	 * @throws Exception
 	 */
 	public function indexAction()
-	{
+	{	    
 	    if($this->_request->getParam('id'))
 	    {
 	        list($date,$id) = explode('@',base64_decode($this->_request->getParam('id')));
@@ -26,22 +26,20 @@ class Servico_ServicoController extends App_Controller_Action
 	    //Realiza a inserção das informações
 	    if($this->_request->isPost())
 	    {
-	        $dados = array(
-	            'st_nome' => strtoupper($post['st_nome']),
-	            'num_valor_venda' => $post['num_valor_venda'],
-	            'st_comissao' => $post['st_comissao'],
-	            'ds_observacao' => $post['ds_observacao'],
-	        );
+	        
 	        
 	        try 
-	        {
-	            
+	        {	            
 	           if(empty($post['id_servico'])){
 	                
 	                $dados = array(
+	                    'st_nome' => strtoupper($post['st_nome']),
+	                    'num_valor_venda' => $post['num_valor_venda'],
+	                    'st_comissao' => $post['st_comissao'],
+	                    'ds_observacao' => $post['ds_observacao'],
 	                    'id_usuario_cadastro' => $this->idUsuario,
 	                    'dt_cadastro' => date('Y-m-d H:i:s'),
-	                    'id_ativo' => true
+	                    'id_ativo' => 1
 	                );
 	                
 	                $rsServico = $this->mServico->insert($dados);
