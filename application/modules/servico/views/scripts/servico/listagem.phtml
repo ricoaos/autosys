@@ -17,7 +17,7 @@
             </div>
 		</div>
 		
-		<?php if(!empty($this->rsPacientes)):?>
+		<?php if(!empty($this->rsServico)):?>
 		
 			<div class="outlet">
     			<form class="form-horizontal group-border hover-stripped" role="form">
@@ -33,36 +33,23 @@
 											<tr>
 												<th>Registro </th>
 												<th>Nome</th>
-												<th>Nascido em</th>
-												<th>Sexo</th>
-												<th>E-mail</th>
+												<th>Valor</th>
+												<th>Observação</th>
 												<th>Status</th>
 												<th>Ação</th>
 											</tr>
 										</thead>
 										<tbody>
-											<?php foreach ($this->rsPacientes as $rPaciente) : ?>
+											<?php foreach ($this->rsServico as $rsServico) : ?>
 												<tr>
-                                                	<td>
-														<?php echo str_pad($rPaciente['id_cliente'], 5, "0", STR_PAD_LEFT); ?>
-													</td>
-                                                    <td>
-                                                        <?php echo $rPaciente['st_nome'] ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php
-                                                        	if(!empty($rPaciente["dt_nascimento"])){
-	                                                            list($YY,$mm,$dd) = explode('-',$rPaciente["dt_nascimento"]);
-	                                                            echo $dd.'/'.$mm.'/'.$YY; 
-                                                        	}
-                                                        ?>
-                                                    </td>
-                                                    <td><?php echo $rPaciente['st_sexo'] == 'M' ? 'Masculino' : 'Feminino' ?></td>
-                                                    <td><?php echo $rPaciente['st_email'] ?></td>
-                                                    <td><?php echo $rPaciente['id_ativo'] == 1 ? 'ATIVO':'INATIVO';?></td>
+                                                	<td><?php echo str_pad($rsServico['id_servico'], 5, "0", STR_PAD_LEFT); ?></td>
+                                                    <td><?php echo $rsServico['st_nome'] ?></td>
+                                                    <td><?php echo $rsServico['num_valor_venda'] ?></td>
+                                                    <td><?php echo $rsServico['ds_observacao'] ?></td>
+                                                    <td><?php echo $rsServico['id_ativo'] == 1 ? 'ATIVO':'INATIVO';?></td>
                                                     <td style="text-align: center;">
-                										<a href="<?php echo $this->baseUrl('/cliente/cliente/index/id/'.base64_encode($rPaciente["dt_nascimento"].'@'.$rPaciente['id_cliente']))?>"><span class="fa-edit s20" title="Editar Registro"></span></a> | 
-                										<a href="<?php echo $this->baseUrl('/cliente/cliente/inativarregistro/id/'.base64_encode($rPaciente["dt_nascimento"].'@'.$rPaciente['id_cliente']))?>"><span class="fa-remove s20" title="Inativar Registro"></span></a>
+                										<a href="<?php echo $this->baseUrl('/servico/servico/index/id/'.base64_encode($rsServico["st_nome"].'@'.$rsServico['id_servico']))?>"><span class="fa-edit s20" title="Editar Registro"></span></a> | 
+                										<a href="<?php echo $this->baseUrl('/servico/servico/inativarregistro/id/'.base64_encode($rsServico["st_nome"].'@'.$rsServico['id_servico']))?>"><span class="fa-remove s20" title="Inativar Registro"></span></a>
                                                     </td>
                                                 </tr>
                                             <?php endforeach; ?>
@@ -76,7 +63,7 @@
     		</div>
 		<?php else :?>
             <div class="alert alert-danger fade in" style="text-align: center;">
-                <strong>NÃO EXISTEM SERVIÇOS CADASTRADOS, CLIQUE NO BOTÃO "ADICIONAR SERVICO" PARA REALIZAR OS CADASTROS</strong>
+                <strong>NÃO EXISTEM SERVIÇOS CADASTRADOS, CLIQUE NO BOTÃO "ADICIONAR SERVIÇO" PARA REALIZAR OS CADASTROS</strong>
             </div>
 		<?php endif;?>
 	</div>

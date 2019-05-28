@@ -1,10 +1,9 @@
-<?php $dados = $this->dadospagina;?>
-
 <div id="content">
 	<div class="content-wrapper">
 		<div class="row">
 			<div class="col-lg-12 heading">
-                <h1 class="page-header"><i class="im-key"></i><strong>CADASTRO DE SERVIÇOS</strong></h1>
+                <h1 class="page-header"><i class="im-key"></i> <strong>CADASTRO DE SERVIÇOS</strong></h1>
+                
                 <ul id="crumb" class="breadcrumb">
                 </ul>
                 <!-- End .breadcrumb -->
@@ -13,12 +12,13 @@
                     <div class="btn-toolbar" role="toolbar">
                         <div class="btn-group">
                             <a class="btn dropdown-toggle" id="dropdownMenu1" href="<?php echo $this->baseUrl('/servico/servico/listagem')?>">
-								<button class="btn btn-primary" type="button"><i class="fa-eye-open"></i> VISUALIZAR CADASTRADOS</button>
+								<button class="btn btn-primary" type="button"><i class="fa-eye-open"></i> VISUALIZAR CADASTROS</button>
 							</a>
                         </div>
                         
                     </div>
                 </div>
+                <!-- End .option-buttons -->
             </div>
 		</div>
 		
@@ -36,7 +36,7 @@
 				</div>
 			<?php endif;?>
 		<?php endif;?>
-		
+			
 		<form id="formCadastro" class="form-horizontal group-border hover-stripped" role="form" method="post" action="<?php echo $this->baseUrl('/servico/servico/index')?>">
 			
 			<div class="row">
@@ -44,23 +44,33 @@
 				<div class="col-lg-12 col-md-12 col-sm-9 col-xs-12">
 					<div class="panel panel-default plain">
 						<div class="panel-heading white-bg"></div>
-						<div class="panel-body">					
+						<div class="panel-body">
+							<div class="form-group">
+								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Registro: </label>
+								<div class="col-lg-3 col-md-3">
+									<input class="form-control" type="text" id="id_servico" name="id_servico" readonly="readonly" value="<?php echo $this->dadospagina['id_servico']?>" />
+								</div>
+								
+								<div class="col-lg-2 col-md-2">
+									<label class="checkbox-inline">
+										<input type="checkbox" value="1" <?php if($this->dadospagina['id_ativo']==1){ echo 'checked ="checked"';}?> style="position: absolute; opacity: 0;" id="id_ativo" name="id_ativo"  /><b>ATIVO</b>
+									</label>
+								</div>
+								
+							</div>
+											
 							<div class="form-group">
 								<label class="col-lg-1 col-md-1 col-sm-12 control-label ">Nome<b style="color: red;"> *</b></label>
-								<div class="col-lg-2 col-md-2">
-									<input type="text" class="form-control" id="st_placa" name="st_placa" required  value="<?php echo $this->dadospagina['st_placa']?>" />
+								<div class="col-lg-5 col-md-2">
+									<input type="text" class="form-control" id="st_nome" name="st_nome" required  value="<?php echo $this->dadospagina['st_nome']?>" />
 								</div>
-								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Código<b style="color: red;"> *</b>:</label>
+								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Valor<b style="color: red;"> *</b>:</label>
 								<div class="col-lg-2 col-md-2">
-									<input type="text" class="form-control left-icon" id="num_ano" name="num_ano" maxlength="4" pattern="([0-9]{3})" value="<?php echo $this->dadospagina['num_ano']?>" />
-								</div>
-								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Valor Unitário<b style="color: red;"> *</b>:</label>
-								<div class="col-lg-2 col-md-2">
-									<input type="text" class="form-control left-icon" id="st_km" name="st_km" value="<?php echo $this->dadospagina['st_km']?>" />
+									<input type="text" class="form-control left-icon" id="num_valor_venda" name="num_valor_venda" value="<?php echo $this->dadospagina['num_valor_venda']?>" />
 								</div>
 								<label class="col-lg-1 col-md-1 col-sm-12 control-label ">Comissão(%)<b style="color: red;"> *</b></label>
 								<div class="col-lg-2 col-md-2">
-                                    <input type="text" class="form-control left-icon" id="st_km" name="st_km" value="<?php echo $this->dadospagina['st_km']?>" />
+                                    <input type="text" class="form-control left-icon" id="st_comissao" name="st_comissao" value="<?php echo $this->dadospagina['st_comissao']?>" />
 								</div>
 							</div>
 							<div class="form-group">
@@ -85,26 +95,6 @@
 		</form>
 	</div>
 	<div class="clearfix"></div>
-</div>
-
-<!-- Modalsimilar -->
-<div class="modal fade" id="modalCliente" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">Existe(m) esse(s) Registro(s) com o mesmo nome</h4>
-            </div>
-              <div class="modal-body">
-                <div class="row">
-					<div id="RegSimilar"></div>       
-        		</div>            
-            </div>
-            <div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Continuar Cadastro</button>
-          </div>
-        </div>
-    </div>
 </div>
 
 
