@@ -55,9 +55,9 @@
 										<?php endforeach;?>
 									</select>
 								</div>
-								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Entrada<b style="color: red;"> *</b>:</label>
+								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Data OS<b style="color: red;"> *</b>:</label>
 								<div class="col-lg-2 col-md-2">
-									<input type="text" class="form-control left-icon" id="num_ano" name="num_ano" value="<?php echo $this->dadospagina['num_ano']?>" />
+									<input type="text" class="form-control left-icon" id="dt_os" name="dt_os" value="<?php echo $this->dadospagina['dt_os']?>" />
 								</div>
 								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Saída<b style="color: red;"> *</b>:</label>
 								<div class="col-lg-2 col-md-2">
@@ -78,9 +78,14 @@
 								<div class="col-lg-2 col-md-2">
 									<input type="text" class="form-control left-icon" id="st_km" name="st_km" value="<?php echo $this->dadospagina['st_km']?>" />
 								</div>
-								<label class="col-lg-1 col-md-1 col-sm-12 control-label ">Comissão(%)<b style="color: red;"> *</b></label>
+								<label class="col-lg-1 col-md-1 col-sm-12 control-label ">Prestador<b style="color: red;"> *</b></label>
 								<div class="col-lg-2 col-md-2">
-                                    <input type="text" class="form-control left-icon" id="st_km" name="st_km" value="<?php echo $this->dadospagina['st_km']?>" />
+                                    <select id="id_cliente" class="form-control select2"  name="id_cliente" autofocus="autofocus">
+										<option></option>
+										<?php foreach ($this->rsCliente as $value):?>
+											<option value="<?php echo $value['id_cliente']?>" <?php if($this->dadospagina['id_cliente'] == $value['id_cliente']) echo "selected"?>><?php echo strtoupper( $value['st_nome']) ?></option>
+										<?php endforeach;?>
+									</select>
 								</div>
 							</div>
 						</div>
@@ -96,17 +101,9 @@
 								<div class="col-lg-2 col-md-2">
 									<input type="text" class="form-control" id="st_placa" name="st_placa"   value="<?php echo $this->dadospagina['st_placa']?>" />
 								</div>
-								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Veículo<b style="color: red;"> *</b>:</label>
+								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Km<b style="color: red;"> *</b>:</label>
 								<div class="col-lg-2 col-md-2">
 									<input type="text" class="form-control left-icon" id="num_ano" name="num_ano" maxlength="4" pattern="([0-9]{3})" value="<?php echo $this->dadospagina['num_ano']?>" />
-								</div>
-								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Marca<b style="color: red;"> *</b>:</label>
-								<div class="col-lg-2 col-md-2">
-									<input type="text" class="form-control left-icon" id="st_km" name="st_km" value="<?php echo $this->dadospagina['st_km']?>" />
-								</div>
-								<label class="col-lg-1 col-md-1 col-sm-12 control-label ">Modelo<b style="color: red;"> *</b></label>
-								<div class="col-lg-2 col-md-2">
-                                    <input type="text" class="form-control left-icon" id="st_km" name="st_km" value="<?php echo $this->dadospagina['st_km']?>" />
 								</div>
 							</div>
 							
