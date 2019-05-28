@@ -26,18 +26,28 @@ class Servico_ServicoController extends App_Controller_Action
 	    //Realiza a inserção das informações
 	    if($this->_request->isPost())
 	    {
+	        $dados = array(
+	            'st_nome' => strtoupper($post['st_nome']),
+	            'num_valor_venda' => $post['num_valor_venda'],
+	            'st_comissao' => $post['st_comissao'],
+	            'ds_observacao' => $post['ds_observacao'],
+	        );
 	        
-	        try {
-	            $post["st_nome"] = strtoupper($post["st_nome"]);
-	            $post["id_usuario_cadastro"] = $this->idUsuario;
-	            $post["dt_cadastro"] = date('Y-m-d H:i:s');
-	            $post['id_ativo'] = 1;
+	        try 
+	        {
 	            
-	            if(empty($post['id_servico'])){
+	           if(empty($post['id_servico'])){
 	                
-	                $rsServico = $this->mServico->insert($post);
+	                $dados = array(
+	                    'id_usuario_cadastro' => $this->idUsuario,
+	                    'dt_cadastro' => date('Y-m-d H:i:s'),
+	                    'id_ativo' => true
+	                );
+	                
+	                $rsServico = $this->mServico->insert($dados);
 	                
 	            }else{
+	                
 	                $post['id_ativo'] = empty($post['id_ativo'])? 0 : $post['id_ativo'];
 	                $where = $this->mServico->getAdapter()->quoteInto('id_servico = ?', $post["id_servico"]);
 	                $this->mServico->update($post, $where);

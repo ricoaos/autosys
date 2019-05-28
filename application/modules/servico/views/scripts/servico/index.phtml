@@ -66,9 +66,9 @@
 								</div>
 								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Valor<b style="color: red;"> *</b>:</label>
 								<div class="col-lg-2 col-md-2">
-									<input type="text" class="form-control left-icon" id="num_valor_venda" name="num_valor_venda" value="<?php echo $this->dadospagina['num_valor_venda']?>" />
+									<input type="text" class="form-control left-icon" id="num_valor_venda" name="num_valor_venda" required value="<?php echo $this->dadospagina['num_valor_venda']?>" />
 								</div>
-								<label class="col-lg-1 col-md-1 col-sm-12 control-label ">Comissão(%)<b style="color: red;"> *</b></label>
+								<label class="col-lg-1 col-md-1 col-sm-12 control-label ">Comissão(%)</label>
 								<div class="col-lg-2 col-md-2">
                                     <input type="text" class="form-control left-icon" id="st_comissao" name="st_comissao" value="<?php echo $this->dadospagina['st_comissao']?>" />
 								</div>
@@ -98,5 +98,6 @@
 </div>
 
 
-<script type="text/javascript" src="<?php echo $this->baseUrl('/js/veiculo/veiculo.js')?>"> </script>
+
+<script type="text/javascript" src="<?php echo $this->baseUrl('/js/mascara.js')?>"> </script>
 
