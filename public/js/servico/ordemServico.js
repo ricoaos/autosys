@@ -23,7 +23,6 @@ function addProduto(){
 }
 
 function addServico(){
-	alert('cheguei');
 	$("#tb_Servico").append(
 		"<tbody>"+
 	        "<tr>"+

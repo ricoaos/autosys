@@ -235,26 +235,21 @@
             									<table id="responsive-datatables" class="table table-bordered table-striped table-hover dt-responsive non-responsive" >
             										<thead>
             											<tr>
-            												<th>Registro</th>
             												<th>Nome</th>
             												<th>Estoque Atual</th>
             												<th>Localizacao</th>
             												<th>Valor Venda</th>
-            												<th>Ação</th>
+            												<th>Selecionar</th>
             											</tr>
             										</thead>
             										<tbody>
             											<?php foreach ($this->rsProduto as $rProduto) : ?>
             												<tr>
-                                                            	<td><?php echo str_pad($rProduto['id_produto'], 5, "0", STR_PAD_LEFT); ?></td>
                                                                 <td><?php echo $rProduto['st_nome'] ?></td>
                                                                 <td><?php echo $rProduto['qt_saldo'] ?></td>
                                                                 <td><?php echo $rProduto['st_localizacao'] ?></td>
                                                                 <td><?php echo $rProduto['num_valor_venda'] ?></td>
-                                                                <td style="text-align: center;">
-                            										<a href="<?php echo $this->baseUrl('/produto/produto/index/id/'.base64_encode($rProduto["dt_cadastro"].'@'.$rProduto['id_produto']))?>"><span class="fa-edit s20" title="Editar Registro"></span></a> | 
-                            										<a href="<?php echo $this->baseUrl('/produto/produto/inativarregistro/id/'.base64_encode($rProduto["dt_cadastro"].'@'.$rProduto['id_produto']))?>"><span class="fa-remove s20" title="Inativar Registro"></span></a>
-                                                                </td>
+                                                                <td style="text-align: center;"><input type="checkbox" class="form-check-input" id="<?php echo $rProduto['id_produto'] ?>"></td>
                                                             </tr>
                                                         <?php endforeach; ?>
             										</tbody>
