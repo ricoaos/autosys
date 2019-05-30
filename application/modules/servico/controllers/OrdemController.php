@@ -14,13 +14,18 @@ class Servico_OrdemController extends App_Controller_Action
 	{
 		
 	    
-	    if (isset($_POST)){
+	    if (!empty($_POST)){
 	        Zend_Debug::dump($_POST);
 	    }
 	    
 	    $mCliente = new Model_Cliente_VwCliente();
 	    $rsCliente = $mCliente->fetchAll(array('id_organizacao = ?' => $this->idOrganizacao), '',30)->toArray();
 	    $this->view->rsCliente = $rsCliente;
+	    
+	    $mFuncionario = new Model_Funcionario_VwFuncionario();
+	    $rsFuncionario = $mFuncionario->fetchAll(array('id_organizacao = ?' => $this->idOrganizacao), '',30)->toArray();
+	    $this->view->rsFuncionario = $rsFuncionario;
+	    
 	}
 	
 	/**
