@@ -148,7 +148,7 @@
             							</tr>
             						</thead>
             					</table>
-            					<button class="btn btn-dark" type="button" onclick="addProduto()"><i class="fa-plus-sign"></i> Adicionar Produto</button>
+            					<button class="btn btn-dark" type="button" data-toggle="modal" data-target="#modalProdutos"><i class="fa-plus-sign"></i> Adicionar Produto</button>
 							</div>
 						</div>
 					</div>
@@ -159,26 +159,19 @@
 						<div class="panel-heading white-bg"></div>
 						<div class="panel-body">
 							<div class="form-group">
-								<label class="col-lg-1 col-md-1 col-sm-12 control-label ">Serviço<b style="color: red;"> *</b></label>
-								<div class="col-lg-2 col-md-2">
-									<input type="text" class="form-control" id="st_placa" name="st_placa"   value="<?php echo $this->dadospagina['st_placa']?>" />
-								</div>
-								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Quantidade<b style="color: red;"> *</b>:</label>
-								<div class="col-lg-2 col-md-2">
-									<input type="text" class="form-control left-icon" id="num_ano" name="num_ano" value="<?php echo $this->dadospagina['num_ano']?>" />
-								</div>
-								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Valor<b style="color: red;"> *</b>:</label>
-								<div class="col-lg-2 col-md-2">
-									<input type="text" class="form-control left-icon" id="st_km" name="st_km" value="<?php echo $this->dadospagina['st_km']?>" />
-								</div>
-								<label class="col-lg-1 col-md-1 col-sm-12 control-label ">SubTotal<b style="color: red;"> *</b></label>
-								<div class="col-lg-2 col-md-2">
-                                    <input type="text" class="form-control left-icon" id="st_km" name="st_km" value="<?php echo $this->dadospagina['st_km']?>" />
-								</div>
+								<table id="tb_Servico" class="table table-bordered table-striped table-hover dt-responsive non-responsive" >
+            						<thead>
+            							<tr>
+            								<th>Serviços</th>
+            								<th>Valor</th>
+            								<th>Quantidade</th>
+            								<th>SubTotal</th>
+            								<th>Ação</th>
+            							</tr>
+            						</thead>
+            					</table>
+            					<button class="btn btn-dark" type="button" onclick="addServico()"><i class="fa-plus-sign"></i> Adicionar Serviço</button>
 							</div>
-							<div>
-                				<button class="btn btn-dark" type="button"><i class="fa-plus-sign"></i> Adicionar Serviço</button>
-        					</div>
 						</div>
 					</div>
 				</div>
@@ -222,6 +215,71 @@
 	</div>
 	<div class="clearfix"></div>
 </div>
+
+
+<div class="modal fade" id="modalProdutos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Selecione os Produtos para inserir na Ordem de Serviço</h4>
+            </div>
+              <div class="modal-body">
+                <div class="row">  
+					<?php if(!empty($this->rsProduto)):?>
+            			<div class="outlet">
+                			<form class="form-horizontal group-border hover-stripped" role="form">
+            					<div class="row">
+                					<div class="col-lg-12">
+            							<div class="panel panel-default plain toggle panelClose panelRefresh">
+            								<div class="panel-body">
+            									<table id="responsive-datatables" class="table table-bordered table-striped table-hover dt-responsive non-responsive" >
+            										<thead>
+            											<tr>
+            												<th>Registro</th>
+            												<th>Nome</th>
+            												<th>Estoque Atual</th>
+            												<th>Localizacao</th>
+            												<th>Valor Venda</th>
+            												<th>Ação</th>
+            											</tr>
+            										</thead>
+            										<tbody>
+            											<?php foreach ($this->rsProduto as $rProduto) : ?>
+            												<tr>
+                                                            	<td><?php echo str_pad($rProduto['id_produto'], 5, "0", STR_PAD_LEFT); ?></td>
+                                                                <td><?php echo $rProduto['st_nome'] ?></td>
+                                                                <td><?php echo $rProduto['qt_saldo'] ?></td>
+                                                                <td><?php echo $rProduto['st_localizacao'] ?></td>
+                                                                <td><?php echo $rProduto['num_valor_venda'] ?></td>
+                                                                <td style="text-align: center;">
+                            										<a href="<?php echo $this->baseUrl('/produto/produto/index/id/'.base64_encode($rProduto["dt_cadastro"].'@'.$rProduto['id_produto']))?>"><span class="fa-edit s20" title="Editar Registro"></span></a> | 
+                            										<a href="<?php echo $this->baseUrl('/produto/produto/inativarregistro/id/'.base64_encode($rProduto["dt_cadastro"].'@'.$rProduto['id_produto']))?>"><span class="fa-remove s20" title="Inativar Registro"></span></a>
+                                                                </td>
+                                                            </tr>
+                                                        <?php endforeach; ?>
+            										</tbody>
+            									</table>
+            								</div>
+            							</div>
+            						</div>
+                				</div>
+                			</form>
+                		</div>
+            		<?php else :?>
+                        <div class="alert alert-danger fade in" style="text-align: center;">
+                            <strong>NÃO EXISTEM PRODUTOS CADASTRADOS, CADASTRE OS PRODUTOS PRIMEIRO E DEPOIS REALIZAR ESSA OPERAÇÃO.</strong>
+                        </div>
+            		<?php endif;?>
+        		</div>            
+            </div>
+            <div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="addProduto()">Cadastrar Produtos</button>
+          </div>
+        </div>
+    </div>
+</div>
+
 
 <script type="text/javascript" src="<?php echo $this->baseUrl('/js/servico/ordemServico.js')?>"> </script>
 <script type="text/javascript" src="<?php echo $this->baseUrl('/js/mascara.js')?>"> </script>

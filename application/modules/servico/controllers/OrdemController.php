@@ -24,8 +24,11 @@ class Servico_OrdemController extends App_Controller_Action
 	    
 	    $mFuncionario = new Model_Funcionario_VwFuncionario();
 	    $rsFuncionario = $mFuncionario->fetchAll(array('id_organizacao = ?' => $this->idOrganizacao), '',30)->toArray();
-	    $this->view->rsFuncionario = $rsFuncionario;
+	    $this->view->rsFuncionario = $rsFuncionario;  
 	    
+	    $mProduto = new Model_Produto_VwProduto();
+	    $rsProduto = $mProduto->fetchAll()->toArray();
+	    $this->view->rsProduto = $rsProduto;
 	}
 	
 	/**
