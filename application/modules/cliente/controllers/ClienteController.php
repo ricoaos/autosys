@@ -4,7 +4,6 @@ class Cliente_ClienteController extends App_Controller_Action
 	public function init()
 	{
 	    $this->idGrupo = App_Identity::getGrupo();
-		$this->idOrganizacao = App_Identity::getOrganizacao();
 	}
 
 	/**

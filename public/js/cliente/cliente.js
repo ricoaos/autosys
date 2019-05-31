@@ -111,6 +111,7 @@ $(document).ready(function(){
 
 	$("#st_cpf").change(function(){
 		
+				
 		var cpf = $(this).val().replace(/\D/g,"");
 		
 		if(!ValidarCPF(cpf)){
@@ -121,7 +122,7 @@ $(document).ready(function(){
 
         $.ajax({
         	url: baseUrl+'/cliente/cliente/getclientebycpf',
-        	data: 'cpf='+cpf,
+        	data: 'cpf='+$(this).val(),
             dataType: 'json',
             type:"POST",
             success: function(response){
@@ -145,7 +146,7 @@ $(document).ready(function(){
 	            		linha +=   		'<label class="checkbox">'+item.id_pessoa+'</label>';
 	            		linha +=   '</td>';
 	            		linha +=   	'<td class="email-subject">';
-	            		linha +=        '<span class="help-block">Paciente</span>';
+	            		linha +=        '<span class="help-block">Cliente</span>';
 	            		linha +=   		'<label class="checkbox">'+item.st_nome+'</label>';
          				linha +=   '</td>';
 	            		linha +=   	'<td class="email-subject">';
