@@ -153,17 +153,7 @@
 								<div class="col-lg-2 col-md-2">
 									<input type="text" class="form-control" id="st_cep" name="st_cep" value="<?php echo $this->dadospagina['st_cep']?>" />
 								</div>
-								
-								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Tipo </label>
-								<div class="col-lg-2 col-md-2">
-									<select id="st_tipo_logradouro" class="form-control select2" autofocus="autofocus" required name="st_tipo_logradouro">
-										<option></option>
-										<?php foreach ($this->TipoLogradouro as $value):?>
-											<option value="<?php echo $value['id_tipo_logradouro']?>" <?php if($this->dadospagina['st_tipo_logradouro'] == $value['id_tipo_logradouro']) echo "selected"?>><?php echo strtoupper( $value['st_nome']) ?></option>
-										<?php endforeach;?>
-									</select>
-								</div>
-								
+																
 								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Logradouro</label>
 								<div class="col-lg-5 col-md-5">
 									<input type="text" class="form-control" id="st_logradouro" name="st_logradouro" value="<?php echo $this->dadospagina['st_logradouro']?>">

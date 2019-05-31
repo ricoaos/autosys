@@ -3,6 +3,7 @@ class Cliente_ClienteController extends App_Controller_Action
 {
 	public function init()
 	{
+	    $this->idGrupo = App_Identity::getGrupo();
 		$this->idOrganizacao = App_Identity::getOrganizacao();
 	}
 
@@ -50,7 +51,7 @@ class Cliente_ClienteController extends App_Controller_Action
     	{
     	    $mPessoa = new Model_Pessoa_Pessoa();
 			$mCliente = new Model_Cliente_Cliente();
-			$mClienteOrg = new Model_Cliente_ClienteOrganizacao();
+			$mClienteGrupo = new Model_Cliente_ClienteGrupo();
     		$post = $this->_request->getPost();
     		$dtcadastro = date('Y-m-d H:i:s');
 			list($dd,$mm,$YY) = explode('/',$post["dt_nascimento"]);
@@ -72,7 +73,6 @@ class Cliente_ClienteController extends App_Controller_Action
 				'st_fonecontato'    => $post["st_fonecontato"],
 				'st_foto'           => !empty($post["imagem"]) ? $conteudo : (!empty($post['imagem'])? $post['imagem'] : null),
     		    'st_cep'            => preg_replace('/\D+/', '', $post["st_cep"]),
-    		    'st_tipo_logradouro' => $post['st_tipo_logradouro'],
     		    'st_estado'          => $post['st_estado'],
     		    'st_logradouro'      => $post['st_logradouro'],
     		    'st_complemento'     => $post['st_complemento'],
@@ -98,8 +98,8 @@ class Cliente_ClienteController extends App_Controller_Action
         					      'dt_cadastro'   => $dtcadastro);
 					$rsCliente = $mCliente->insert($args);
 					
-					$params = array('id_cliente' => $rsCliente, 'id_organizacao' => $this->idOrganizacao);
-					$rsClienteOrg = $mClienteOrg->insert($params); 
+					$params = array('id_cliente' => $rsCliente, 'id_grupo' => $this->idGrupo);
+					$rsClienteGrupo = $mClienteGrupo->insert($params); 
 					
     		    }else{
     		        
@@ -146,7 +146,7 @@ class Cliente_ClienteController extends App_Controller_Action
 	public function listagemAction()
 	{
 	    $mCliente = new Model_Cliente_VwCliente();
-	    $rsCliente = $mCliente->fetchAll(array('id_organizacao = ?' => $this->idOrganizacao), '',30)->toArray();
+	    $rsCliente = $mCliente->fetchAll(array('id_grupo = ?' => $this->idGrupo), '',30)->toArray();
 		$this->view->rsPacientes = $rsCliente;
 	}
 		
