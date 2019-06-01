@@ -5,6 +5,7 @@ class Administrativo_PainelController extends App_Controller_Action
     public function init()
     {
         $this->idOrganizacao = App_Identity::getOrganizacao();
+        $this->idGrupo = App_Identity::getGrupo();
     }
     
     public function indexAction()
@@ -14,7 +15,7 @@ class Administrativo_PainelController extends App_Controller_Action
         $this->view->rsProduto = $rsProduto;
         
         $mCliente = new Model_Cliente_VwCliente();
-        $rsCliente = self::getcount($mCliente,1);
+        $rsCliente = self::getcount($mCliente,2);
         $this->view->rsCliente = $rsCliente; 
         
     }
@@ -27,6 +28,11 @@ class Administrativo_PainelController extends App_Controller_Action
         
             $select->where('id_organizacao = ?' , $this->idOrganizacao);
         
+        }
+        if($where == 2){
+            
+            $select->where('id_grupo = ?' , $this->idGrupo);
+            
         }
         $rows = $params->fetchAll($select);
         return($rows[0]);
