@@ -8,6 +8,8 @@ class Fornecedor_FornecedorController extends App_Controller_Action
 		$this->grupo = App_Identity::getGrupo();
 		$this->idUsuario = App_Identity::getIdUsuario();
 		$this->mFornecedor = new Model_Fornecedor_Fornecedor();
+		$this->wFornecedor = new Model_Fornecedor_VwFornecedor();
+		$this->mFornGrupo = new Model_Fornecedor_FornecedorGrupo();
 	}
 	
     public function indexAction()
@@ -30,14 +32,12 @@ class Fornecedor_FornecedorController extends App_Controller_Action
         	    'st_fone2'           => $_POST["st_fone2"],
         	    'st_fone3'           => $_POST["st_fone3"],
         	    'st_cep'             => preg_replace('/\D+/', '', $_POST["st_cep"]),
-        	    'st_tipo_logradouro' => $_POST['st_tipo_logradouro'],
         	    'st_estado'          => $_POST['st_estado'],
         	    'st_logradouro'      => $_POST['st_logradouro'],
         	    'st_complemento'     => $_POST['st_complemento'],
         	    'st_numero'          => $_POST['st_numero'],
         	    'st_bairro'          => $_POST['st_bairro'],
         	    'st_cidade'          => $_POST['st_cidade'],
-        	    'id_ativo'           => 1,
         	    'st_email'           => $_POST['st_email']
         	);
         	
@@ -46,23 +46,18 @@ class Fornecedor_FornecedorController extends App_Controller_Action
         	try {
         	    
         	    if(empty($_POST["id_fornecedor"])){
-        	        
+
         	        $dados['dt_cadastro']= $dtcadastro;
         	        $rsfornecedor = $this->mFornecedor->insert($dados);
         	            	        
-        	        $mFornecedorOrg = new Model_Fornecedor_FornecedorOrganizacao();
-        	        $params = array('id_fornecedor' => $rsfornecedor, 'id_organizacao' => $this->idOrganizacao);
-        	        $rsFornecedorOrg = $mFornecedorOrg->insert($params);
+        	        $params = array('id_fornecedor' => $rsfornecedor, 'id_grupo' => $this->grupo, 'id_ativo' => 1);
+        	        $rsFornecedorOrg = $this->mFornGrupo->insert($params);
         	        
         	    }else{
         	        
         	        $where = $this->mFornecedor->getAdapter()->quoteInto('id_fornecedor = ?', $_POST["id_fornecedor"]);
         	        $this->mFornecedor->update($dados,$where);
-        	        
-        	        $args = array(
-        	            'id_ativo'      => $_POST['id_ativo']);
-        	        
-        	        
+        	                	                	                	        
         	        $rsfornecedor = $_POST["id_fornecedor"];
         	    }
         	    
@@ -91,7 +86,7 @@ class Fornecedor_FornecedorController extends App_Controller_Action
 
     public function listagemAction()
     {
-    	$rsFornecedor = $this->mFornecedor->fetchAll()->toArray();
+        $rsFornecedor = $this->wFornecedor->fetchAll(array('id_grupo = ?' => $this->grupo), '',30)->toArray();
     	$this->view->rsFornecedor = $rsFornecedor;
     }
     
@@ -103,16 +98,19 @@ class Fornecedor_FornecedorController extends App_Controller_Action
     {
         if($this->_request->getParam('id'))
         {
-            list($date,$id) = explode('@',base64_decode($this->_request->getParam('id')));
-            $where = $this->mFornecedor->getAdapter()->quoteInto('id_fornecedor = ?', $id );
-            $this->mFornecedor->update(array('id_ativo'=> 0),$where);
+            list($ativo,$id) = explode('@',base64_decode($this->_request->getParam('id')));
+            $where = $this->mFornGrupo->getAdapter()->quoteInto(array('id_fornecedor = ?'=> $id , 'id_grupo=?' => $this->grupo));
+            
+            $ativo = $ativo == 0 ? 1 : 0;
+            
+            $this->mFornGrupo->update(array('id_ativo'=> $ativo),$where);
             $this->_redirect('fornecedor/fornecedor/listagem');
         }
     }
     
     public function getdadoscadastrados($params)
     {
-        $dadospagina = $this->mFornecedor->fetchAll(array('id_fornecedor = ?' => $params))->toArray();
+        $dadospagina = $this->wFornecedor->fetchAll(array('id_fornecedor = ?' => $params, 'id_grupo= ?' => $this->grupo))->toArray();
         return $dadospagina[0];
     }
 }

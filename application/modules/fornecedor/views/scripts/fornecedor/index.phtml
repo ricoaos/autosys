@@ -61,7 +61,7 @@
 								</div>
 								<div class="col-lg-2 col-md-2">
 									<label class="checkbox-inline">
-										<input type="checkbox" value="1" <?php if($this->dadospagina['id_ativo']==1){ echo 'checked ="checked"';}?> style="position: absolute; opacity: 0;" id="id_ativo" name="id_ativo"  /><b>ATIVO</b>
+										<input type="checkbox" <?php if($this->dadospagina['id_ativo']==1){ echo 'checked ="checked"';}?> style="position: absolute; opacity: 0;" id="id_ativo" name="id_ativo"  /><b>ATIVO</b>
 									</label>
 								</div>
 							</div>						
@@ -72,7 +72,7 @@
 								</div>
 								<label class="col-lg-1 col-md-1 col-sm-12 control-label ">CPF/CNPJ<b style="color: red;"> *</b></label>
 								<div class="col-lg-2 col-md-2">
-									<input type="text" class="form-control" id="st_cpf_cnpj" name="st_cpf_cnpj" required  value="<?php echo $this->dadospagina['st_cpf_cnpj']?>" />
+									<input type="text" class="form-control cpfCnpj" id="st_cpf_cnpj" name="st_cpf_cnpj" required  value="<?php echo $this->dadospagina['st_cpf_cnpj']?>" />
 								</div>
 								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Email:</label>
 								<div class="col-lg-3 col-md-3">
@@ -98,16 +98,6 @@
 								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Cep </label>
 								<div class="col-lg-2 col-md-2">
 									<input type="text" class="form-control" id="st_cep" name="st_cep" value="<?php echo $this->dadospagina['st_cep']?>" />
-								</div>
-								
-								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Tipo </label>
-								<div class="col-lg-2 col-md-2">
-									<select id="st_tipo_logradouro" class="form-control select2" autofocus="autofocus" required name="st_tipo_logradouro">
-										<option></option>
-										<?php foreach ($this->TipoLogradouro as $value):?>
-											<option value="<?php echo $value['id_tipo_logradouro']?>" <?php if($this->dadospagina['st_tipo_logradouro'] == $value['id_tipo_logradouro']) echo "selected"?>><?php echo strtoupper( $value['st_nome']) ?></option>
-										<?php endforeach;?>
-									</select>
 								</div>
 								
 								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Logradouro</label>

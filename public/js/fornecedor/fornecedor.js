@@ -1,9 +1,24 @@
 $(document).ready(function(){
 	
-	$("#st_cpf_cnpj").mask('99.999.999/9999-99');
-	//$("#st_fone1,#st_fone2,#st_fone3").mask('(99)99999-9999');
+
 	$("#st_cep").mask('99.999-999');
-		
+	
+	$(".cpfCnpj").unmask();
+	  $(".cpfCnpj").focusout(function() {
+	    $(".cpfCnpj").unmask();
+	    var tamanho = $(".cpfCnpj").val().replace(/\D/g, '').length;
+	    if (tamanho == 11) {
+	      $(".cpfCnpj").mask("999.999.999-99");
+	    } else if (tamanho == 14) {
+	      $(".cpfCnpj").mask("99.999.999/9999-99");
+	    }
+	  });
+	  $(".cpfCnpj").focusin(function() {
+	    $(".cpfCnpj").unmask();
+	  });
+	
+	
+			
 	$("#st_cep").change(function(){
 		var cep = $(this).val().replace(/\D/g,"");
 		$.ajax({
