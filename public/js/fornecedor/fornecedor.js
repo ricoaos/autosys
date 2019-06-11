@@ -4,21 +4,39 @@ $(document).ready(function(){
 	$("#st_cep").mask('99.999-999');
 	
 	$(".cpfCnpj").unmask();
-	  $(".cpfCnpj").focusout(function() {
-	    $(".cpfCnpj").unmask();
-	    var tamanho = $(".cpfCnpj").val().replace(/\D/g, '').length;
-	    if (tamanho == 11) {
-	      $(".cpfCnpj").mask("999.999.999-99");
-	    } else if (tamanho == 14) {
-	      $(".cpfCnpj").mask("99.999.999/9999-99");
-	    }
-	  });
-	  $(".cpfCnpj").focusin(function() {
-	    $(".cpfCnpj").unmask();
-	  });
-	
-	
+	$(".cpfCnpj").focusout(function() {
+		$(".cpfCnpj").unmask();
+		
+		var tamanho = $(".cpfCnpj").val().replace(/\D/g, '').length;
+		
+		if (tamanho == 11) {
 			
+			if(!ValidarCPF($(".cpfCnpj").val())){
+				$('#modalVal').modal();
+				$("#st_cpf_cnpj").val('').focus();
+				return;
+			};
+			
+			$(".cpfCnpj").mask("999.999.999-99");
+			$("#id_tipo_pessoa").select2("val", "1");
+			
+		} else if (tamanho == 14) {
+			
+			if(!ValidaCNPJ($(".cpfCnpj").val())){
+				$('#modalVal').modal();
+				$("#st_cpf_cnpj").val('').focus();
+				return;
+			};
+			
+			$(".cpfCnpj").mask("99.999.999/9999-99");
+			$("#id_tipo_pessoa").select2("val", "2");
+	    }
+	});
+	
+	$(".cpfCnpj").focusin(function() {
+		$(".cpfCnpj").unmask();
+	});
+	
 	$("#st_cep").change(function(){
 		var cep = $(this).val().replace(/\D/g,"");
 		$.ajax({
@@ -52,4 +70,7 @@ $(document).ready(function(){
         $("#st_cep").val('');
     });
 	
+	$("#st_cpf_cnpj").change(function(){
+		
+	});
 });
