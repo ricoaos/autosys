@@ -18,6 +18,14 @@ class Administrativo_PainelController extends App_Controller_Action
         $rsCliente = self::getcount($mCliente,2);
         $this->view->rsCliente = $rsCliente; 
         
+       //teste de envio  de email
+        $email_to = "estacaodasmotos321@gmail.com";
+        $name_to = "AutoSys";
+        $mail = new Zend_Mail ('UTF-8');
+        $mail->addTo ($email_to, $name_to);
+        $mail->setSubject ('Bem vindo ao Autosys Sistema de Gerenciamnto de Oficina');
+        $mail->setBodyText ("Testando o envio de email pela aplicação");
+        $mail->send();
     }
     
     public function getcount($params, $where=null)
