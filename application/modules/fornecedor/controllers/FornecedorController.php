@@ -108,6 +108,19 @@ class Fornecedor_FornecedorController extends App_Controller_Action
         }
     }
     
+    public function getfornecedorbycnpjAction()
+    {
+        if($this->_request->isPost())
+        {
+            $st_cpf_cnpj = $this->_request->getPost();
+            $rscpf_cnpj = $this->wFornecedor->fetchAll(array('st_cpf_cnpj = ?'=> $st_cpf_cnpj))->toArray();
+            
+            $this->_helper->layout->disableLayout();
+            $this->getHelper('viewRenderer')->setNoRender();
+            $this->getResponse()->setBody(json_encode(array('result' => $rscpf_cnpj)));
+        }
+    }
+    
     public function getdadoscadastrados($params)
     {
         $dadospagina = $this->wFornecedor->fetchAll(array('id_fornecedor = ?' => $params, 'id_grupo= ?' => $this->grupo))->toArray();

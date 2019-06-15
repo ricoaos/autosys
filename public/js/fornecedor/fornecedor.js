@@ -13,7 +13,7 @@ $(document).ready(function(){
 			
 			if(!ValidarCPF($(".cpfCnpj").val())){
 				$('#modalVal').modal();
-				$("#st_cpf_cnpj").val('').focus();
+				$(".cpfCnpj").val('').focus();
 				return;
 			};
 			
@@ -24,13 +24,44 @@ $(document).ready(function(){
 			
 			if(!ValidaCNPJ($(".cpfCnpj").val())){
 				$('#modalVal').modal();
-				$("#st_cpf_cnpj").val('').focus();
+				$(".cpfCnpj").val('').focus();
 				return;
 			};
 			
 			$(".cpfCnpj").mask("99.999.999/9999-99");
 			$("#id_tipo_pessoa").select2("val", "2");
 	    }
+		
+		$.ajax({
+			url: baseUrl+'/fornecedor/fornecedor/getfornecedorbycnpj',
+	    	data: 'st_cpf_cnpj='+$(".cpfCnpj").val(),
+	        dataType: 'json',
+	        type:"POST",
+	        success: function(response){
+	        	var objResult = response.result;
+	        	
+	        	if(objResult != ''){
+	        		
+		        	$.each(objResult, function(i, item){
+		        		$("#id_fornecedor").val(item.id_fornecedor);
+		        		$("#id_ativo").val(item.id_ativo);
+		        		$("#id_tipo_pessoa").val(item.id_tipo_pessoa);
+		        		$("#st_nome").val(item.st_nome);
+		        		$("#st_email").val(item.st_email);
+		        		$("#st_fone1").val(item.st_fone1);
+		        		$("#st_fone2").val(item.st_fone2);
+		        		$("#st_fone3").val(item.st_fone3);
+		        		$("#st_cep").val(item.st_cep);
+		        		$("#st_logradouro").val(item.st_logradouro);
+		        		$("#st_complemento").val(item.st_complemento);
+		        		$("#st_numero").val(item.st_numero);
+		        		$("#st_bairro").val(item.st_bairro);
+		        		$("#st_cidade").val(item.st_cidade);
+		        		$("#st_estado").val(item.st_estado);
+		        	});
+	        	}	        	
+	        }
+		 });
 	});
 	
 	$(".cpfCnpj").focusin(function() {
@@ -68,9 +99,5 @@ $(document).ready(function(){
 	$("#st_cep").click(function(){
         $("#st_logradouro,#st_bairro,#st_cidade,#st_estado,#st_tipo_logradouro").val('');
         $("#st_cep").val('');
-    });
-	
-	$("#st_cpf_cnpj").change(function(){
-		
-	});
+    });	
 });
