@@ -4,8 +4,7 @@ class Cliente_ClienteController extends App_Controller_Action
 	public function init()
 	{
 	    $this->idGrupo = App_Identity::getGrupo();
-	    
-	    
+	    $this->mCliente = new Model_Cliente_Cliente();
 	    $this->mClienteCrupo = new Model_Cliente_ClienteGrupo();
 	}
 
@@ -52,8 +51,6 @@ class Cliente_ClienteController extends App_Controller_Action
 		if($this->_request->isPost())
     	{
     	    $mPessoa = new Model_Pessoa_Pessoa();
-			$mCliente = new Model_Cliente_Cliente();
-			$mClienteGrupo = new Model_Cliente_ClienteGrupo();
     		$post = $this->_request->getPost();
     		$dtcadastro = date('Y-m-d H:i:s');
 			list($dd,$mm,$YY) = explode('/',$post["dt_nascimento"]);
@@ -95,13 +92,12 @@ class Cliente_ClienteController extends App_Controller_Action
     		        }
 										
 					$args = array('id_pessoa'     => $rspessoa,
-					              'id_ativo'      => 1,
         					      'ds_observacao' => $post['ds_observacao'],
         					      'dt_cadastro'   => $dtcadastro);
-					$rsCliente = $mCliente->insert($args);
+					$rsCliente = $this->mCliente->insert($args);
 					
-					$params = array('id_cliente' => $rsCliente, 'id_grupo' => $this->idGrupo);
-					$rsClienteGrupo = $mClienteGrupo->insert($params); 
+					$params = array('id_cliente' => $rsCliente, 'id_grupo' => $this->idGrupo,'id_ativo' => 1,);
+					$rsClienteGrupo = $this->mClienteCrupo->insert($params); 
 					
     		    }else{
     		        
@@ -109,11 +105,10 @@ class Cliente_ClienteController extends App_Controller_Action
     		        $mPessoa->update($dados,$where);
     		        
     		        $args = array(
-    		            'id_ativo'      => empty($post['id_ativo'])? 0 : $post['id_ativo'],
     		            'ds_observacao' => $post['ds_observacao']);
     		        
-    		        $where2 = $mCliente->getAdapter()->quoteInto('id_cliente = ?', $post['id_cliente']);
-    		        $mCliente->update($args,$where2);
+    		        $where2 = $this->mCliente->getAdapter()->quoteInto('id_cliente = ?', $post['id_cliente']);
+    		        $this->mCliente->update($args,$where2);
     		        
     		        $rsCliente = $post["id_cliente"];
     		    }
