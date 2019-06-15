@@ -17,7 +17,7 @@
             </div>
 		</div>
 		
-		<?php if(!empty($this->rsPacientes)):?>
+		<?php if(!empty($this->rsClientes)):?>
 		
 			<div class="outlet">
     			<form class="form-horizontal group-border hover-stripped" role="form">
@@ -33,7 +33,7 @@
 											<tr>
 												<th>Registro</th>
 												<th>Nome</th>
-												<th>Nascido em</th>
+												<th>CPF/CNPJ</th>
 												<th>Sexo</th>
 												<th>E-mail</th>
 												<th>Status</th>
@@ -41,28 +41,21 @@
 											</tr>
 										</thead>
 										<tbody>
-											<?php foreach ($this->rsPacientes as $rPaciente) : ?>
+											<?php foreach ($this->rsClientes as $rsClientes) : ?>
 												<tr>
-                                                	<td>
-														<?php echo str_pad($rPaciente['id_cliente'], 5, "0", STR_PAD_LEFT); ?>
-													</td>
-                                                    <td>
-                                                        <?php echo $rPaciente['st_nome'] ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php
-                                                        	if(!empty($rPaciente["dt_nascimento"])){
-	                                                            list($YY,$mm,$dd) = explode('-',$rPaciente["dt_nascimento"]);
-	                                                            echo $dd.'/'.$mm.'/'.$YY; 
-                                                        	}
-                                                        ?>
-                                                    </td>
-                                                    <td><?php echo $rPaciente['st_sexo'] == 'M' ? 'Masculino' : 'Feminino' ?></td>
-                                                    <td><?php echo $rPaciente['st_email'] ?></td>
-                                                    <td><?php echo $rPaciente['id_ativo'] == 1 ? 'ATIVO':'INATIVO';?></td>
+                                                	<td><?php echo str_pad($rsClientes['id_cliente'], 5, "0", STR_PAD_LEFT); ?></td>
+                                                    <td><?php echo $rsClientes['st_nome'] ?></td>
+                                                    <td><?php echo $rsClientes['st_cpf'] ?></td>
+                                                    <td><?php echo $rsClientes['st_sexo'] == 'M' ? 'Masculino' : 'Feminino' ?></td>
+                                                    <td><?php echo $rsClientes['st_email'] ?></td>
+                                                    <td><?php echo $rsClientes['id_ativo'] == 1 ? '<strong style="color:green;">'.'ATIVO'.'</strong>':'<strong style="color:red;">'.'INATIVO'.'</strong>';?></td>
                                                     <td style="text-align: center;">
-                										<a href="<?php echo $this->baseUrl('/cliente/cliente/index/id/'.base64_encode($rPaciente["dt_nascimento"].'@'.$rPaciente['id_cliente']))?>"><span class="fa-edit s20" title="Editar Registro"></span></a> | 
-                										<a href="<?php echo $this->baseUrl('/cliente/cliente/inativarregistro/id/'.base64_encode($rPaciente["dt_nascimento"].'@'.$rPaciente['id_cliente']))?>"><span class="fa-remove s20" title="Inativar Registro"></span></a>
+                										<a href="<?php echo $this->baseUrl('/cliente/cliente/index/id/'.base64_encode($rsClientes["dt_nascimento"].'@'.$rsClientes['id_cliente']))?>"><span class="fa-edit s20" title="Editar Registro"></span></a> | 
+                										<?php if($rsClientes['id_ativo'] == 1) :?>
+                											<a href="<?php echo $this->baseUrl('/cliente/cliente/inativarregistro/id/'.base64_encode($rsClientes["id_ativo"].'@'.$rsClientes['id_cliente']))?>"><span class="fa-remove s20" title="Inativar Registro"></span></a>
+                                                    	<?php else :?>
+                                                    		<a href="<?php echo $this->baseUrl('/cliente/cliente/inativarregistro/id/'.base64_encode($rsClientes["id_ativo"].'@'.$rsClientes['id_cliente']))?>"><span class="im-checkmark2 s20" title="Ativar Registro"></span></a>
+                                                    	<?php endif; ?>
                                                     </td>
                                                 </tr>
                                             <?php endforeach; ?>

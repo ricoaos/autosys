@@ -4,6 +4,9 @@ class Cliente_ClienteController extends App_Controller_Action
 	public function init()
 	{
 	    $this->idGrupo = App_Identity::getGrupo();
+	    
+	    
+	    $this->mClienteCrupo = new Model_Cliente_ClienteGrupo();
 	}
 
 	/**
@@ -146,7 +149,7 @@ class Cliente_ClienteController extends App_Controller_Action
 	{
 	    $mCliente = new Model_Cliente_VwCliente();
 	    $rsCliente = $mCliente->fetchAll(array('id_grupo = ?' => $this->idGrupo), '',30)->toArray();
-		$this->view->rsPacientes = $rsCliente;
+		$this->view->rsClientes = $rsCliente;
 	}
 		
 	/**
@@ -157,10 +160,11 @@ class Cliente_ClienteController extends App_Controller_Action
 	{
 		if($this->_request->getParam('id'))
 		{
-			list($date,$id) = explode('@',base64_decode($this->_request->getParam('id')));
-			$mPaciente = new Model_Cliente_Cliente();
-			$where = $mPaciente->getAdapter()->quoteInto('id_cliente = ?', $id );
-			$mPaciente->update(array('id_ativo'=> 0),$where);
+		    list($ativo,$id) = explode('@',base64_decode($this->_request->getParam('id')));
+		    $where = $this->mClienteCrupo->getAdapter()->quoteInto(array('id_cliente = ?'=> $id , 'id_grupo=?' => $this->idGrupo));
+		    $ativo = $ativo == 0 ? 1 : 0;
+		    
+		    $this->mClienteCrupo->update(array('id_ativo'=> $ativo),$where);
 			$this->_redirect('cliente/cliente/listagem');
 		}
 	}
