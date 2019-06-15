@@ -138,25 +138,26 @@ $(document).ready(function(){
 			$("#id_tipo_pessoa").select2("val", "2");
 	    }
 		
-		/*$.ajax({
-			url: baseUrl+'/fornecedor/fornecedor/getfornecedorbycnpj',
-	    	data: 'st_cpf_cnpj='+$(".cpfCnpj").val(),
+		$.ajax({
+			url: baseUrl+'/cliente/cliente/getclientebycpf',
+	    	data: 'cpf='+$(".cpfCnpj").val(),
 	        dataType: 'json',
 	        type:"POST",
 	        success: function(response){
 	        	var objResult = response.result;
-	        	
-	        	if(objResult != ''){
-	        		
+	        		        	
+	        	if(objResult != ''){            		
 		        	$.each(objResult, function(i, item){
-		        		$("#id_fornecedor").val(item.id_fornecedor);
+		        		var nascimento = item.dt_nascimento != null ? item.dt_nascimento.substring(8,10)+'/'+item.dt_nascimento.substring(5,7)+'/'+item.dt_nascimento.substring(0,4) : '';
+		        		
+		        		$("#id_cliente").val(item.id_cliente);
 		        		$("#id_ativo").val(item.id_ativo);
 		        		$("#id_tipo_pessoa").val(item.id_tipo_pessoa);
 		        		$("#st_nome").val(item.st_nome);
 		        		$("#st_email").val(item.st_email);
-		        		$("#st_fone1").val(item.st_fone1);
-		        		$("#st_fone2").val(item.st_fone2);
-		        		$("#st_fone3").val(item.st_fone3);
+		        		$("#st_fonecontato").val(item.st_fonecontato);
+		        		$("#dt_nascimento").val(nascimento);
+		        		$("#st_sexo").val(item.st_sexo);
 		        		$("#st_cep").val(item.st_cep);
 		        		$("#st_logradouro").val(item.st_logradouro);
 		        		$("#st_complemento").val(item.st_complemento);
@@ -164,10 +165,11 @@ $(document).ready(function(){
 		        		$("#st_bairro").val(item.st_bairro);
 		        		$("#st_cidade").val(item.st_cidade);
 		        		$("#st_estado").val(item.st_estado);
+		        		$("#ds_observacao").val(item.ds_observacao);
 		        	});
 	        	}	        	
 	        }
-		 });*/
+		 });
 	});
 	
 	$(".cpfCnpj").focusin(function() {

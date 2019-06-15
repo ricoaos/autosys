@@ -6,6 +6,7 @@ class Cliente_ClienteController extends App_Controller_Action
 	    $this->idGrupo = App_Identity::getGrupo();
 	    $this->mCliente = new Model_Cliente_Cliente();
 	    $this->mClienteCrupo = new Model_Cliente_ClienteGrupo();
+	    $this->mVcliente = new Model_Cliente_VwCliente();
 	}
 
 	/**
@@ -142,8 +143,7 @@ class Cliente_ClienteController extends App_Controller_Action
 	 */
 	public function listagemAction()
 	{
-	    $mCliente = new Model_Cliente_VwCliente();
-	    $rsCliente = $mCliente->fetchAll(array('id_grupo = ?' => $this->idGrupo), '',30)->toArray();
+	    $rsCliente = $this->mVcliente->fetchAll(array('id_grupo = ?' => $this->idGrupo), '',30)->toArray();
 		$this->view->rsClientes = $rsCliente;
 	}
 		
@@ -174,8 +174,7 @@ class Cliente_ClienteController extends App_Controller_Action
     	{
     	    $cpf = $this->_request->getPost();
     	    
-    	    $mCliente = new Model_Cliente_VwCliente();
-    	    $rsCpf = $mCliente->fetchAll(array('st_cpf = ?'=> $cpf))->toArray();
+    	    $rsCpf = $this->mVcliente->fetchAll(array('st_cpf = ?'=> $cpf))->toArray();
     	    
     		$this->_helper->layout->disableLayout();
             $this->getHelper('viewRenderer')->setNoRender();
@@ -237,8 +236,7 @@ class Cliente_ClienteController extends App_Controller_Action
 	 */
 	public function getdadoscadastrados($params)
 	{
-	    $mCliente = new Model_Cliente_VwCliente();
-	    $dadospagina = $mCliente->fetchAll(array('id_cliente = ?' => $params))->toArray();
+	    $dadospagina = $this->mVcliente->fetchAll(array('id_cliente = ?' => $params))->toArray();
 		list($YY,$mm,$dd) = explode('-',$dadospagina[0]["dt_nascimento"]);
 	    $dadospagina[0]["dt_nascimento"] = $dd.'/'.$mm.'/'.$YY;
 		return $dadospagina[0];
