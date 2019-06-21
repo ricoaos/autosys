@@ -4,10 +4,13 @@ class Produto_ProdutoController extends App_Controller_Action
 	public function init()
 	{
 		$this->idOrganizacao = App_Identity::getOrganizacao();
+		$this->idGrupo = App_Identity::getGrupo();
 		$this->idUsuario = App_Identity::getIdUsuario();
 		$this->mProduto = new Model_Produto_Produto();
 		$this->mEstoque = new Model_Produto_Estoque();
-		$this->mEstoqueEntrada = new Model_Produto_EstoqueEntrada();
+		$this->mEntrada = new Model_Produto_Entrada();
+		$this->mEntradaItens = new Model_Produto_EntradaItens();
+		
 		$this->mVwProduto = new Model_Produto_VwProduto();
 		$this->mProdutoFornecedor = new Model_Produto_ProdutoFornecedor();
 	}
@@ -37,27 +40,17 @@ class Produto_ProdutoController extends App_Controller_Action
     	        'st_lote'             => strtoupper($post['st_lote']),
     	        'dt_validade'         => $post['dt_validade'],
     	        'st_comissao'         => $post['st_comissao'],
-    	        'id_usuario_cadastro' => $this->idUsuario
+    	        'id_usuario_cadastro' => $this->idUsuario,
+    	        'id_grupo'            => $this->idGrupo
     	    );
-    	        	      
+    	        	        	        	      
     	    try {
-    	    
+    	           
         	    if(empty($post['id_produto'])){
         	        
         	        $dados['dt_cadastro'] = $dtcadastro;
-        	        //$dados['id_ativo'] = 1;
         	        $rsProduto = $this->mProduto->insert($dados);
         	        
-        	        $args = array(
-        	            'id_produto' => $rsProduto,
-        	            'qt_estoque_minimo'   => $post['qt_estoque_minimo'],
-        	            'st_localizacao'      => strtoupper($post['st_localizacao']),
-        	            'qt_saldo'            => $post['qt_entrada'],
-        	            'id_usuario_cadastro' => $this->idUsuario
-        	        );
-        	        
-        	        $rsEstoque = $this->mEstoque->insert($args);
-        	                	        
         	        foreach($post['id_fornecedor'] as $values){
         	            $fornecedor['id_produto'] = $rsProduto;
         	            $fornecedor['id_fornecedor'] = $values;
@@ -65,9 +58,33 @@ class Produto_ProdutoController extends App_Controller_Action
         	            $rsProdFornecedor = $this->mProdutoFornecedor->insert($fornecedor);
         	        }
         	        
+        	        $args = array(
+        	            'id_organizacao'      => $this->idOrganizacao,
+        	            'id_produto'          => $rsProduto,
+        	            'qt_saldo'            => $post['qt_entrada'],
+        	            'qt_estoque_minimo'   => $post['qt_estoque_minimo'],
+        	            'st_localizacao'      => strtoupper($post['st_localizacao']),
+        	        );
         	        
-        	        $entrada  = array(
-        	            'id_estoque'         => $rsEstoque,
+        	        $rsEstoque = $this->mEstoque->insert($args);
+        	        
+        	        $entrada = array(
+        	            'id_fornecedor'      => null,
+        	            'id_tipo_pagamento'  => 8,
+        	            'cd_nota_fiscal'     => null,
+        	            'dt_cadastro'        => $dtcadastro,
+        	            'id_organizacao'     => $this->idOrganizacao,
+        	            'id_usuario_cadastro'=> $this->idUsuario,
+        	            'id_tipo_entrada'    => 1,
+        	            'vl_total'           => null
+        	            
+        	        );
+        	        
+        	        $rsEntrada = $this->mEntrada->insert($entrada);
+        	        
+        	        $entrada_itens  = array(
+        	            'id_produto'         => $rsProduto,
+        	            'id_entrada'         => $rsEntrada,
         	            'qt_entrada'         => $post['qt_entrada'],
         	            'num_valor_custo'    => $post['num_valor_custo'],
         	            'num_valor_venda'    => $post['num_valor_venda'],
@@ -79,10 +96,8 @@ class Produto_ProdutoController extends App_Controller_Action
         	            'dt_cadastro'        => $dtcadastro
         	        );
         	        
-        	        $rsEntrada = $this->mEstoqueEntrada->insert($entrada);
-        	        
-        	       
-        	        
+        	        $entrada_itens = $this->mEntradaItens->insert($entrada_itens);
+        	                	        
         	    }else{
         	        
         	        $where = $this->mProduto->getAdapter()->quoteInto('id_produto = ?', $post["id_produto"]);
@@ -115,8 +130,8 @@ class Produto_ProdutoController extends App_Controller_Action
         	        $rsProduto = $post['id_produto'];
         	    }
         	    
-        	    $getdados = self::getdadoscadastrados($rsProduto);
-        	    $this->view->dadospagina = $getdados;
+        	   /* $getdados = self::getdadoscadastrados($rsProduto);
+        	    $this->view->dadospagina = $getdados;*/
 
         	    $msg=2;
         	    
@@ -151,7 +166,7 @@ class Produto_ProdutoController extends App_Controller_Action
 	 */
 	public function listagemAction()
 	{
-	    $rsProduto = $this->mVwProduto->fetchAll()->toArray();
+	    $rsProduto = $this->mProduto->fetchAll()->toArray();
 	    $this->view->rsProduto = $rsProduto;
 	}
 		
