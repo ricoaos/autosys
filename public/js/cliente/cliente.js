@@ -151,13 +151,13 @@ $(document).ready(function(){
 		        		var nascimento = item.dt_nascimento != null ? item.dt_nascimento.substring(8,10)+'/'+item.dt_nascimento.substring(5,7)+'/'+item.dt_nascimento.substring(0,4) : '';
 		        		
 		        		$("#id_cliente").val(item.id_cliente);
-		        		$("#id_ativo").val(item.id_ativo);
+		        		$('input[type=checkbox][name=id_ativo][value*='+item.id_ativo+']').attr('checked',true);
 		        		$("#id_tipo_pessoa").val(item.id_tipo_pessoa);
 		        		$("#st_nome").val(item.st_nome);
 		        		$("#st_email").val(item.st_email);
 		        		$("#st_fonecontato").val(item.st_fonecontato);
 		        		$("#dt_nascimento").val(nascimento);
-		        		$("#st_sexo").val(item.st_sexo);
+		        		$('input[type=radio][name=st_sexo][value*='+item.st_sexo+']').attr('checked',true);		        		
 		        		$("#st_cep").val(item.st_cep);
 		        		$("#st_logradouro").val(item.st_logradouro);
 		        		$("#st_complemento").val(item.st_complemento);
@@ -175,5 +175,12 @@ $(document).ready(function(){
 	$(".cpfCnpj").focusin(function() {
 		$(".cpfCnpj").unmask();
 	});
+	
+	
 
 });
+
+function addVeiculo(){
+	//alert($("#id_cliente").val());
+	$("#modalAddVeiculo").modal();
+}

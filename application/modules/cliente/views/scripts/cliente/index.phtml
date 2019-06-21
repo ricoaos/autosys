@@ -120,8 +120,8 @@
 								</div>
 								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Sexo<b style="color: red;">*</b>:</label> 
 								<div class="col-lg-4 col-md-4">
-									<label class="radio-inline"> <input type="radio" name="st_sexo" value="M" <?php if($this->dadospagina['st_sexo'] == "M")  echo "checked"?> required >Masculino</label> 
-									<label class="radio-inline"> <input type="radio" name="st_sexo" value="F" <?php if($this->dadospagina['st_sexo'] == "F")  echo "checked"?> required >Feminino</label>
+									<label > <input type="radio" name="st_sexo" id="st_sexo" value="M" <?php if($this->dadospagina['st_sexo'] == "M")  echo "checked"?> required >Masculino</label> 
+									<label > <input type="radio" name="st_sexo" id="st_sexo" value="F" <?php if($this->dadospagina['st_sexo'] == "F")  echo "checked"?> required >Feminino</label>
 								</div>
 							</div>
 							
@@ -264,6 +264,37 @@
             </div>
             <div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+          </div>
+        </div>
+    </div>
+</div>
+<!-- Fim Modal valida CPF--> 
+
+<!-- Modal AddVeiculo -->
+<div class="modal" id="modalAddVeiculo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Cadastro de Veículos</h4>
+            </div>
+			<div class="modal-body">              	
+				<div class="panel-body">
+					<div class="form-group">
+						<label class="col-lg-2 col-md-2 col-sm-12 control-label ">Placa:</label>
+						<div class="col-lg-4 col-md-4">
+							<input type="text" class="form-control" id="st_placa" name="st_placa" required />
+						</div>
+						
+						<label class="col-lg-2 col-md-2 col-sm-12 control-label">Ano Fab:</label>
+						<div class="col-lg-4 col-md-4">
+							<input type="text" class="form-control" id="num_ano" name="num_ano" required maxlength="4"  />
+						</div>
+					</div> 
+				</div>	          
+            </div>
+            <div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cadastrar</button>
           </div>
         </div>
     </div>
