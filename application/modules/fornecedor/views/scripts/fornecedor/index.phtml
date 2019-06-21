@@ -56,8 +56,21 @@
 										<input type="checkbox" <?php if($this->dadospagina['id_ativo']==1){ echo 'checked ="checked"';}?> style="position: absolute; opacity: 0;" id="id_ativo" name="id_ativo"  /><b>ATIVO</b>
 									</label>
 								</div>
+								
+							</div>						
+							<div class="form-group">
+								<label class="col-lg-1 col-md-1 col-sm-12 control-label ">CPF/CNPJ<b style="color: red;"> *</b></label>
+								<div class="col-lg-2 col-md-2">
+									<input type="text" class="form-control cpfCnpj" id="st_cpf_cnpj" name="st_cpf_cnpj" required  value="<?php echo $this->dadospagina['st_cpf_cnpj']?>" />
+								</div>
+								
+								<label class="col-lg-1 col-md-1 col-sm-12 control-label ">Nome<b style="color: red;"> *</b></label>
+								<div class="col-lg-5 col-md-4">
+									<input type="text" class="form-control" id="st_nome" name="st_nome" required  value="<?php echo $this->dadospagina['st_nome']?>" />
+								</div>
+								
 								<label class="col-lg-1 col-md-12 col-sm-12 control-label">Tipo Fornecedor:</label>
-								<div class="col-lg-3 col-md-3">
+								<div class="col-lg-2 col-md-3">
 									<select id="id_tipo_pessoa" class="form-control select2" required name="id_tipo_pessoa" autofocus="autofocus">
 										<option></option>
 										<?php foreach ($this->tipoPessoa as $value):?>
@@ -65,33 +78,24 @@
 										<?php endforeach;?>
 									</select>
 								</div>
-							</div>						
-							<div class="form-group">
-								<label class="col-lg-1 col-md-1 col-sm-12 control-label ">Nome<b style="color: red;"> *</b></label>
-								<div class="col-lg-4 col-md-4">
-									<input type="text" class="form-control" id="st_nome" name="st_nome" required  value="<?php echo $this->dadospagina['st_nome']?>" />
-								</div>
-								<label class="col-lg-1 col-md-1 col-sm-12 control-label ">CPF/CNPJ<b style="color: red;"> *</b></label>
-								<div class="col-lg-2 col-md-2">
-									<input type="text" class="form-control cpfCnpj" id="st_cpf_cnpj" name="st_cpf_cnpj" required  value="<?php echo $this->dadospagina['st_cpf_cnpj']?>" />
-								</div>
-								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Email:</label>
-								<div class="col-lg-3 col-md-3">
-									<input type="text" class="form-control" id="st_email" name="st_email" value="<?php echo $this->dadospagina['st_email']?>" />
-								</div>
+								
 							</div>
 							
 							<div class="form-group">
-								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Telefone 1<b style="color: red;"> *</b></label>
-								<div class="col-lg-3 col-md-3">
+								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Email:</label>
+								<div class="col-lg-2 col-md-3">
+									<input type="text" class="form-control" id="st_email" name="st_email" value="<?php echo $this->dadospagina['st_email']?>" />
+								</div>
+								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Celular<b style="color: red;"> *</b></label>
+								<div class="col-lg-2 col-md-3">
 									<input type="text" class="form-control" id="st_fone1" name="st_fone1"  required placeholder="DDD+NÚMERO" maxlength="15" value="<?php echo $this->dadospagina['st_fone1']?>" />
 								</div>
-								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Telefone 2</label>
-								<div class="col-lg-3 col-md-3">
+								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Fixo</label>
+								<div class="col-lg-2 col-md-3">
 									<input type="text" class="form-control" id="st_fone2" name="st_fone2"  placeholder="DDD+NÚMERO" maxlength="15" value="<?php echo $this->dadospagina['st_fone2']?>" />
 								</div>
-								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Telefone 3</label>
-								<div class="col-lg-3 col-md-3">
+								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Recado</label>
+								<div class="col-lg-2 col-md-3">
 									<input type="text" class="form-control" id="st_fone3" name="st_fone3"  placeholder="DDD+NÚMERO" maxlength="15" value="<?php echo $this->dadospagina['st_fone3']?>" />
 								</div>
 							</div>
