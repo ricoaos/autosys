@@ -10,9 +10,9 @@ class Produto_ProdutoController extends App_Controller_Action
 		$this->mEstoque = new Model_Produto_Estoque();
 		$this->mEntrada = new Model_Produto_Entrada();
 		$this->mEntradaItens = new Model_Produto_EntradaItens();
-		
-		$this->mVwProduto = new Model_Produto_VwProduto();
 		$this->mProdutoFornecedor = new Model_Produto_ProdutoFornecedor();
+		$this->mVwProduto = new Model_Produto_VwProduto();
+		
 	}
 
 	public function indexAction()
@@ -130,8 +130,8 @@ class Produto_ProdutoController extends App_Controller_Action
         	        $rsProduto = $post['id_produto'];
         	    }
         	    
-        	   /* $getdados = self::getdadoscadastrados($rsProduto);
-        	    $this->view->dadospagina = $getdados;*/
+        	    $getdados = self::getdadoscadastrados($rsProduto);
+        	    $this->view->dadospagina = $getdados;
 
         	    $msg=2;
         	    
@@ -166,23 +166,10 @@ class Produto_ProdutoController extends App_Controller_Action
 	 */
 	public function listagemAction()
 	{
-	    $rsProduto = $this->mProduto->fetchAll()->toArray();
+	    $rsProduto = $this->mVwProduto->fetchAll()->toArray();
 	    $this->view->rsProduto = $rsProduto;
 	}
-		
-	/**
-	 * 
-	 * Enter description here ...
-	 */
-	public function inativarregistroAction()
-	{
-		if($this->_request->getParam('id'))
-		{
 			
-			$this->_redirect('corporativo/cliente/listagem');
-		}
-	}
-		
 	/**
 	 * 
 	 * @param unknown $params
