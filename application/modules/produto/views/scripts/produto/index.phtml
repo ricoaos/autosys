@@ -126,7 +126,7 @@
                                     <select name="id_fornecedor[]" id="id_fornecedor[]" class="form-control select2" multiple required>
                                     	<option></option>
                                         <?php foreach ($this->fornecedor as $value):?>
-											<option value="<?php echo $value['id_fornecedor']?>" ><?php echo strtoupper( $value['st_nome']) ?></option>
+											<option value="<?php echo $value['id_fornecedor']?>" <?php if($this->dadospagina['id_fornecedor'] == $value['id_fornecedor']) echo "selected"?>><?php echo strtoupper( $value['st_nome']) ?></option>
 										<?php endforeach;?>
                                     </select>
                                 </div>

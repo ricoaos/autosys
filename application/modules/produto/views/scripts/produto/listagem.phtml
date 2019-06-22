@@ -28,8 +28,10 @@
 											<tr>
 												<th>Registro</th>
 												<th>Nome</th>
+												<th>Marca</th>
 												<th>Estoque Atual</th>
-												<th>Localizacao</th>
+												<th>Localizacao Estoque</th>
+												<th>Estoque Minímo</th>
 												<th>Valor Venda</th>
 												<th>Ação</th>
 											</tr>
@@ -39,13 +41,14 @@
 												<tr>
                                                 	<td><?php echo str_pad($rProduto['id_produto'], 5, "0", STR_PAD_LEFT); ?></td>
                                                     <td><?php echo $rProduto['st_nome'] ?></td>
+                                                    <td><?php echo $rProduto['nm_marca'] ?></td>
                                                     <td><?php echo $rProduto['qt_saldo'] ?></td>
                                                     <td><?php echo $rProduto['st_localizacao'] ?></td>
+                                                    <td><?php echo $rProduto['qt_estoque_minimo'] ?></td>
                                                     <td><?php echo $rProduto['num_valor_venda'] ?></td>
                                                     <td style="text-align: center;">
-                										<a href="<?php echo $this->baseUrl('/produto/produto/index/id/'.base64_encode($rProduto["dt_cadastro"].'@'.$rProduto['id_produto']))?>"><span class="fa-edit s20" title="Editar Registro"></span></a> | 
-                										<a href="<?php echo $this->baseUrl('/produto/produto/inativarregistro/id/'.base64_encode($rProduto["dt_cadastro"].'@'.$rProduto['id_produto']))?>"><span class="fa-remove s20" title="Inativar Registro"></span></a>
-                                                    </td>
+                										<a href="<?php echo $this->baseUrl('/produto/produto/index/id/'.base64_encode($rProduto["dt_cadastro_prod"].'@'.$rProduto['id_produto']))?>"><span class="fa-edit s20" title="Editar Registro"></span></a> | 
+                									</td>
                                                 </tr>
                                             <?php endforeach; ?>
 										</tbody>
