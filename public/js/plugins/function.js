@@ -4,7 +4,7 @@
  * @returns {Boolean}
  */
 function ValidarCPF(Objcpf){
-    var cpf = Objcpf; 
+    var cpf = Objcpf.replace(/[^\d]+/g, ''); 
     var digitoDigitado = eval(cpf.charAt(9)+cpf.charAt(10));
     var soma1=0;
     var soma2=0;

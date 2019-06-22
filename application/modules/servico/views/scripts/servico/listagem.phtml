@@ -45,11 +45,15 @@
                                                 	<td><?php echo str_pad($rsServico['id_servico'], 5, "0", STR_PAD_LEFT); ?></td>
                                                     <td><?php echo $rsServico['st_nome'] ?></td>
                                                     <td><?php echo $rsServico['num_valor_venda'] ?></td>
-                                                    <td><?php echo $rsServico['ds_observacao'] ?></td>
-                                                    <td><?php echo $rsServico['id_ativo'] == 1 ? 'ATIVO':'INATIVO';?></td>
+                                                    <td><?php echo $rsServico['ds_observacao'] ?></td>                                                    
+                                                    <td><?php echo $rsServico['id_ativo'] == 1 ? '<strong style="color:green;">'.'ATIVO'.'</strong>':'<strong style="color:red;">'.'INATIVO'.'</strong>';?></td>
                                                     <td style="text-align: center;">
                 										<a href="<?php echo $this->baseUrl('/servico/servico/index/id/'.base64_encode($rsServico["st_nome"].'@'.$rsServico['id_servico']))?>"><span class="fa-edit s20" title="Editar Registro"></span></a> | 
-                										<a href="<?php echo $this->baseUrl('/servico/servico/inativarregistro/id/'.base64_encode($rsServico["st_nome"].'@'.$rsServico['id_servico']))?>"><span class="fa-remove s20" title="Inativar Registro"></span></a>
+                										<?php if($rsServico['id_ativo'] == 1) :?>
+                											<a href="<?php echo $this->baseUrl('/servico/servico/inativarregistro/id/'.base64_encode($rsServico["id_ativo"].'@'.$rsServico['id_servico']))?>"><span class="fa-remove s20" title="Inativar Registro"></span></a>
+                                                    	<?php else :?>
+                                                    		<a href="<?php echo $this->baseUrl('/servico/servico/inativarregistro/id/'.base64_encode($rsServico["id_ativo"].'@'.$rsServico['id_servico']))?>"><span class="im-checkmark2 s20" title="Ativar Registro"></span></a>
+                                                    	<?php endif; ?>
                                                     </td>
                                                 </tr>
                                             <?php endforeach; ?>

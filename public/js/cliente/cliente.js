@@ -1,6 +1,5 @@
 $(document).ready(function(){
 	
-	$("#st_cpf").mask('999.999.999-99');
 	$("#st_cep").mask('99.999-999');
 	$("#dt_nascimento").mask('99/99/9999');
 	$("#wrapper_booth").hide();
@@ -108,71 +107,80 @@ $(document).ready(function(){
     $("#btnLimpar").click(function(){
     	window.location.href = baseUrl+'/cliente/cliente/index';
     });
-
-	$("#st_cpf").change(function(){
+    
+    $(".cpfCnpj").unmask();
+    
+	$(".cpfCnpj").focusout(function() {
+		$(".cpfCnpj").unmask();
 		
-				
-		var cpf = $(this).val().replace(/\D/g,"");
+		var tamanho = $(".cpfCnpj").val().replace(/\D/g, '').length;
 		
-		if(!ValidarCPF(cpf)){
-			$('#modalVal').modal();
-			$("#st_cpf").val('');
-			return;
-		};
-
-        $.ajax({
-        	url: baseUrl+'/cliente/cliente/getclientebycpf',
-        	data: 'cpf='+$(this).val(),
-            dataType: 'json',
-            type:"POST",
-            success: function(response){
-            	
-            	var objResult = response.result;
-            	var linha = '';
-            	
-            	if(objResult != ''){
-            		
-            		linha += '<div class="panel-body">';
-            		linha += '<table class="table table-striped table-hover table-fixed-layout non-responsive">';
-            		linha += '<tbody>';
-            		
-	            	$.each(objResult, function(i, item){
-	            		var imagem = item.id_foto != 1 ? baseUrl+'/assets/img/user.png' : baseUrl+'/img/fotos/usuario/'+item.id_pessoa+'.png';
-	            		var url = baseUrl+'/cliente/cliente/index/id_similar/'+btoa(item.dt_nascimento+'@'+item.id_pessoa);
-	            		var nascimento = item.dt_nascimento != null ? item.dt_nascimento.substring(8,10)+'/'+item.dt_nascimento.substring(5,7)+'/'+item.dt_nascimento.substring(0,4) : '';
-	            		linha += '<tr>';
-	            		linha +=   '<td class="email-subject input-mini" >';
-	            		linha +=   		'<a href="'+url+'"><img width="50" class="chat-avatar" src="'+imagem+'"></a><br/>';
-	            		linha +=   		'<label class="checkbox">'+item.id_pessoa+'</label>';
-	            		linha +=   '</td>';
-	            		linha +=   	'<td class="email-subject">';
-	            		linha +=        '<span class="help-block">Cliente</span>';
-	            		linha +=   		'<label class="checkbox">'+item.st_nome+'</label>';
-         				linha +=   '</td>';
-	            		linha +=   	'<td class="email-subject">';
-	            		linha +=        '<span class="help-block">CPF</span>';
-	            		linha +=   		'<label class="checkbox">'+item.st_cpf+'</label>';
-         				linha +=   '</td>';
-	            		linha +=   	'<td class="email-subject">';
-	            		linha +=        '<span class="help-block">Data Nascimento</span>';
-	            		linha +=   		'<label class="checkbox">'+nascimento+'</label>';
-         				linha +=   '</td>';
-         				linha +=   	'<td class="email-subject">';
-         				linha +=        '<span class="help-block">Cadastrado em</span>';
-	            		linha +=   		'<label class="checkbox">'+item.dt_cadastro+'</label>';
-         				linha +=   '</td>';
-	            		linha += '</tr>';
-					});
-	            	
-	            	linha += '</tbody>';		
-	            	linha += '</table>';
-	            	linha += '<div>';
-	            	
-	            	$("#RegCpf").html(linha);            		
-            		$('#modalCPF').modal();
-            		$("#st_cpf").val('').focus();
-            	}
-            }
-        });
+		if (tamanho == 11) {
+			
+			if(!ValidarCPF($(".cpfCnpj").val())){
+				$('#modalVal').modal();
+				$(".cpfCnpj").val('').focus();
+				return;
+			};
+			
+			$(".cpfCnpj").mask("999.999.999-99");
+			$("#id_tipo_pessoa").select2("val", "1");
+			
+		} else if (tamanho == 14) {
+			
+			if(!ValidaCNPJ($(".cpfCnpj").val())){
+				$('#modalVal').modal();
+				$(".cpfCnpj").val('').focus();
+				return;
+			};
+			
+			$(".cpfCnpj").mask("99.999.999/9999-99");
+			$("#id_tipo_pessoa").select2("val", "2");
+	    }
+		
+		$.ajax({
+			url: baseUrl+'/cliente/cliente/getclientebycpf',
+	    	data: 'cpf='+$(".cpfCnpj").val(),
+	        dataType: 'json',
+	        type:"POST",
+	        success: function(response){
+	        	var objResult = response.result;
+	        		        	
+	        	if(objResult != ''){            		
+		        	$.each(objResult, function(i, item){
+		        		var nascimento = item.dt_nascimento != null ? item.dt_nascimento.substring(8,10)+'/'+item.dt_nascimento.substring(5,7)+'/'+item.dt_nascimento.substring(0,4) : '';
+		        		
+		        		$("#id_cliente").val(item.id_cliente);
+		        		$('input[type=checkbox][name=id_ativo][value*='+item.id_ativo+']').attr('checked',true);
+		        		$("#id_tipo_pessoa").val(item.id_tipo_pessoa);
+		        		$("#st_nome").val(item.st_nome);
+		        		$("#st_email").val(item.st_email);
+		        		$("#st_fonecontato").val(item.st_fonecontato);
+		        		$("#dt_nascimento").val(nascimento);
+		        		$('input[type=radio][name=st_sexo][value*='+item.st_sexo+']').attr('checked',true);		        		
+		        		$("#st_cep").val(item.st_cep);
+		        		$("#st_logradouro").val(item.st_logradouro);
+		        		$("#st_complemento").val(item.st_complemento);
+		        		$("#st_numero").val(item.st_numero);
+		        		$("#st_bairro").val(item.st_bairro);
+		        		$("#st_cidade").val(item.st_cidade);
+		        		$("#st_estado").val(item.st_estado);
+		        		$("#ds_observacao").val(item.ds_observacao);
+		        	});
+	        	}	        	
+	        }
+		 });
 	});
+	
+	$(".cpfCnpj").focusin(function() {
+		$(".cpfCnpj").unmask();
+	});
+	
+	
+
 });
+
+function addVeiculo(){
+	//alert($("#id_cliente").val());
+	$("#modalAddVeiculo").modal();
+}

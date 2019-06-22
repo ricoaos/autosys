@@ -26,8 +26,6 @@ class Servico_ServicoController extends App_Controller_Action
 	    //Realiza a inserção das informações
 	    if($this->_request->isPost())
 	    {
-	        
-	        
 	        try 
 	        {	            
 	           if(empty($post['id_servico'])){
@@ -85,11 +83,13 @@ class Servico_ServicoController extends App_Controller_Action
 	{
 	    if($this->_request->getParam('id'))
 	    {
-	        list($date,$id) = explode('@',base64_decode($this->_request->getParam('id')));
+	        list($ativo,$id) = explode('@',base64_decode($this->_request->getParam('id')));
 	        $where = $this->mServico->getAdapter()->quoteInto('id_servico = ?', $id );
-	        $this->mServico->update(array('id_ativo'=> 0),$where);
+	        $ativo = $ativo == 0 ? 1 : 0;
+	        $this->mServico->update(array('id_ativo'=> $ativo),$where);
 	        $this->_redirect('servico/servico/listagem');
 	    }
+	   
 	}
 		
 	/**

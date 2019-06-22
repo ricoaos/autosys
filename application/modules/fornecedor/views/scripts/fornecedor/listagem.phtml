@@ -45,10 +45,14 @@
                                     <td><?php echo $rsFornecedor['st_cpf_cnpj'] ?></td>
                                     <td><?php echo $rsFornecedor['st_fone1'] ?></td>
                                     <td><?php echo $rsFornecedor['st_email'] ?></td>
-                                    <td><?php echo $rsFornecedor['id_ativo'] == 1 ? 'ATIVO':'INATIVO';?></td>
+                                    <td><?php echo $rsFornecedor['id_ativo'] == 1 ? '<strong style="color:green;">'.'ATIVO'.'</strong>':'<strong style="color:red;">'.'INATIVO'.'</strong>';?></td>
                                     <td style="text-align: center;">
-										<a href="<?php echo $this->baseUrl('/fornecedor/fornecedor/index/id/'.base64_encode($rsFornecedor["st_cpf_cnpj"].'@'.$rsFornecedor['id_fornecedor']))?>"><span class="fa-edit s20" title="Editar Registro"></span></a> | 
-										<a href="<?php echo $this->baseUrl('/fornecedor/fornecedor/inativarregistro/id/'.base64_encode($rsFornecedor["st_cpf_cnpj"].'@'.$rsFornecedor['id_fornecedor']))?>"><span class="fa-remove s20" title="Inativar Registro"></span></a>
+										<a href="<?php echo $this->baseUrl('/fornecedor/fornecedor/index/id/'.base64_encode($rsFornecedor["id_ativo"].'@'.$rsFornecedor['id_fornecedor']))?>"><span class="fa-edit s20" title="Editar Registro"></span></a> | 
+										<?php if($rsFornecedor['id_ativo'] == 1) :?>
+											<a href="<?php echo $this->baseUrl('/fornecedor/fornecedor/inativarregistro/id/'.base64_encode($rsFornecedor["id_ativo"].'@'.$rsFornecedor['id_fornecedor']))?>"><span class="fa-remove s20" title="Inativar Registro"></span></a>
+                                    	<?php else :?>
+                                    		<a href="<?php echo $this->baseUrl('/fornecedor/fornecedor/inativarregistro/id/'.base64_encode($rsFornecedor["id_ativo"].'@'.$rsFornecedor['id_fornecedor']))?>"><span class="im-checkmark2 s20" title="Ativar Registro"></span></a>
+                                    	<?php endif; ?>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>

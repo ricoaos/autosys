@@ -46,8 +46,31 @@
 						<div class="panel-heading white-bg"></div>
 						<div class="panel-body">
 							<div class="form-group">
-								<label class="col-lg-1 col-md-12 col-sm-12 control-label">Tipo Fornecedor:</label>
+								
+								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Registro: </label>
 								<div class="col-lg-3 col-md-3">
+									<input class="form-control" type="text" id="id_fornecedor" name="id_fornecedor" readonly="readonly" value="<?php echo $this->dadospagina['id_fornecedor']?>" />
+								</div>
+								<div class="col-lg-2 col-md-2">
+									<label class="checkbox-inline">
+										<input type="checkbox" <?php if($this->dadospagina['id_ativo']==1){ echo 'checked ="checked"';}?> style="position: absolute; opacity: 0;" id="id_ativo" name="id_ativo"  /><b>ATIVO</b>
+									</label>
+								</div>
+								
+							</div>						
+							<div class="form-group">
+								<label class="col-lg-1 col-md-1 col-sm-12 control-label ">CPF/CNPJ<b style="color: red;"> *</b></label>
+								<div class="col-lg-2 col-md-2">
+									<input type="text" class="form-control cpfCnpj" id="st_cpf_cnpj" name="st_cpf_cnpj" required  value="<?php echo $this->dadospagina['st_cpf_cnpj']?>" />
+								</div>
+								
+								<label class="col-lg-1 col-md-1 col-sm-12 control-label ">Nome<b style="color: red;"> *</b></label>
+								<div class="col-lg-5 col-md-4">
+									<input type="text" class="form-control" id="st_nome" name="st_nome" required  value="<?php echo $this->dadospagina['st_nome']?>" />
+								</div>
+								
+								<label class="col-lg-1 col-md-12 col-sm-12 control-label">Tipo Fornecedor:</label>
+								<div class="col-lg-2 col-md-3">
 									<select id="id_tipo_pessoa" class="form-control select2" required name="id_tipo_pessoa" autofocus="autofocus">
 										<option></option>
 										<?php foreach ($this->tipoPessoa as $value):?>
@@ -55,42 +78,24 @@
 										<?php endforeach;?>
 									</select>
 								</div>
-								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Registro: </label>
-								<div class="col-lg-3 col-md-3">
-									<input class="form-control" type="text" id="id_fornecedor" name="id_fornecedor" readonly="readonly" value="<?php echo $this->dadospagina['id_fornecedor']?>" />
-								</div>
-								<div class="col-lg-2 col-md-2">
-									<label class="checkbox-inline">
-										<input type="checkbox" value="1" <?php if($this->dadospagina['id_ativo']==1){ echo 'checked ="checked"';}?> style="position: absolute; opacity: 0;" id="id_ativo" name="id_ativo"  /><b>ATIVO</b>
-									</label>
-								</div>
-							</div>						
-							<div class="form-group">
-								<label class="col-lg-1 col-md-1 col-sm-12 control-label ">Nome<b style="color: red;"> *</b></label>
-								<div class="col-lg-4 col-md-4">
-									<input type="text" class="form-control" id="st_nome" name="st_nome" required  value="<?php echo $this->dadospagina['st_nome']?>" />
-								</div>
-								<label class="col-lg-1 col-md-1 col-sm-12 control-label ">CPF/CNPJ<b style="color: red;"> *</b></label>
-								<div class="col-lg-2 col-md-2">
-									<input type="text" class="form-control" id="st_cpf_cnpj" name="st_cpf_cnpj" required  value="<?php echo $this->dadospagina['st_cpf_cnpj']?>" />
-								</div>
-								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Email:</label>
-								<div class="col-lg-3 col-md-3">
-									<input type="text" class="form-control" id="st_email" name="st_email" value="<?php echo $this->dadospagina['st_email']?>" />
-								</div>
+								
 							</div>
 							
 							<div class="form-group">
-								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Telefone 1<b style="color: red;"> *</b></label>
-								<div class="col-lg-3 col-md-3">
+								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Email:</label>
+								<div class="col-lg-2 col-md-3">
+									<input type="text" class="form-control" id="st_email" name="st_email" value="<?php echo $this->dadospagina['st_email']?>" />
+								</div>
+								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Celular<b style="color: red;"> *</b></label>
+								<div class="col-lg-2 col-md-3">
 									<input type="text" class="form-control" id="st_fone1" name="st_fone1"  required placeholder="DDD+NÚMERO" maxlength="15" value="<?php echo $this->dadospagina['st_fone1']?>" />
 								</div>
-								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Telefone 2</label>
-								<div class="col-lg-3 col-md-3">
+								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Fixo</label>
+								<div class="col-lg-2 col-md-3">
 									<input type="text" class="form-control" id="st_fone2" name="st_fone2"  placeholder="DDD+NÚMERO" maxlength="15" value="<?php echo $this->dadospagina['st_fone2']?>" />
 								</div>
-								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Telefone 3</label>
-								<div class="col-lg-3 col-md-3">
+								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Recado</label>
+								<div class="col-lg-2 col-md-3">
 									<input type="text" class="form-control" id="st_fone3" name="st_fone3"  placeholder="DDD+NÚMERO" maxlength="15" value="<?php echo $this->dadospagina['st_fone3']?>" />
 								</div>
 							</div>
@@ -98,16 +103,6 @@
 								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Cep </label>
 								<div class="col-lg-2 col-md-2">
 									<input type="text" class="form-control" id="st_cep" name="st_cep" value="<?php echo $this->dadospagina['st_cep']?>" />
-								</div>
-								
-								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Tipo </label>
-								<div class="col-lg-2 col-md-2">
-									<select id="st_tipo_logradouro" class="form-control select2" autofocus="autofocus" required name="st_tipo_logradouro">
-										<option></option>
-										<?php foreach ($this->TipoLogradouro as $value):?>
-											<option value="<?php echo $value['id_tipo_logradouro']?>" <?php if($this->dadospagina['st_tipo_logradouro'] == $value['id_tipo_logradouro']) echo "selected"?>><?php echo strtoupper( $value['st_nome']) ?></option>
-										<?php endforeach;?>
-									</select>
 								</div>
 								
 								<label class="col-lg-1 col-md-1 col-sm-12 control-label">Logradouro</label>
@@ -162,28 +157,8 @@
 	<div class="clearfix"></div>
 </div>
 
-<!-- ModalCPFIguais -->
-<div class="modal fade" id="modalCPF">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">Existe(m) esse(s) Registro(s) para esse CPF</h4>
-            </div>
-              <div class="modal-body">
-                <div class="row">
-					<div id="RegCpf"></div>       
-        		</div>            
-            </div>
-            <div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Continuar Cadastro</button>
-          </div>
-        </div>
-    </div>
-</div>
-<!-- Fim Modal CPF iguais--> 
 
-<!-- Modal valida CPF -->
+<!-- Modal valida Cnpj -->
 <div class="modal" id="modalVal">
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
@@ -192,7 +167,7 @@
             </div>
               <div class="modal-body">
                 <div class="row">
-					<div>O CPF digitado não é valido</div>       
+					<div>O CNPJ ou CPF digitado não é valido, digite o número correto</div>       
         		</div>            
             </div>
             <div class="modal-footer">
@@ -204,7 +179,6 @@
 
 <script type="text/javascript" src="<?php echo $this->baseUrl('/js/fornecedor/fornecedor.js')?>"> </script>
 <script type="text/javascript" src="<?php echo $this->baseUrl('/js/plugins/function.js')?>"> </script>
-<link href="<?php echo $this->baseUrl('/js/photobooth/page.css')?>" rel="stylesheet" />
 
 <script src="<?php echo $this->baseUrl()?>/assets/plugins/forms/maxlength/bootstrap-maxlength.js"></script>
 <script src="<?php echo $this->baseUrl()?>/assets/plugins/forms/bootstrap-filestyle/bootstrap-filestyle.js"></script>

@@ -60,7 +60,7 @@ class Veiculo_VeiculoController extends App_Controller_Action
 		}
 
 		$mCliente = new Model_Cliente_VwCliente();
-    	$rsCliente = $mCliente->fetchAll(array('id_organizacao = ?' => $this->idOrganizacao), '',30)->toArray();
+		$rsCliente = $mCliente->fetchAll(array('id_grupo = ?' => $this->grupo), '',30)->toArray();
     	$this->view->rsCliente = $rsCliente;
 		    	
     	$mCombustivel = new Model_Apoio_Combustivel();
