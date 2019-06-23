@@ -12,9 +12,8 @@ class Produto_ProdutoController extends App_Controller_Action
 		$this->mEntradaItens = new Model_Produto_EntradaItens();
 		$this->mProdutoFornecedor = new Model_Produto_ProdutoFornecedor();
 		$this->mVwProduto = new Model_Produto_VwProduto();
-		
 	}
-
+	
 	public function indexAction()
 	{
 		//Busca as informações cadastradas
@@ -45,7 +44,7 @@ class Produto_ProdutoController extends App_Controller_Action
     	    );
     	        	        	        	      
     	    try {
-    	           
+    	        
         	    if(empty($post['id_produto'])){
         	        
         	        $dados['dt_cadastro'] = $dtcadastro;
@@ -54,7 +53,6 @@ class Produto_ProdutoController extends App_Controller_Action
         	        foreach($post['id_fornecedor'] as $values){
         	            $fornecedor['id_produto'] = $rsProduto;
         	            $fornecedor['id_fornecedor'] = $values;
-        	            
         	            $rsProdFornecedor = $this->mProdutoFornecedor->insert($fornecedor);
         	        }
         	        
@@ -65,7 +63,6 @@ class Produto_ProdutoController extends App_Controller_Action
         	            'qt_estoque_minimo'   => $post['qt_estoque_minimo'],
         	            'st_localizacao'      => strtoupper($post['st_localizacao']),
         	        );
-        	        
         	        $rsEstoque = $this->mEstoque->insert($args);
         	        
         	        $entrada = array(
@@ -77,9 +74,7 @@ class Produto_ProdutoController extends App_Controller_Action
         	            'id_usuario_cadastro'=> $this->idUsuario,
         	            'id_tipo_entrada'    => 1,
         	            'vl_total'           => null
-        	            
         	        );
-        	        
         	        $rsEntrada = $this->mEntrada->insert($entrada);
         	        
         	        $entrada_itens  = array(
@@ -95,9 +90,8 @@ class Produto_ProdutoController extends App_Controller_Action
         	            'id_usuario_cadastro'=> $this->idUsuario,
         	            'dt_cadastro'        => $dtcadastro
         	        );
-        	        
         	        $entrada_itens = $this->mEntradaItens->insert($entrada_itens);
-        	                	        
+        	        
         	    }else{
         	        
         	        $where = $this->mProduto->getAdapter()->quoteInto('id_produto = ?', $post["id_produto"]);
@@ -106,14 +100,13 @@ class Produto_ProdutoController extends App_Controller_Action
         	        $args = array(
         	            'qt_estoque_minimo'   => $post['qt_estoque_minimo'],
         	            'st_localizacao'      => strtoupper($post['st_localizacao']),
-        	            'qt_saldo'            => $post['qt_entrada'],
-        	            'id_usuario_cadastro' => $this->idUsuario
+        	            'qt_saldo'            => $post['qt_entrada']
         	        );
         	        
-        	        $whereEstoque = $this->mEstoque->getAdapter()->quoteInto('id_estoque = ?', $post["id_estoque"]);
+        	        $whereEstoque = $this->mEstoque->getAdapter()->quoteInto(array('id_produto = ?' => $post['id_produto'],'id_organizacao = ?' => $this->idOrganizacao));
         	        $this->mEstoque->update($args, $whereEstoque);
         	        
-        	        $entrada  = array(
+        	       /* $entrada  = array(
         	            'qt_entrada'         => $post['qt_entrada'],
         	            'num_valor_custo'    => $post['num_valor_custo'],
         	            'num_valor_venda'    => $post['num_valor_venda'],
@@ -125,7 +118,7 @@ class Produto_ProdutoController extends App_Controller_Action
         	        );
         	        
         	        $whereEstoqueEntrada = $this->mEstoqueEntrada->getAdapter()->quoteInto('id_estoque_entrada = ?', $post["id_estoque_entrada"]);
-        	        $this->mEstoqueEntrada->update($entrada, $whereEstoqueEntrada);
+        	        $this->mEstoqueEntrada->update($entrada, $whereEstoqueEntrada);*/
         	        
         	        $rsProduto = $post['id_produto'];
         	    }
@@ -170,8 +163,7 @@ class Produto_ProdutoController extends App_Controller_Action
 	    $this->view->rsProduto = $rsProduto;
 	}
 			
-	/**
-	 * 
+	/*
 	 * @param unknown $params
 	 * @return string
 	 */

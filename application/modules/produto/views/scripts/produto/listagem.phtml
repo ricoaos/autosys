@@ -47,7 +47,7 @@
                                                     <td><?php echo $rProduto['qt_estoque_minimo'] ?></td>
                                                     <td><?php echo $rProduto['num_valor_venda'] ?></td>
                                                     <td style="text-align: center;">
-                										<a href="<?php echo $this->baseUrl('/produto/produto/index/id/'.base64_encode($rProduto["dt_cadastro_prod"].'@'.$rProduto['id_produto']))?>"><span class="fa-edit s20" title="Editar Registro"></span></a> | 
+                										<a href="<?php echo $this->baseUrl('/produto/produto/index/id/'.base64_encode($rProduto["dt_cadastro_prod"].'@'.$rProduto['id_produto']))?>"><span class="fa-edit s20" title="Editar Registro"></span></a> 
                 									</td>
                                                 </tr>
                                             <?php endforeach; ?>
