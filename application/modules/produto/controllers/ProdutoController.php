@@ -43,6 +43,53 @@ class Produto_ProdutoController extends App_Controller_Action
     	        'id_usuario_cadastro' => $this->idUsuario,
     	        'id_grupo'            => $this->idGrupo
     	    );
+    	    
+    	   /* $dados['dt_cadastro'] = $dtcadastro;
+    	    $rsProduto = $this->mProduto->insert($dados);
+    	    
+    	    foreach($post['id_fornecedor'] as $values){
+    	        $fornecedor['id_produto'] = $rsProduto;
+    	        $fornecedor['id_fornecedor'] = $values;
+    	        $rsProdFornecedor = $this->mProdutoFornecedor->insert($fornecedor);
+    	    }
+    	    
+    	    $args = array(
+    	        'id_organizacao'      => $this->idOrganizacao,
+    	        'id_produto'          => $rsProduto,
+    	        'qt_saldo'            => empty($post['qt_entrada']) ? null : $post['qt_entrada'],
+    	        'qt_estoque_minimo'   => $post['qt_estoque_minimo'],
+    	        'st_localizacao'      => strtoupper($post['st_localizacao']),
+    	    );
+    	    $rsEstoque = $this->mEstoque->insert($args);
+    	    
+    	    $entrada = array(
+    	        'id_fornecedor'      => null,
+    	        'id_tipo_pagamento'  => 8,
+    	        'cd_nota_fiscal'     => null,
+    	        'dt_cadastro'        => $dtcadastro,
+    	        'id_organizacao'     => $this->idOrganizacao,
+    	        'id_usuario_cadastro'=> $this->idUsuario,
+    	        'id_tipo_entrada'    => 1,
+    	        'vl_total'           => null
+    	    );
+    	    $rsEntrada = $this->mEntrada->insert($entrada);
+    	    
+    	    $entrada_itens  = array(
+    	        'id_produto'         => $rsProduto,
+    	        'id_entrada'         => $rsEntrada,
+    	        'qt_entrada'         => empty($post['qt_entrada']) ? 0 : $post['qt_entrada'],
+    	        'num_valor_custo'    => $post['num_valor_custo'],
+    	        'num_valor_venda'    => $post['num_valor_venda'],
+    	        'num_desp_acessorio' => $post['num_desp_acessorio'],
+    	        'st_margem_lucro'    => (int)$post['st_margem_lucro'],
+    	        'num_outro_custo'    => $post['num_outro_custo'],
+    	        'num_custo_final'    => $post['num_custo_final'],
+    	        'id_usuario_cadastro'=> $this->idUsuario,
+    	        'dt_cadastro'        => $dtcadastro
+    	    );
+    	    $entrada_itens = $this->mEntradaItens->insert($entrada_itens);
+    	    
+    	    Zend_Debug::dump($entrada_itens);die;*/
     	        	        	        	      
     	    try {
     	        
@@ -60,7 +107,7 @@ class Produto_ProdutoController extends App_Controller_Action
         	        $args = array(
         	            'id_organizacao'      => $this->idOrganizacao,
         	            'id_produto'          => $rsProduto,
-        	            'qt_saldo'            => $post['qt_entrada'],
+        	            'qt_saldo'            => empty($post['qt_entrada']) ? null : $post['qt_entrada'],
         	            'qt_estoque_minimo'   => $post['qt_estoque_minimo'],
         	            'st_localizacao'      => strtoupper($post['st_localizacao']),
         	        );
@@ -81,7 +128,7 @@ class Produto_ProdutoController extends App_Controller_Action
         	        $entrada_itens  = array(
         	            'id_produto'         => $rsProduto,
         	            'id_entrada'         => $rsEntrada,
-        	            'qt_entrada'         => $post['qt_entrada'],
+        	            'qt_entrada'         => empty($post['qt_entrada']) ? null : $post['qt_entrada'],
         	            'num_valor_custo'    => $post['num_valor_custo'],
         	            'num_valor_venda'    => $post['num_valor_venda'],
         	            'num_desp_acessorio' => $post['num_desp_acessorio'],
@@ -206,10 +253,7 @@ class Produto_ProdutoController extends App_Controller_Action
 	    $dadosestoque = $this->mEstoque->fetchAll(array('id_produto = ?' => $params, 'id_organizacao = ?' => $this->idOrganizacao))->toArray();
 	    $dadosentrada = $this->mVwEntrada->fetchAll(array('id_produto = ?' => $params, 'id_organizacao = ?' => $this->idOrganizacao))->toArray();
 	    $dadosfornecedor = $this->mProdutoFornecedor->fetchAll(array('id_produto = ?' => $params))->toArray();
-	    
-	    
-	    
-	    
+	    	    
 	    $dadospagina = array(
 	        "id_produto" => $dadosproduto[0]["id_produto"],
 	        "st_nome" => $dadosproduto[0]["st_nome"],
@@ -249,7 +293,7 @@ class Produto_ProdutoController extends App_Controller_Action
 	    );
 	    
 	    foreach($dadosfornecedor as $values){
-	        $dadospagina["id_fornecedor_prod"][] = $values["id_fornecedor"];
+	        $dadospagina["id_fornecedor"][] = $values["id_fornecedor"];
 	    }
 	    
 	    //Zend_Debug::dump($dadospagina);die;
