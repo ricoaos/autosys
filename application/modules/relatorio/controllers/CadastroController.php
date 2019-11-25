@@ -6,7 +6,6 @@ $font = Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_COURIER);
 $pdfPage->setFont($font, 12);
 $pdfPage->drawText('Under-Linux',45, 800,'UTF-8');
 $pdfPage->setFont($font, 10);
-$pdfPage->Zend_Pdf::load($termo);
 $texto = 'Foi anunciado o lançamento da série M5 para o Eclipse 3.6, também denominado Hélio, em homenagem ao Deus Grego do Sol. Com base em versões anteriores, o Eclipse 3.6 M5 inclui diversas correções de bugs e apresenta novas funcionalidades.';
 $conc = wordwrap($texto, 60, '\n');
 $d = explode('\n', $conc);

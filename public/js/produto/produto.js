@@ -4,7 +4,9 @@ $(document).ready(function(){
 	$('#dt_validade').mask('99/9999')
 	$('#num_custo_final,#qt_saldo').attr('readonly',true).css({'background':'#CCC'})
 	
-	
+	if($('#id_produto').val() > 0){
+		$('#qt_entrada').attr('readonly',true).css({'background':'#CCC'}).val('');
+	}
 	
 	$('#num_valor_custo,#num_desp_acessorio,#num_outro_custo').click(function(){
 		$(this).val('');
