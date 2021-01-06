@@ -189,8 +189,3 @@ $(document).ready(function(){
 		$(".cpfCnpj").unmask();
 	});
 });
-
-function addVeiculo(){
-	//alert($("#id_cliente").val());
-	$("#modalAddVeiculo").modal();
-}

@@ -88,7 +88,9 @@
 								</div>
 								
     							<div name="addVeiculo" id="addVeiculo" class="col-lg-4 col-md-4">
-                    				<button class="btn btn-link" type="button" onclick="addVeiculo()"><i class="fa-user"></i>  Add Veículo</button>
+    								<a class="btn dropdown-toggle" id="dropdownMenu1" href="<?php echo $this->baseUrl('/veiculo/veiculo/index/cliente/'.$this->dadospagina['id_cliente'])?>">
+        								<button class="btn btn-link" type="button" ><i class="fa-user"></i>Add Veículo</button>
+        							</a>
     							</div>
 																
 							</div>
@@ -268,47 +270,6 @@
 </div>
 <!-- Fim Modal valida CPF--> 
 
-<!-- Modal AddVeiculo -->
-<div class="modal" id="modalAddVeiculo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">Cadastro de Veículos</h4>
-            </div>
-			<div class="modal-body">              	
-				<div class="panel-body">
-					<div class="form-group">
-						<label class="col-lg-2 col-md-2 col-sm-12 control-label ">Placa:</label>
-						<div class="col-lg-3 col-md-3">
-							<input type="text" class="form-control" id="st_placa" name="st_placa" required />
-						</div>
-						
-						<label class="col-lg-2 col-md-2 col-sm-12 control-label">Ano Fab:</label>
-						<div class="col-lg-3 col-md-3">
-							<input type="text" class="form-control" id="num_ano" name="num_ano" required maxlength="4"  />
-						</div>
-						
-						<label class="col-lg-2 col-md-2 col-sm-12 control-label">Ano Fab:</label>
-						<div class="col-lg-3 col-md-3">
-							<input type="text" class="form-control" id="num_ano" name="num_ano" required maxlength="4"  />
-						</div>
-						
-						<label class="col-lg-2 col-md-2 col-sm-12 control-label">Ano Fab:</label>
-						<div class="col-lg-3 col-md-3">
-							<input type="text" class="form-control" id="num_ano" name="num_ano" required maxlength="4"  />
-						</div>
-					</div> 
-				</div>	          
-            </div>
-            <div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Cadastrar</button>
-          </div>
-        </div>
-    </div>
-</div>
-<!-- Fim Modal valida CPF--> 
-
 <script type="text/javascript" src="<?php echo $this->baseUrl('/js/photobooth/photobooth_min.js')?>"> </script>
 <script type="text/javascript" src="<?php echo $this->baseUrl('/js/photobooth/script.js')?>"> </script>
 <script type="text/javascript" src="<?php echo $this->baseUrl('/js/photobooth/hijs.js')?>"> </script>
@@ -347,12 +308,6 @@ function id( el ){
 }
 window.onload = function(){
 	id('st_fonecontato').onkeypress = function(){
-		mascara( this, mtel );
-	},
-	id('st_fone2').onkeypress = function(){
-		mascara( this, mtel );
-	},
-	id('st_fone3').onkeypress = function(){
 		mascara( this, mtel );
 	},
 	id('dt_nascimento').onkeypress = function(){

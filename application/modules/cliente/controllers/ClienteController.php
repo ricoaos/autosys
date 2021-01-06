@@ -5,7 +5,7 @@ class Cliente_ClienteController extends App_Controller_Action
 	{
 	    $this->idGrupo = App_Identity::getGrupo();
 	    $this->mCliente = new Model_Cliente_Cliente();
-	    $this->mClienteCrupo = new Model_Cliente_ClienteGrupo();
+	    $this->mClienteGrupo = new Model_Cliente_ClienteGrupo();
 	    $this->mVcliente = new Model_Cliente_VwCliente();
 	}
 
@@ -93,14 +93,17 @@ class Cliente_ClienteController extends App_Controller_Action
     		        }else{
     		            $rspessoa = $post["id_pessoa"];
     		        }
-										
+					
 					$args = array('id_pessoa'     => $rspessoa,
         					      'ds_observacao' => $post['ds_observacao'],
-        					      'dt_cadastro'   => $dtcadastro);
+        					      'dt_cadastro'   => $dtcadastro,
+					              'id_ativo'      => 1);
 					$rsCliente = $this->mCliente->insert($args);
-					
-					$params = array('id_cliente' => $rsCliente, 'id_grupo' => $this->idGrupo,'id_ativo' => 1,);
-					$rsClienteGrupo = $this->mClienteCrupo->insert($params); 
+										
+					$params = array('id_cliente'=> $rsCliente, 
+					                'id_grupo'=> $this->idGrupo,
+					                'id_ativo'=> 1);
+					$rsClienteGrupo = $this->mClienteGrupo->insert($params); 
 					
     		    }else{
     		        
@@ -158,10 +161,10 @@ class Cliente_ClienteController extends App_Controller_Action
 		if($this->_request->getParam('id'))
 		{
 		    list($ativo,$id) = explode('@',base64_decode($this->_request->getParam('id')));
-		    $where = $this->mClienteCrupo->getAdapter()->quoteInto(array('id_cliente = ?'=> $id , 'id_grupo=?' => $this->idGrupo));
+		    $where = $this->mClienteGrupo->getAdapter()->quoteInto(array('id_cliente = ?'=> $id , 'id_grupo=?' => $this->idGrupo));
 		    $ativo = $ativo == 0 ? 1 : 0;
+		    $this->mClienteGrupo->update(array('id_ativo'=> $ativo),$where);
 		    
-		    $this->mClienteCrupo->update(array('id_ativo'=> $ativo),$where);
 			$this->_redirect('cliente/cliente/listagem');
 		}
 	}
@@ -239,8 +242,11 @@ class Cliente_ClienteController extends App_Controller_Action
 	public function getdadoscadastrados($params)
 	{
 	    $dadospagina = $this->mVcliente->fetchAll(array('id_cliente = ?' => $params))->toArray();
-		list($YY,$mm,$dd) = explode('-',$dadospagina[0]["dt_nascimento"]);
-	    $dadospagina[0]["dt_nascimento"] = $dd.'/'.$mm.'/'.$YY;
+	    if(!empty($dadospagina[0]["dt_nascimento"])){
+		  list($YY,$mm,$dd) = explode('-',$dadospagina[0]["dt_nascimento"]);
+		  $dadospagina[0]["dt_nascimento"] = $dd.'/'.$mm.'/'.$YY;
+	    }
+	    
 		return $dadospagina[0];
 	}
 }
