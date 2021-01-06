@@ -19,7 +19,7 @@ class Administrativo_PainelController extends App_Controller_Action
         $this->view->rsCliente = $rsCliente; 
         
        //teste de envio  de email
-      /*  $email_to = "ricoaos@gmail.com";
+       /* $email_to = "ricoaos@gmail.com";
         $name_to = "AutoSys";
         $mail = new Zend_Mail ();
         $mail->addTo ($email_to, $name_to);

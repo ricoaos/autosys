@@ -54,7 +54,9 @@ class Cliente_ClienteController extends App_Controller_Action
     	    $mPessoa = new Model_Pessoa_Pessoa();
     		$post = $this->_request->getPost();
     		$dtcadastro = date('Y-m-d H:i:s');
-			list($dd,$mm,$YY) = explode('/',$post["dt_nascimento"]);
+    		if(!empty($post["dt_nascimento"])){
+    		    list($dd,$mm,$YY) = explode('/',$post["dt_nascimento"]);
+    		}
 			
 			if(!empty($post["imagem"])){
                 list($tipo,$conteudo) = explode(",", $post["imagem"]);
@@ -65,7 +67,7 @@ class Cliente_ClienteController extends App_Controller_Action
 				'st_nome'           => strtoupper($post["st_nome"]),
     			'st_nome_sondex'    => soundex($post["st_nome"]),
     			'st_nome_metaphone' => metaphone($post["st_nome"]),
-				'dt_nascimento'     => $YY.'-'.$mm.'-'.$dd,
+    		    'dt_nascimento'     => !empty($post["dt_nascimento"]) ? $YY.'-'.$mm.'-'.$dd : null,
 				'id_foto'           => !empty($post["imagem"]) ? 1 : (!empty($post['id_foto'])? $post['id_foto'] : null),
 				'st_sexo'           => $post['st_sexo'],
 				'st_email'          => $post['st_email'],

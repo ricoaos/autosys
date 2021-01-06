@@ -1,5 +1,5 @@
 <?php
-class Servico_OrdemController extends App_Controller_Action
+class Servico_OrcamentoController extends App_Controller_Action
 {
 	public function init()
 	{

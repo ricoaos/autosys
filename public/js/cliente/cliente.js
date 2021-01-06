@@ -7,6 +7,12 @@ $(document).ready(function(){
     $("#foto").click(function(){
     	photobooth();
     });
+    
+    if($("#id_cliente").val() != ''){
+    	$("#addVeiculo").show();
+    }else{
+    	$("#addVeiculo").hide();
+    }
    
     //Realiza a busca de nomes similares ao digitado.
     $("#st_nome").change(function(){    	
@@ -115,69 +121,73 @@ $(document).ready(function(){
 		
 		var tamanho = $(".cpfCnpj").val().replace(/\D/g, '').length;
 		
-		if (tamanho == 11) {
-			
-			if(!ValidarCPF($(".cpfCnpj").val())){
-				$('#modalVal').modal();
-				$(".cpfCnpj").val('').focus();
-				return;
-			};
-			
-			$(".cpfCnpj").mask("999.999.999-99");
-			$("#id_tipo_pessoa").select2("val", "1");
-			
-		} else if (tamanho == 14) {
-			
-			if(!ValidaCNPJ($(".cpfCnpj").val())){
-				$('#modalVal').modal();
-				$(".cpfCnpj").val('').focus();
-				return;
-			};
-			
-			$(".cpfCnpj").mask("99.999.999/9999-99");
-			$("#id_tipo_pessoa").select2("val", "2");
-	    }
+		if(tamanho > 0){
 		
-		$.ajax({
-			url: baseUrl+'/cliente/cliente/getclientebycpf',
-	    	data: 'cpf='+$(".cpfCnpj").val(),
-	        dataType: 'json',
-	        type:"POST",
-	        success: function(response){
-	        	var objResult = response.result;
-	        		        	
-	        	if(objResult != ''){            		
-		        	$.each(objResult, function(i, item){
-		        		var nascimento = item.dt_nascimento != null ? item.dt_nascimento.substring(8,10)+'/'+item.dt_nascimento.substring(5,7)+'/'+item.dt_nascimento.substring(0,4) : '';
-		        		
-		        		$("#id_cliente").val(item.id_cliente);
-		        		$('input[type=checkbox][name=id_ativo][value*='+item.id_ativo+']').attr('checked',true);
-		        		$("#id_tipo_pessoa").val(item.id_tipo_pessoa);
-		        		$("#st_nome").val(item.st_nome);
-		        		$("#st_email").val(item.st_email);
-		        		$("#st_fonecontato").val(item.st_fonecontato);
-		        		$("#dt_nascimento").val(nascimento);
-		        		$('input[type=radio][name=st_sexo][value*='+item.st_sexo+']').attr('checked',true);		        		
-		        		$("#st_cep").val(item.st_cep);
-		        		$("#st_logradouro").val(item.st_logradouro);
-		        		$("#st_complemento").val(item.st_complemento);
-		        		$("#st_numero").val(item.st_numero);
-		        		$("#st_bairro").val(item.st_bairro);
-		        		$("#st_cidade").val(item.st_cidade);
-		        		$("#st_estado").val(item.st_estado);
-		        		$("#ds_observacao").val(item.ds_observacao);
-		        	});
-	        	}	        	
-	        }
-		 });
+			if (tamanho == 11) {
+				
+				if(!ValidarCPF($(".cpfCnpj").val())){
+					$('#modalVal').modal();
+					$(".cpfCnpj").val('').focus();
+					return;
+				};
+				
+				$(".cpfCnpj").mask("999.999.999-99");
+				$("#id_tipo_pessoa").select2("val", "1");
+				
+			} else if (tamanho == 14) {
+				
+				if(!ValidaCNPJ($(".cpfCnpj").val())){
+					$('#modalVal').modal();
+					$(".cpfCnpj").val('').focus();
+					return;
+				};
+				
+				$(".cpfCnpj").mask("99.999.999/9999-99");
+				$("#id_tipo_pessoa").select2("val", "2");
+		    }
+			
+			$.ajax({
+				url: baseUrl+'/cliente/cliente/getclientebycpf',
+		    	data: 'cpf='+$(".cpfCnpj").val(),
+		        dataType: 'json',
+		        type:"POST",
+		        success: function(response){
+		        	$("#addVeiculo").show();
+		        	var objResult = response.result;
+		        	
+		        	if(objResult != ''){            		
+			        	$.each(objResult, function(i, item){
+			        		
+			        		console.log(item);
+			        		var imagem = item.id_foto != 1 ? baseUrl+'/assets/img/user.png' : baseUrl+'/img/fotos/usuario/'+item.id_pessoa+'.png';
+			        		var nascimento = item.dt_nascimento != null ? item.dt_nascimento.substring(8,10)+'/'+item.dt_nascimento.substring(5,7)+'/'+item.dt_nascimento.substring(0,4) : '';
+			        		$("#foto").attr('src', imagem);
+			        		$("#id_cliente").val(item.id_cliente);			        		
+			        		item.id_ativo == 1 ? $('input[type=checkbox][name=id_ativo]').attr('checked',true).parent('.icheckbox_flat-blue').addClass("checked") : null;		        		
+			        		$("#id_tipo_pessoa").val(item.id_tipo_pessoa);
+			        		$("#st_nome").val(item.st_nome);
+			        		$("#st_email").val(item.st_email);
+			        		$("#st_fonecontato").val(item.st_fonecontato);
+			        		$("#dt_nascimento").val(nascimento);
+			        		$('input[type=radio][name=st_sexo][value*='+item.st_sexo+']').attr('checked',true).parent('.iradio_flat-blue').addClass("checked");		        		
+			        		$("#st_cep").val(item.st_cep);
+			        		$("#st_logradouro").val(item.st_logradouro);
+			        		$("#st_complemento").val(item.st_complemento);
+			        		$("#st_numero").val(item.st_numero);
+			        		$("#st_bairro").val(item.st_bairro);
+			        		$("#st_cidade").val(item.st_cidade);
+			        		$("#st_estado").val(item.st_estado);
+			        		$("#ds_observacao").val(item.ds_observacao);
+			        	});
+		        	}	        	
+		        }
+			 });
+		}
 	});
 	
 	$(".cpfCnpj").focusin(function() {
 		$(".cpfCnpj").unmask();
 	});
-	
-	
-
 });
 
 function addVeiculo(){
