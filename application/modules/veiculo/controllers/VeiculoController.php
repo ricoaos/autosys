@@ -18,6 +18,26 @@ class Veiculo_VeiculoController extends App_Controller_Action
     		$this->view->dadospagina = self::getdadoscadastrados($id);
     	}
     	
+    	if($this->_request->getParam('cliente'))
+    	{
+    	    $dadospagina = array(
+    	        'id_veiculo' => null,
+    	        'id_cliente' => $this->_request->getParam('cliente'),
+    	        'st_placa' => null,
+    	        'num_ano' => null,
+    	        'st_km' => null,
+    	        'id_combustivel' => null,
+    	        'id_marca_veiculo' => null,
+    	        'id_modelo_marca_veiculo' => null,
+    	        'id_cor' => null,
+    	        'st_chassi' => null,
+    	        'ds_observacao' => null,
+    	        'id_organizacao' => null,
+    	        'dt_cadastro' => null
+    	    );
+    	    $this->view->dadospagina = $dadospagina;
+    	}
+    	
     	if($this->_request->isPost())
     	{
     	    $dados = array(

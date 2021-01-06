@@ -86,7 +86,7 @@
             <li>
             	<a href="#"> Orçamento <i class="fa fa-keyboard"></i></a>
                 <ul class="nav sub">
-                    <li><a href=""><i class="en-arrow-right7"></i> Gerenciar Orçamentos</a></li>
+                    <li><a href="<?php echo $this->baseUrl('servico/orcamento/listagem')?>"><i class="en-arrow-right7"></i> Gerenciar Orçamentos</a></li>
                 </ul>
             </li>
             <li>
@@ -139,9 +139,9 @@
                     <li><a href="<?php echo $this->baseUrl("funcionario/funcionario/listagem")?>"><i class="en-arrow-right7"></i>Funcionário</a></li>
                     <li><a href="<?php echo $this->baseUrl("usuario/usuario/listagem")?>"><i class="en-arrow-right7"></i> Usuários</a></li>
                     <li><a href="<?php echo $this->baseUrl("")?>"><i class="en-arrow-right7"></i>Cadastro Perfil</a></li>
-                </ul>
+                    <li><a href="<?php echo $this->baseUrl("sistema/menu/index")?>"><i class="en-arrow-right7"></i>Cadastro Menu</a></li>
+				</ul>
             </li>
-            
         </ul>
     </div>
     <!-- End .sidebar-inner -->
